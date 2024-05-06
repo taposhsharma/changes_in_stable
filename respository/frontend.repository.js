@@ -292,6 +292,34 @@ console.log(data)
     return { error };
   }
 };
+
+
+const addicuList = async (data) => {
+  try {
+    // console.log(data)
+    await client.query("BEGIN");
+// console.log(data)
+    let query = `SELECT * FROM icuList WHERE clientid =${data.hospitalId} and icu ='${data.icu}'`;
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    // console.log(result)
+    if (result.rowCount > 0) {
+      return { error: "icu already exists" };
+    } else {
+      query = `INSERT INTO icuList (icu,clientid) 
+            VALUES ('${data.icu}' ,${data.hospitalId})`;
+
+      result = await client.query(query);
+      await client.query("COMMIT");
+      // console.log(result);
+      return { message: "icu added successfully" };
+    }
+  } catch (error) {
+    console.log(error);
+    await client.query("ROLLBACK");
+    return { error };
+  }
+};
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -303,5 +331,6 @@ module.exports = {
   totalHitsPerDay,
   hospitalRegPerDay,
   numHospitalReg,
-  addGrouper
+  addGrouper,
+  addicuList
 };

@@ -67,11 +67,27 @@ const getClientGrouperData = async (clientId) =>{
 
 }
 
+const getClientIcuList = async (clientId) =>{
+    try{
+        const result = await clientRepository.getIcuList(clientId)
+        if(result.error){
+            return {error:result.error}
+        }
+        return result
+
+    }catch(error){
+       return { error }
+    }
+
+}
+
+
 
 module.exports = {
     checkClientIdService,
     updateCounterService,
     countTableService,
     getConfigFilePathService,
-    getClientGrouperData
+    getClientGrouperData,
+    getClientIcuList
 }

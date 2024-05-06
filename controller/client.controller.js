@@ -78,6 +78,18 @@ const checkClientIdController = async (req,res) =>{
         }catch(error){
             return {error:"Error in grouper File"}
         }
+
+        try{
+            const icuList = await clientService.getClientIcuList(req.clientId)
+            if(icuList.error){
+                return{error:icuList.error}
+            }
+        
+            req.icuList = icuList
+            console.log("iculist",req.icuList)
+        }catch(error){
+            return {error:"Error in icuList File"}
+        }
         
        
         return response[0]      

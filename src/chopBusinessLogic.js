@@ -108,7 +108,8 @@ async function buildApp(
   sessionStorage1,
   config,
   allowcustomhosts,
-  grouperData
+  grouperData,
+  icuList
 ) {
   // console.log(tokenResponse1);
   try {
@@ -154,6 +155,9 @@ async function buildApp(
 
     csnList = getcsnList();
     // console.log(chartConfig.chart.resources.resources[0].labelLink())
+    chartConfig.icuList = icuList
+    // console.log(icuList)
+    // console.log("icuList", chartConfig.icuList)
     await setState(state1);
     state = getState;
     await setSessionStorage(sessionStorage1)

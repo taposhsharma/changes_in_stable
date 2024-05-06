@@ -147,7 +147,7 @@ const numHospitalRegController = async (req, res) => {
 const addGrouperController = async (req, res) => {
   try {
     const data = req.body;
-    console.log(data)
+    // console.log(data)
     const response = await frontendService.addGrouperService(data);
 
     if (response.error) {
@@ -160,6 +160,22 @@ const addGrouperController = async (req, res) => {
   }
 };
 
+
+const addIcuListController = async (req, res) => {
+  try {
+    const data = req.body;
+    // console.log(data)
+    const response = await frontendService.addIcuListService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -171,5 +187,6 @@ module.exports = {
   totalHitsPerDayController,
   hospitalRegPerDayController,
   numHospitalRegController,
-  addGrouperController
+  addGrouperController,
+  addIcuListController
 };

@@ -145,9 +145,14 @@ const getIcuList = async (clientId) =>{
     await client.query("COMMIT");
     console.log(result)
     if(result.rowCount>0){
-      return result;
+      let rows =[]
+      for(let i=0;i<result.rowCount;i++){
+        rows.push(result.rows[i].icu)
+      }
+     
+      return rows;
     }else{
-      return []
+      return {rows:[]}
     }
 
 

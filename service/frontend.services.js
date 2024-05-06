@@ -150,6 +150,21 @@ const addGrouperService = async (data) => {
       return {error};
   }
 }
+
+const addIcuListService = async (data) => {
+  try{
+      const result = await frontendRepository.addicuList(data);
+      if(result.error){
+        return {error:result.error};
+      }else{
+          return result;
+      }
+      // console.log(result)
+      
+  }catch(error){
+      return {error};
+  }
+}
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -161,5 +176,6 @@ module.exports = {
   totalHitsPerDayService,
   hospitalRegPerDayService,
   numHospitalRegService,
-  addGrouperService
+  addGrouperService,
+  addIcuListService
 };

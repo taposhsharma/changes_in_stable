@@ -33,6 +33,7 @@ router.get('/totalHitsPerDay', frontendController.totalHitsPerDayController);
 router.get('/hospitalRegPerDay', frontendController.hospitalRegPerDayController);
 router.get('/numHospitalReg', frontendController.numHospitalRegController)
 router.post('/addGrouper', frontendController.addGrouperController)
+router.post('/addIcuList', frontendController.addIcuListController)
 
 
 module.exports = router;
