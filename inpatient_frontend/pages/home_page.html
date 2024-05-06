@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tile Health</title>
+
+    
+    <link rel="stylesheet" href="../style/styles.css" />
+    <link rel="stylesheet" href="../style/footer.css" />
+    <link rel="stylesheet" href="../style/home_page.css" />
+
+    <!-- Link to CSS file -->
+
+    <!-- CDN for bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body
+    style="
+      background-image: url('../images/background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    "
+  >
+    <div class="loader-container">
+      <div class="loader"></div>
+    </div>
+    <!-- navbar start -->
+    <div>
+      <nav
+        class="navbar navbar-expand-lg navColor"
+        style="position: fixed; border-bottom: 1.5px solid black"
+      >
+        <a
+          class="navbar-brand nav-link"
+          onclick="redirectToHomePage()"
+          style="font-size: 30px; padding-left: 10px; padding-right: 25px"
+          id="homePage_a"
+        >
+          <b class="tileHealthClass">Tile Health</b>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active" id="hospitalRegistration">
+              <a
+                class="nav-link"
+                id="hospitalRegistration_a"
+                style="padding-right: 30px; font-size: 18px"
+                onclick="redirectToHospitalRegistration()"
+                ><b class="navbar-menu"
+                  >Hospital Registration
+                  <span class="sr-only">(current)</span></b
+                ></a
+              >
+            </li>
+            <li class="nav-item" id="licenseRegistration">
+              <a
+                class="nav-link"
+                id="licenseRegistration_a"
+                style="padding-right: 30px; font-size: 18px"
+                onclick="redirectToLicenseRegistration()"
+                ><b class="navbar-menu">License Registration</b></a
+              >
+            </li>
+            <li class="nav-item" id="checkStatistics">
+              <a
+                class="nav-link"
+                id="checkStatistics_a"
+                style="padding-right: 30px; font-size: 18px"
+                onclick="redirectToCheckStatistics()"
+                ><b class="navbar-menu">Check Statistics</b></a
+              >
+            </li>
+            <li class="nav-item" id="addConfig">
+                <a
+                  class="nav-link"
+                  id="addConfig_a"
+                  style="padding-right: 30px; font-size: 18px"
+                  onclick="redirectToAddConfig()"
+                  ><b class="navbar-menu">Add Config</b></a
+                >
+              </li>
+          </ul>
+
+          <div>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a onclick="redirectToProfilePage()"
+                class="nav-link"
+                  ><img
+                    src="../images/profile.png"
+                    alt="img"
+                    class="profileImage"
+                /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <hr />
+      </nav>
+    </div>
+
+    <!-- navbar end  -->
+
+    <div class="container">
+      <div class="container-homepage">
+        <div>
+          <div class="card leftCard">
+            <canvas id="hitChart"></canvas>
+          </div>
+          <br />
+          <div class="card leftCard">
+            <canvas id="hospitalRegistrationChart"></canvas>
+          </div>
+        </div>
+        <div class="card rightCard">
+          <div style="display: flex">
+            <img src="../images/hospital-logo.png" id="hospital-logo" alt="" />
+            <!-- Total 34 Hospital registered -->
+            <div>
+              <p class="p1">Total Number of Hospitals registered</p>
+              <p class="p2">Count: 34</p>
+            </div>
+          </div>
+          <div>
+            <div>
+              <button
+                id="hopital-stat-button"
+                onclick="redirectToCheckStatistics()"
+              >
+                <img
+                  src="../images/statistics-logo.png"
+                  id="statistics-logo"
+                  alt=""
+                />&nbsp;&nbsp;&nbsp; See one hospital stats
+              </button>
+            </div>
+            <br />
+            <br />
+            <div>
+              <button
+                id="hospital-registration-button"
+                onclick="redirectToHospitalRegistration()"
+              >
+                <img
+                  src="../images/hospital-logo-1.png"
+                  id="hospital-logo-1"
+                  alt=""
+                />&nbsp;&nbsp;&nbsp; Register a hospital
+              </button>
+            </div>
+            <br />
+            <br />
+            <div>
+              <button
+                id="license-registraion-button"
+                onclick="redirectToLicenseRegistration()"
+              >
+                <img
+                  src="../images/hospital-license.png"
+                  id="statistics-logo"
+                  alt=""
+                />&nbsp;&nbsp;&nbsp; Register Hospital License
+              </button>
+            </div>
+            <br />
+            <br />
+            <div>
+              <button
+                id="add-config-button"
+                onclick="redirectToAddConfig()"
+              >
+                <img
+                  src="../images/add-configuration.png"
+                  id="add-config-logo-1"
+                  alt=""
+                />&nbsp;&nbsp;&nbsp; Add Config
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer starts -->
+    <div>
+      <!-- footer section start -->
+      <footer id="footer" style="border-top: 1.5px solid black">
+        <div class="footer-container">
+          <div class="row">
+            <div class="col-md-3">
+              <h3>
+                <b>Tile Health</b>
+              </h3>
+              <div class="footer-about">
+                <p>Tile Health Description</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="useful-link">
+                <h5>Useful Links</h5>
+                <img
+                  src="./assets/images/about/home_line.png"
+                  alt=""
+                  class="img-fluid"
+                />
+                <div class="use-links">
+                  <li>
+                    <a href=""><i class="fa-solid fa-angles-right"></i> Home</a>
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-solid fa-angles-right"></i> About Us</a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-solid fa-angles-right"></i> Contact</a
+                    >
+                  </li>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="social-links">
+                <h5>Follow Us</h5>
+                <img src="./assets/images/about/home_line.png" alt="" />
+                <div class="social-icons">
+                  <li>
+                    <a href=""
+                      ><i class="fa-brands fa-facebook-f"></i> Facebook</a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-brands fa-instagram"></i> Instagram</a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-brands fa-linkedin-in"></i> Linkedin</a
+                    >
+                  </li>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="address">
+                <h5>Address</h5>
+                <img
+                  src="./assets/images/about/home_line.png"
+                  alt=""
+                  class="img-fluid"
+                />
+                <div class="address-links">
+                  <li class="address1">
+                    <i class="fa-solid fa-location-dot"></i> Example Address
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-solid fa-phone"></i> Example Phone number</a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-solid fa-envelope"></i> Example Email</a
+                    >
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- footer section end -->
+      <!-- footer copy right section start -->
+      <section id="copy-right" style="border-top: 1.5px solid black">
+        <div class="copy-right-sec">
+          <i class="fa-solid fa-copyright"></i> © 2024 Tile Health | All Rights
+          Reserved
+        </div>
+      </section>
+      <!-- footer copy right section end -->
+    </div>
+    <!-- footer ends  -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"></script>
+    <script src="../scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../scripts/home_page.js"></script>
+  </body>
+</html>
