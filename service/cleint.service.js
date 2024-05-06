@@ -2,6 +2,7 @@
 const { partition } = require('lodash');
 const clientRepository = require('../respository/client.repository');
 const { error } = require('jquery');
+const client = require('../connection/db');
 
 const countTableService = async () => {
     try {
@@ -41,6 +42,9 @@ const updateCounterService = async (patientId , clientId) =>{
 const getConfigFilePathService = async (clientId) => {
     try{
         const result = await clientRepository.clientConfigPath(clientId)
+        if(result.error){
+            return {error:result.error}
+        }
         return result
 
     }catch(error){
@@ -49,10 +53,25 @@ const getConfigFilePathService = async (clientId) => {
 }
 
 
+const getClientGrouperData = async (clientId) =>{
+    try{
+        const result = await clientRepository.clientGroperData(clientId)
+        if(result.error){
+            return {error:result.error}
+        }
+        return result
+
+    }catch(error){
+       return { error }
+    }
+
+}
+
 
 module.exports = {
     checkClientIdService,
     updateCounterService,
     countTableService,
-    getConfigFilePathService
+    getConfigFilePathService,
+    getClientGrouperData
 }

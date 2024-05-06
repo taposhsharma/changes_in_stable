@@ -1,3 +1,4 @@
+const { data } = require("jquery");
 const frontendRepository = require("../respository/frontend.repository");
 
 const getHospitalDataService = async () => {
@@ -135,6 +136,20 @@ const numHospitalRegService = async () => {
 }
 
 
+const addGrouperService = async (data) => {
+  try{
+      const result = await frontendRepository.addGrouper(data);
+      if(result.error){
+        return {error:result.error};
+      }else{
+          return result;
+      }
+      // console.log(result)
+      
+  }catch(error){
+      return {error};
+  }
+}
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -145,5 +160,6 @@ module.exports = {
   addConfigService,
   totalHitsPerDayService,
   hospitalRegPerDayService,
-  numHospitalRegService
+  numHospitalRegService,
+  addGrouperService
 };

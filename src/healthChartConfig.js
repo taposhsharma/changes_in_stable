@@ -11,6 +11,13 @@ const {
     executeAction,
     setEHRToken
 } = require('./chopehrcomms')
+var {
+   
+    getTokenResponse,
+  
+    
+  } = require('./chopShared')
+var tokenResponse
 
 module.exports = {
     displayTransition: 750,
@@ -138,11 +145,13 @@ module.exports = {
                 {
                     label: "Asthma Action Plan",
                     labelLink: function(){
-                        log("Navigate to Asthma Action Plan SmartForm", "info");
+                        tokenResponse= getTokenResponse()
+                        // console.log(getTokenResponse())
+                        console.log("Navigate to Asthma Action Plan SmartForm", "info");
                         executeAction({
                             action: "Epic.Clinical.Informatics.Web.LaunchActivity",
                             args: {
-                                // PatientID: tokenResponse.patient,
+                                PatientID: tokenResponse.patient,
                                 ActivityKey: "ASTHMA_ACTION_PLAN"
                             }
                         });
@@ -151,11 +160,12 @@ module.exports = {
                 {
                     label: "Asthma Pathway",
                     labelLink: function(){
-                        log("Navigate to Asthma Pathway", "info");
+                        tokenResponse= getTokenResponse()
+                        console.log("Navigate to Asthma Pathway", "info");
                         executeAction({
                             action: "Epic.Clinical.Informatics.Web.LaunchActivity",
                             args: {
-                                // PatientID: tokenResponse.patient,
+                                PatientID: tokenResponse.patient,
                                 ActivityKey: "ASTHMA_IP_PATHWAY"
                             }
                         });

@@ -1,3 +1,4 @@
+const { error } = require("jquery");
 const clientController = require("../controller/client.controller");
 
 const auth = async (req, res, next) => {
@@ -6,10 +7,15 @@ const auth = async (req, res, next) => {
     const response = await clientController.checkClientIdController(req, res);
     // console.log(response)
     // console.log(response)
-    if (!response.id) {
-      res.status(401).send({ error: "ClientId is not Registered" });
+    if(response.error){
+      res.status(401).send({error:response.error})
       return
-    } else {
+    }else if (!response.id) {
+      res.status(401).send({ error: "ClientId is not Registered" });
+
+      return
+    }
+     else {
       // console.log("in middleware",req.hospital_name)
    
       next()

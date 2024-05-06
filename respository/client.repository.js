@@ -1,3 +1,4 @@
+const { error } = require("jquery");
 const client = require("../connection/db");
 
 const countTable = async () => {
@@ -6,7 +7,7 @@ const countTable = async () => {
     const query = `SELECT * from counter`;
     const result = await client.query(query);
     // console.log("table data", result);
-    await client.query("END");
+     await client.query("COMMIT");
     return result;
   } catch (error) {
     // console.log(error)
@@ -23,7 +24,7 @@ const checkClientID = async (clientId) => {
     // console.log(query);
     const result = await client.query(query);
     // console.log("repo",result)
-    if (result.rowCount == 1) await client.query("END");
+    if (result.rowCount == 1)  await client.query("COMMIT");
     else await client.query("ROLLBACK");
     return result;
   } catch (error) {
@@ -49,7 +50,7 @@ const updateCounter = async (patientId, clientId) => {
     // console.log("repo",result.rows)
     if (result.rowCount == 1) {
       // console.log("hiiiiiiiiiiiii")
-      await client.query("END");
+       await client.query("COMMIT");
       await client.query("BEGIN");
       const query1 = `UPDATE counter
       SET count = count + 1 
@@ -57,7 +58,7 @@ const updateCounter = async (patientId, clientId) => {
       `;
 
       const result1 = await client.query(query1);
-      await client.query("END");
+       await client.query("COMMIT");
       // console.log(result1)
     } else await client.query("ROLLBACK");
     await client.query("BEGIN");
@@ -77,9 +78,19 @@ const clientConfigPath = async (clientId) => {
     await client.query("BEGIN");
     //  console.log(clientId)
     const query = `SELECT * FROM config where hospital_id = ${clientId}`;
+    
 
     const result = await client.query(query);
-    //  console.log("kjsflkjsdklfjs",result)
+     await client.query("COMMIT");
+    // //  console.log("kjsflkjsdklfjs",result)
+    // if(result.rowCount>0){
+    //   return result;
+    // }
+    // else{
+    
+    //   return  {error:"No data found in config file please insert some data first"}
+    // }
+    
     if(result.rowCount>0){
       return result;
     }
@@ -101,10 +112,56 @@ const clientConfigPath = async (clientId) => {
   }
 };
 
+const clientGroperData = async (clientId) => {
+  try{
+    await client.query("BEGIN");
+    //  console.log(clientId)
+    const query = `SELECT id,row FROM grouper where clientid = ${clientId}`;
+    
+
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    // console.log(result)
+    if(result.rowCount>0){
+      return result;
+    }else{
+      return {error:"No Data found for grouper"}
+    }
+
+  }catch(error){
+    return {error}
+  }
+
+}
+
+const getIcuList = async (clientId) =>{
+  try {
+    await client.query("BEGIN");
+    //  console.log(clientId)
+    const query = `SELECT * FROM icuList where clientid = ${clientId}`;
+    
+
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    console.log(result)
+    if(result.rowCount>0){
+      return result;
+    }else{
+      return []
+    }
+
+
+  }catch(error){
+    return {error}
+  }
+}
+
 module.exports = {
   checkClientID,
   updateCounter,
   countTable,
   clientConfigPath,
+  clientGroperData,
+  getIcuList
   
 };

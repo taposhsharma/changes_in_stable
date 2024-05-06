@@ -263,6 +263,35 @@ const numHospitalReg = async () =>{
     return { error }
   }
 }
+
+
+
+const addGrouper = async (data) => {
+  try {
+    // console.log(data)
+    await client.query("BEGIN");
+console.log(data)
+    let query = `SELECT * FROM grouper WHERE clientid =${data.hospitalId} and id='${data.id}'`;
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    // console.log(result)
+    if (result.rowCount > 0) {
+      return { error: "Grouper with this id already exists" };
+    } else {
+      query = `INSERT INTO grouper (id, row,clientid) 
+            VALUES ('${data.id}', '${data.row}', ${data.hospitalId})`;
+
+      result = await client.query(query);
+      await client.query("COMMIT");
+      // console.log(result);
+      return { message: "Grouper added successfully" };
+    }
+  } catch (error) {
+    console.log(error);
+    await client.query("ROLLBACK");
+    return { error };
+  }
+};
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -273,5 +302,6 @@ module.exports = {
   addConfig,
   totalHitsPerDay,
   hospitalRegPerDay,
-  numHospitalReg
+  numHospitalReg,
+  addGrouper
 };

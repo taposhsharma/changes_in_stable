@@ -77,6 +77,7 @@ var locationMap = {};
 var encMap = {};
 var encDateMap = {};
 var medIdMap = {};
+var grouper
 
 var acuteCareList = [];
 
@@ -106,18 +107,21 @@ async function buildApp(
   state1,
   sessionStorage1,
   config,
-  allowcustomhosts
+  allowcustomhosts,
+  grouperData
 ) {
   // console.log(tokenResponse1);
   try {
     
-    // console.log(chartConfigrows.rows)
+    
     chartConfig = chartConfig1
     chartConfig.rows = JSON.parse(JSON.stringify(chartConfigrows.rows));
     rowMap = chartConfig.rowMap = {};
     chartConfig.rows.forEach(function (v, i) {
       chartConfig.rowMap[v.name] = i;
     });
+   
+    grouper = grouperData
     carePlans = [];
     setCarePlans(carePlans)
     allowcustomhosts = allowcustomhosts;
@@ -149,7 +153,7 @@ async function buildApp(
     tokenResponse = getTokenResponse();
 
     csnList = getcsnList();
-
+    // console.log(chartConfig.chart.resources.resources[0].labelLink())
     await setState(state1);
     state = getState;
     await setSessionStorage(sessionStorage1)
@@ -564,21 +568,21 @@ async function chopEncounterCallback(enc, state, xhr) {
 async function getChopEHRMedicationsRequest() {
   try {
     var deferreds = [];
-    var grouper = [
-      {
-        id: "119944",
+    // var grouper = [
+    //   {
+    //     id: "119944",
 
-        row: "Biologic",
-      },
-      {
-        id: "113258",
-        row: "Controller",
-      },
-      {
-        id: "101365",
-        row: "Systemic Steroid",
-      },
-    ];
+    //     row: "Biologic",
+    //   },
+    //   {
+    //     id: "113258",
+    //     row: "Controller",
+    //   },
+    //   {
+    //     id: "101365",
+    //     row: "Systemic Steroid",
+    //   },
+    // ];
 
     //mock data
     chopPreFilterMedications(
