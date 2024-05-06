@@ -15,7 +15,8 @@ let hospitalDetails = {
     hospitalName: "",
     clientIdProd: "",
     clientIdDev: "",
-    hospitalDescription: ""
+    hospitalDescription: "",
+    notekey: ""
 }
 
 // Adding event listener for form submit
@@ -27,6 +28,7 @@ form.addEventListener('submit', function(event) {
     const clientIdDevValue = document.getElementById('clientIdDev').value;
     const hospitalDescriptionValue = document.getElementById('hospitalDescription').value;
     const allowCustomHostsValue = document.getElementById('allowCustomHosts').checked;
+    const noteKeyValue = document.getElementById('noteKey').value;
 
 
     const hospitalDetails = {
@@ -34,7 +36,8 @@ form.addEventListener('submit', function(event) {
         clientid_prod: clientIdProdValue,
         hospital_name: hospitalNameValue,
         description: hospitalDescriptionValue,
-        allowcustomhosts: allowCustomHostsValue
+        allowcustomhosts: allowCustomHostsValue,
+        notekey: noteKeyValue
     };
 
     console.log(hospitalDetails);
