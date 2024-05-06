@@ -54,6 +54,7 @@ const checkClientIdController = async (req,res) =>{
         req.patientId = tokenResponse.patient
         req.hospital_name = response[0].hospital_name
         req.allowcustomhosts = response[0].allowcustomhosts
+        req.notekey = response[0].notekey
 
 
 

@@ -109,7 +109,8 @@ async function buildApp(
   config,
   allowcustomhosts,
   grouperData,
-  icuList
+  icuList,
+  noteKey
 ) {
   // console.log(tokenResponse1);
   try {
@@ -156,8 +157,9 @@ async function buildApp(
     csnList = getcsnList();
     // console.log(chartConfig.chart.resources.resources[0].labelLink())
     chartConfig.icuList = icuList
+    chartConfig.noteKey = noteKey
     // console.log(icuList)
-    // console.log("icuList", chartConfig.icuList)
+    // console.log("icuList", chartConfig.noteKey)
     await setState(state1);
     state = getState;
     await setSessionStorage(sessionStorage1)

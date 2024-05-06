@@ -35,8 +35,8 @@ const addHospital = async (data) => {
     if (result.rowCount > 0) {
       return { error: "Client Id DEV or PROD already exists" };
     } else {
-      query = `INSERT INTO clients (clientid_dev, clientid_prod, hospital_name, description,allowcustomhosts) 
-            VALUES ('${data.clientid_dev}', '${data.clientid_prod}', '${data.hospital_name}', '${data.description}',${data.allowcustomhosts})`;
+      query = `INSERT INTO clients (clientid_dev, clientid_prod, hospital_name, description,allowcustomhosts,notekey) 
+            VALUES ('${data.clientid_dev}', '${data.clientid_prod}', '${data.hospital_name}', '${data.description}',${data.allowcustomhosts},'${data.notekey}')`;
 
       result = await client.query(query);
       await client.query("COMMIT");
