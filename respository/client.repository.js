@@ -161,12 +161,41 @@ const getIcuList = async (clientId) =>{
   }
 }
 
+const getorgDeptMap = async (clientId) =>{
+  try {
+    await client.query("BEGIN");
+    //  console.log(clientId)
+    const query = `SELECT * FROM orgDeptMap where clientid = ${clientId}`;
+    
+
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    console.log(result)
+    if(result.rowCount>0){
+      let rows ={}
+      for(let i=0;i<result.rowCount;i++){
+        const key = parseInt(result.rows[i].key)
+        rows[key] = result.rows[i].value
+    
+      }
+     
+      return rows;
+    }else{
+      return {rows:{}}
+    }
+
+
+  }catch(error){
+    return {error}
+  }
+}
 module.exports = {
   checkClientID,
   updateCounter,
   countTable,
   clientConfigPath,
   clientGroperData,
-  getIcuList
+  getIcuList,
+  getorgDeptMap
   
 };

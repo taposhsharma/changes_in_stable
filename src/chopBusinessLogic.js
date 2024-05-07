@@ -110,7 +110,8 @@ async function buildApp(
   allowcustomhosts,
   grouperData,
   icuList,
-  noteKey
+  noteKey,
+  orgDeptMap
 ) {
   // console.log(tokenResponse1);
   try {
@@ -122,7 +123,9 @@ async function buildApp(
     chartConfig.rows.forEach(function (v, i) {
       chartConfig.rowMap[v.name] = i;
     });
-   
+
+     chartConfig.orgDeptMap = orgDeptMap
+    console.log(chartConfig.ignoredDepts)
     grouper = grouperData
     carePlans = [];
     setCarePlans(carePlans)
@@ -164,6 +167,7 @@ async function buildApp(
     state = getState;
     await setSessionStorage(sessionStorage1)
     sessionStorage = getSessionStorage();
+    
     // console.log("session storage",sessionStorage["env"])
     const requestTime = Date.now();
     await import("d3")

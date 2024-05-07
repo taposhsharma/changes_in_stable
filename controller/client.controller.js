@@ -92,6 +92,18 @@ const checkClientIdController = async (req,res) =>{
             return {error:"Error in icuList File"}
         }
         
+
+        try{
+            const orgDeptMap = await clientService.getorgDeptMapService(req.clientId)
+            if(orgDeptMap.error){
+                return{error:orgDeptMap.error}
+            }
+        
+            req.orgDeptMap = orgDeptMap
+            console.log("orgDeptMap",req.orgDeptMap)
+        }catch(error){
+            return {error:"Error in orgDeptMap File"}
+        }
        
         return response[0]      
     } catch(error){

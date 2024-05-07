@@ -320,6 +320,36 @@ const addicuList = async (data) => {
     return { error };
   }
 };
+
+
+const addorgDeptMap = async (data) => {
+  try {
+    // console.log(data)
+    await client.query("BEGIN");
+console.log(data)
+    let query = `SELECT * FROM orgDeptMap WHERE clientid =${data.hospitalId} and key='${data.key}'`;
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    // console.log(result)
+    if (result.rowCount > 0) {
+      return { error: "orgDeptMap with this id already exists" };
+    } else {
+      query = `INSERT INTO orgDeptMap (key,value,clientid) 
+            VALUES ('${data.key}', '${data.value}', ${data.hospitalId})`;
+
+      result = await client.query(query);
+      await client.query("COMMIT");
+      // console.log(result);
+      return { message: "orgDeptMap added successfully" };
+    }
+  } catch (error) {
+    console.log(error);
+    await client.query("ROLLBACK");
+    return { error };
+  }
+};
+
+
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -332,5 +362,6 @@ module.exports = {
   hospitalRegPerDay,
   numHospitalReg,
   addGrouper,
-  addicuList
+  addicuList,
+  addorgDeptMap
 };

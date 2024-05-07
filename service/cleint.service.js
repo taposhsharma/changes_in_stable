@@ -81,6 +81,19 @@ const getClientIcuList = async (clientId) =>{
 
 }
 
+const getorgDeptMapService = async (clientId) =>{
+    try{
+        const result = await clientRepository.getorgDeptMap(clientId)
+        if(result.error){
+            return {error:result.error}
+        }
+        return result
+
+    }catch(error){
+       return { error }
+    }
+
+}
 
 
 module.exports = {
@@ -89,5 +102,6 @@ module.exports = {
     countTableService,
     getConfigFilePathService,
     getClientGrouperData,
-    getClientIcuList
+    getClientIcuList,
+    getorgDeptMapService
 }
