@@ -114,6 +114,13 @@
                 onclick="redirectToAddConfig()"
                 >Add Config</a
               >
+              <a
+                class="dropdown-item"
+                id="add-grouper"
+                href="#"
+                onclick="redirectToAddGrouper()"
+                >Add Grouper</a
+              >
             </div>
           </li>
           <!-- Smaller devices menu END -->
@@ -181,6 +188,14 @@
               id="addConfig_a"
             >
               <span class="menu-collapsed">Add Config</span>
+            </a>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action bg-dark text-white"
+              onclick="redirectToAddGrouper()"
+              id="addGrouper_a"
+            >
+              <span class="menu-collapsed">Add Grouper</span>
             </a>
           </div>
           <a
@@ -269,13 +284,19 @@
           <br />
           <div class="form-group">
             <label for="name" class="field-header"><b>Name</b></label>
-            <p class="bg-light border border-dark-50 rounded pl-2 pt-1 pb-1" id="name-id"></p>
+            <p
+              class="bg-light border border-dark-50 rounded pl-2 pt-1 pb-1"
+              id="name-id"
+            ></p>
           </div>
           <div class="form-group">
             <label for="email" class="field-header"
               ><b>Email<span></span></b
             ></label>
-            <p class="bg-light border border-dark-50 rounded pl-2 pt-1 pb-1" id="email-id"></p>
+            <p
+              class="bg-light border border-dark-50 rounded pl-2 pt-1 pb-1"
+              id="email-id"
+            ></p>
           </div>
           <button
             class="btn"
@@ -292,105 +313,105 @@
 
     <!-- footer starts -->
     <div>
-        <!-- footer section start -->
-        <footer id="footer" style="border-top: 1.5px solid black">
-          <div class="footer-container">
-            <div class="row">
-              <div class="col-md-3">
-                <h3>
-                  <b>Tile Health</b>
-                </h3>
-                <div class="footer-about">
-                  <p>Tile Health Description</p>
+      <!-- footer section start -->
+      <footer id="footer" style="border-top: 1.5px solid black">
+        <div class="footer-container">
+          <div class="row">
+            <div class="col-md-3">
+              <h3>
+                <b>Tile Health</b>
+              </h3>
+              <div class="footer-about">
+                <p>Tile Health Description</p>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="useful-link">
+                <h5>Useful Links</h5>
+                <img
+                  src="./assets/images/about/home_line.png"
+                  alt=""
+                  class="img-fluid"
+                />
+                <div class="use-links">
+                  <li>
+                    <a href=""><i class="fa-solid fa-angles-right"></i> Home</a>
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-solid fa-angles-right"></i> About Us</a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-solid fa-angles-right"></i> Contact</a
+                    >
+                  </li>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="useful-link">
-                  <h5>Useful Links</h5>
-                  <img
-                    src="./assets/images/about/home_line.png"
-                    alt=""
-                    class="img-fluid"
-                  />
-                  <div class="use-links">
-                    <li>
-                      <a href=""><i class="fa-solid fa-angles-right"></i> Home</a>
-                    </li>
-                    <li>
-                      <a href=""
-                        ><i class="fa-solid fa-angles-right"></i> About Us</a
-                      >
-                    </li>
-                    <li>
-                      <a href=""
-                        ><i class="fa-solid fa-angles-right"></i> Contact</a
-                      >
-                    </li>
-                  </div>
+            </div>
+            <div class="col-md-3">
+              <div class="social-links">
+                <h5>Follow Us</h5>
+                <img src="./assets/images/about/home_line.png" alt="" />
+                <div class="social-icons">
+                  <li>
+                    <a href=""
+                      ><i class="fa-brands fa-facebook-f"></i> Facebook</a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-brands fa-instagram"></i> Instagram</a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-brands fa-linkedin-in"></i> Linkedin</a
+                    >
+                  </li>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="social-links">
-                  <h5>Follow Us</h5>
-                  <img src="./assets/images/about/home_line.png" alt="" />
-                  <div class="social-icons">
-                    <li>
-                      <a href=""
-                        ><i class="fa-brands fa-facebook-f"></i> Facebook</a
-                      >
-                    </li>
-                    <li>
-                      <a href=""
-                        ><i class="fa-brands fa-instagram"></i> Instagram</a
-                      >
-                    </li>
-                    <li>
-                      <a href=""
-                        ><i class="fa-brands fa-linkedin-in"></i> Linkedin</a
-                      >
-                    </li>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="address">
-                  <h5>Address</h5>
-                  <img
-                    src="./assets/images/about/home_line.png"
-                    alt=""
-                    class="img-fluid"
-                  />
-                  <div class="address-links">
-                    <li class="address1">
-                      <i class="fa-solid fa-location-dot"></i> Example Address
-                    </li>
-                    <li>
-                      <a href=""
-                        ><i class="fa-solid fa-phone"></i> Example Phone number</a
-                      >
-                    </li>
-                    <li>
-                      <a href=""
-                        ><i class="fa-solid fa-envelope"></i> Example Email</a
-                      >
-                    </li>
-                  </div>
+            </div>
+            <div class="col-md-3">
+              <div class="address">
+                <h5>Address</h5>
+                <img
+                  src="./assets/images/about/home_line.png"
+                  alt=""
+                  class="img-fluid"
+                />
+                <div class="address-links">
+                  <li class="address1">
+                    <i class="fa-solid fa-location-dot"></i> Example Address
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-solid fa-phone"></i> Example Phone number</a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="fa-solid fa-envelope"></i> Example Email</a
+                    >
+                  </li>
                 </div>
               </div>
             </div>
           </div>
-        </footer>
-        <!-- footer section end -->
-        <!-- footer copy right section start -->
-        <section id="copy-right" style="border-top: 1.5px solid black">
-          <div class="copy-right-sec">
-            <i class="fa-solid fa-copyright"></i> © 2024 Tile Health | All Rights
-            Reserved
-          </div>
-        </section>
-        <!-- footer copy right section end -->
-      </div>
-      <!-- footer ends  -->
+        </div>
+      </footer>
+      <!-- footer section end -->
+      <!-- footer copy right section start -->
+      <section id="copy-right" style="border-top: 1.5px solid black">
+        <div class="copy-right-sec">
+          <i class="fa-solid fa-copyright"></i> © 2024 Tile Health | All Rights
+          Reserved
+        </div>
+      </section>
+      <!-- footer copy right section end -->
+    </div>
+    <!-- footer ends  -->
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

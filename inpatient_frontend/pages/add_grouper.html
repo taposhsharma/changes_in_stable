@@ -35,103 +35,77 @@
     <div class="loader-container">
       <div class="loader"></div>
     </div>
-    <!-- navbar start -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-      <button
-        class="navbar-toggler navbar-toggler-right"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a
-        class="navbar-brand"
-        href="#"
-        onclick="redirectToHomePage()"
-        id="homePage_a"
-      >
-        <img
-          src="../images/Tile_health_logo.jpg"
-          width="30"
-          height="30"
-          class="d-inline-block align-top"
-          alt=""
-        />
-        <span class="menu-collapsed">Tile Health</span>
-      </a>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#" onclick="redirectToProfilePage()"
-              ><img
-                src="../images/profile_logo.png"
-                alt=""
-                class="profileImage"
-            /></a>
-          </li>
-          <!-- This menu is hidden in bigger devices with d-sm-none. 
+     <!-- navbar start -->
+     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a
+          class="navbar-brand"
+          href="#"
+          onclick="redirectToHomePage()"
+          id="homePage_a"
+        >
+          <img
+            src="../images/Tile_health_logo.jpg"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          <span class="menu-collapsed">Tile Health</span>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" onclick="redirectToProfilePage()"
+                ><img
+                  src="../images/profile_logo.png"
+                  alt=""
+                  class="profileImage"
+              /></a>
+            </li>
+            <!-- This menu is hidden in bigger devices with d-sm-none. 
                The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-          <li class="nav-item dropdown d-sm-block d-md-none">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="smallerscreenmenu"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Dashboard
-            </a>
-            <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+            <li class="nav-item dropdown d-sm-block d-md-none">
               <a
-                class="dropdown-item"
-                id="hospital-registraion"
+                class="nav-link dropdown-toggle"
                 href="#"
-                onclick="redirectToHospitalRegistration()"
-                >Hospital Registration</a
+                id="smallerscreenmenu"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
-              <a
-                class="dropdown-item"
-                href="#"
-                onclick="redirectToLicenseRegistration()"
-                >License Registration</a
-              >
-              <a
-                class="dropdown-item"
-                href="#"
-                onclick="redirectToCheckStatistics()"
-                >Check Statistics</a
-              >
-              <a
-                class="dropdown-item"
-                id="add-config"
-                href="#"
-                onclick="redirectToAddConfig()"
-                >Add Config</a
-              >
-              <a
-                class="dropdown-item"
-                id="add-grouper"
-                href="#"
-                onclick="redirectToAddGrouper()"
-                >Add Grouper</a
-              >
-            </div>
-          </li>
-          <!-- Smaller devices menu END -->
-        </ul>
-      </div>
-    </nav>
-    <!-- navbar end  -->
+                Dashboard
+              </a>
+              <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+                <a class="dropdown-item" id="hospital-registraion"  href="#" onclick="redirectToHospitalRegistration()">Hospital Registration</a>
+                <a class="dropdown-item" href="#" onclick="redirectToLicenseRegistration()">License Registration</a>
+                <a class="dropdown-item" href="#" onclick="redirectToCheckStatistics()">Check Statistics</a>
+                <a class="dropdown-item" id="add-config" href="#" onclick="redirectToAddConfig()">Add Config</a>
+                <a class="dropdown-item" id="add-grouper" href="#" onclick="redirectToAddGrouper()">Add Grouper</a>
+              </div>
+            </li>
+            <!-- Smaller devices menu END -->
+          </ul>
+        </div>
+      </nav>
+      <!-- navbar end  -->
+
 
     <!-- <div id="navbar"></div> Placeholder for the navbar -->
 
     <div class="row">
-      <!-- Sidebar -->
+
+        <!-- Sidebar -->
       <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
         <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
         <!-- Bootstrap List Group -->
@@ -280,118 +254,56 @@
       <!-- sidebar-container END -->
       <!-- MAIN -->
 
-      <div class="container">
-        <form class="custom-form">
-          <h4 class="form-header">Enter Config Details</h4>
-          <hr />
-          <select id="hospitalDropdown" class="form-control" required>
-            <!-- Options will be dynamically added here -->
-          </select>
 
-          <br />
-
-          <div class="form-group">
-            <label for="medContextIndex" class="field-header"
-              ><b
-                >Medication Context Index<span style="color: red">*</span></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="medContextIndex"
-              placeholder="Enter Medication Context Index"
-              required
-            />
+        <div class="container">
+            <form class="custom-form">
+              <h4 class="form-header">Enter Grouper Details</h4>
+              <hr />
+              <select id="hospitalDropdown" class="form-control" required>
+                  <!-- Options will be dynamically added here -->
+              </select>
+      
+              <br />
+      
+              <div class="form-group">
+                <label for="medContextIndex" class="field-header"
+                  ><b
+                    >Grouper Id<span style="color: red">*</span></b
+                  ></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="grouperId"
+                  placeholder="Enter Grouper Id"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="filterLocationCodingIndex" class="field-header"
+                  ><b
+                    >Grouper Name<span style="color: red">*</span></b
+                  ></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="grouperName"
+                  placeholder="Enter Grouper name"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn"
+                style="background-color: #7d2ae8; color: #fff"
+              >
+                Submit
+              </button>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="filterLocationCodingIndex" class="field-header"
-              ><b
-                >Filter Location Coding Index<span style="color: red"
-                  >*</span
-                ></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="filterLocationCodingIndex"
-              placeholder="Enter Filter Location Coding Index"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="filterLocationIdIndex" class="field-header"
-              ><b
-                >Filter Location Id Index<span style="color: red">*</span></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="filterLocationIdIndex"
-              placeholder="Enter Filter Location Id Index"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="preFilterEncounterCsnIndex" class="field-header"
-              ><b
-                >Prefilter Encounter CSN Index<span style="color: red"
-                  >*</span
-                ></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="preFilterEncounterCsnIndex"
-              placeholder="Enter Prefilter Encounter CSN Index"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="preFilterEncounterTypeIndex" class="field-header"
-              ><b
-                >Prefilter Encounter Type Index<span style="color: red"
-                  >*</span
-                ></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="preFilterEncounterTypeIndex"
-              placeholder="Enter Prefilter Encounter Type Index"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="preFilterEncounterClassIndex" class="field-header"
-              ><b
-                >Prefilter Encounter Class Index<span style="color: red"
-                  >*</span
-                ></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="preFilterEncounterClassIndex"
-              placeholder="Enter Prefilter Encounter Class Index"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn"
-            style="background-color: #7d2ae8; color: #fff"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
     </div>
+    
 
     <!-- footer starts -->
 
@@ -412,7 +324,7 @@
               <div class="useful-link">
                 <h5>Useful Links</h5>
                 <img
-                  src="./assets/images/about/home_line.png"
+                  src=""
                   alt=""
                   class="img-fluid"
                 />
@@ -436,7 +348,7 @@
             <div class="col-md-3">
               <div class="social-links">
                 <h5>Follow Us</h5>
-                <img src="./assets/images/about/home_line.png" alt="" />
+                <img src="" alt="" />
                 <div class="social-icons">
                   <li>
                     <a href=""
@@ -460,7 +372,7 @@
               <div class="address">
                 <h5>Address</h5>
                 <img
-                  src="./assets/images/about/home_line.png"
+                  src=""
                   alt=""
                   class="img-fluid"
                 />
@@ -510,7 +422,8 @@
     <script src="../scripts.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"></script>
-    <script src="../scripts/add_config.js"></script>
+    <script src="../scripts/add_grouper.js"></script>
     <script src="../scripts/navbar-slider.js"></script>
+
   </body>
 </html>

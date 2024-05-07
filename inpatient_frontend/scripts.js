@@ -290,4 +290,16 @@ function redirectToAddConfig(){
   }, 500);
 }
 
+// redirect to redirectToAddGrouper page
+function redirectToAddGrouper(){
+  // Display loader
+  document.querySelector(".loader-container").style.display = "flex";
+
+  // Redirect after 500ms
+  setTimeout(function () {
+    window.location.href =
+      "/inpatient_frontend/pages/add_grouper.html"; // Replace with the URL of the target page
+  }, 500);
+}
+
 
