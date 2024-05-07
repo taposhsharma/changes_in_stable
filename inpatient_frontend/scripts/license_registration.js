@@ -152,7 +152,13 @@ function sendPostRequest(data) {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert("An error occurred during license registration.");
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "License alredy exists",
+        showConfirmButton: false, // Remove the confirm button
+        timer: 2000, // Automatically close after 1.5 seconds
+      });
     });
 }
 

@@ -276,6 +276,7 @@ console.log(data)
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
+      console.log("Grouper with this id already exists");
       return { error: "Grouper with this id already exists" };
     } else {
       query = `INSERT INTO grouper (id, row,clientid) 
@@ -284,6 +285,7 @@ console.log(data)
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
+      console.log("Grouper added successfully");
       return { message: "Grouper added successfully" };
     }
   } catch (error) {

@@ -3,11 +3,13 @@ const clientController = require("../controller/client.controller");
 
 const auth = async (req, res, next) => {
   try {
-    
+    // console.log("hellooo")
     const response = await clientController.checkClientIdController(req, res);
-    // console.log(response)
+    // console.log("hellooo")
+    console.log(response)
     // console.log(response)
     if(response.error){
+     
       res.status(401).send({error:response.error})
       return
     }else if (!response.id) {
@@ -17,6 +19,7 @@ const auth = async (req, res, next) => {
     }
      else {
       // console.log("in middleware",req.hospital_name)
+      console.log("hellooo")
    
       next()
     }
