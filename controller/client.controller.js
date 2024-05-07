@@ -104,6 +104,17 @@ const checkClientIdController = async (req,res) =>{
         }catch(error){
             return {error:"Error in orgDeptMap File"}
         }
+        try{
+            const ignoredDepts = await clientService.getignoredDeptsService(req.clientId)
+            if(ignoredDepts.error){
+                return{error:ignoredDepts.error}
+            }
+        
+            req.ignoredDepts = ignoredDepts
+            console.log("ignoredDepts",req.ignoredDepts)
+        }catch(error){
+            return {error:"Error in ignoredDepts File"}
+        }
        
         return response[0]      
     } catch(error){

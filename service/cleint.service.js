@@ -94,6 +94,19 @@ const getorgDeptMapService = async (clientId) =>{
     }
 
 }
+const getignoredDeptsService = async (clientId) =>{
+    try{
+        const result = await clientRepository.getignoredDepts(clientId)
+        if(result.error){
+            return {error:result.error}
+        }
+        return result
+
+    }catch(error){
+       return { error }
+    }
+
+}
 
 
 module.exports = {
@@ -103,5 +116,6 @@ module.exports = {
     getConfigFilePathService,
     getClientGrouperData,
     getClientIcuList,
-    getorgDeptMapService
+    getorgDeptMapService,
+    getignoredDeptsService
 }

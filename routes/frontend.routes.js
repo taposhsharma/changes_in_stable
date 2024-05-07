@@ -35,6 +35,6 @@ router.get('/numHospitalReg', frontendController.numHospitalRegController)
 router.post('/addGrouper', frontendController.addGrouperController)
 router.post('/addIcuList', frontendController.addIcuListController)
 router.post('/addorgDeptMap', frontendController.addorgDeptMapController)
-
+router.post('/addignoredDepts', frontendController.addignoredDeptsController)
 
 module.exports = router;

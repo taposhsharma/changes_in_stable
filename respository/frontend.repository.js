@@ -349,7 +349,32 @@ console.log(data)
   }
 };
 
+const addignoredDepts = async (data) => {
+  try {
+    // console.log(data)
+    await client.query("BEGIN");
+console.log(data)
+    let query = `SELECT * FROM ignoredDepts WHERE clientid =${data.hospitalId} and key='${data.key}'`;
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    // console.log(result)
+    if (result.rowCount > 0) {
+      return { error: "ignoredDepts with this id already exists" };
+    } else {
+      query = `INSERT INTO ignoredDepts (key,value,clientid) 
+            VALUES ('${data.key}', '${data.value}', ${data.hospitalId})`;
 
+      result = await client.query(query);
+      await client.query("COMMIT");
+      // console.log(result);
+      return { message: "ignoredDepts added successfully" };
+    }
+  } catch (error) {
+    console.log(error);
+    await client.query("ROLLBACK");
+    return { error };
+  }
+};
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -363,5 +388,6 @@ module.exports = {
   numHospitalReg,
   addGrouper,
   addicuList,
-  addorgDeptMap
+  addorgDeptMap,
+  addignoredDepts
 };

@@ -111,7 +111,8 @@ async function buildApp(
   grouperData,
   icuList,
   noteKey,
-  orgDeptMap
+  orgDeptMap,
+  ignoredDepts
 ) {
   // console.log(tokenResponse1);
   try {
@@ -125,6 +126,7 @@ async function buildApp(
     });
 
      chartConfig.orgDeptMap = orgDeptMap
+     chartConfig.ignoredDepts = ignoredDepts
     console.log(chartConfig.ignoredDepts)
     grouper = grouperData
     carePlans = [];
