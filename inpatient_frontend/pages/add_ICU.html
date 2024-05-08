@@ -35,75 +35,77 @@
     <div class="loader-container">
       <div class="loader"></div>
     </div>
-    <!-- navbar start -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-      <button
-        class="navbar-toggler navbar-toggler-right"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a
-        class="navbar-brand"
-        href="#"
-        onclick="redirectToHomePage()"
-        id="homePage_a"
-      >
-        <img
-          src="../images/Tile_health_logo.jpg"
-          width="30"
-          height="30"
-          class="d-inline-block align-top"
-          alt=""
-        />
-        <span class="menu-collapsed">Tile Health</span>
-      </a>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#" onclick="redirectToProfilePage()"
-              ><img
-                src="../images/profile_logo.png"
-                alt=""
-                class="profileImage"
-            /></a>
-          </li>
-          <!-- This menu is hidden in bigger devices with d-sm-none. 
-             The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-          <li class="nav-item dropdown d-sm-block d-md-none">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="smallerscreenmenu"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Dashboard
-            </a>
-            <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
-              <a class="dropdown-item" id="hospital-registraion"  href="#" onclick="redirectToHospitalRegistration()">Hospital Registration</a>
-              <a class="dropdown-item" href="#" onclick="redirectToLicenseRegistration()">License Registration</a>
-              <a class="dropdown-item" href="#" onclick="redirectToCheckStatistics()">Check Statistics</a>
-              <a class="dropdown-item" id="add-config" href="#" onclick="redirectToAddConfig()">Add Config</a>
-              <a class="dropdown-item" id="add-grouper" href="#" onclick="redirectToAddGrouper()">Add Grouper</a>
-            </div>
-          </li>
-          <!-- Smaller devices menu END -->
-        </ul>
-      </div>
-    </nav>
-    <!-- navbar end  -->
-    <!-- <div id="navbar"></div> -->
-    <!-- Placeholder for the navbar -->
+     <!-- navbar start -->
+     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a
+          class="navbar-brand"
+          href="#"
+          onclick="redirectToHomePage()"
+          id="homePage_a"
+        >
+          <img
+            src="../images/Tile_health_logo.jpg"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          <span class="menu-collapsed">Tile Health</span>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" onclick="redirectToProfilePage()"
+                ><img
+                  src="../images/profile_logo.png"
+                  alt=""
+                  class="profileImage"
+              /></a>
+            </li>
+            <!-- This menu is hidden in bigger devices with d-sm-none. 
+               The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
+            <li class="nav-item dropdown d-sm-block d-md-none">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="smallerscreenmenu"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Dashboard
+              </a>
+              <div class="dropdown-menu" aria-labelledby="smallerscreenmenu">
+                <a class="dropdown-item" id="hospital-registraion"  href="#" onclick="redirectToHospitalRegistration()">Hospital Registration</a>
+                <a class="dropdown-item" href="#" onclick="redirectToLicenseRegistration()">License Registration</a>
+                <a class="dropdown-item" href="#" onclick="redirectToCheckStatistics()">Check Statistics</a>
+                <a class="dropdown-item" id="add-config" href="#" onclick="redirectToAddConfig()">Add Config</a>
+                <a class="dropdown-item" id="add-grouper" href="#" onclick="redirectToAddGrouper()">Add Grouper</a>
+              </div>
+            </li>
+            <!-- Smaller devices menu END -->
+          </ul>
+        </div>
+      </nav>
+      <!-- navbar end  -->
+
+
+    <!-- <div id="navbar"></div> Placeholder for the navbar -->
 
     <div class="row">
-      <!-- Sidebar -->
+
+        <!-- Sidebar -->
       <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
         <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
         <!-- Bootstrap List Group -->
@@ -162,6 +164,7 @@
             >
               <span class="menu-collapsed">Add Config</span>
             </a>
+
             <a
               href="#"
               class="list-group-item list-group-item-action bg-dark text-white"
@@ -227,12 +230,37 @@
             <a
               href="#"
               class="list-group-item list-group-item-action bg-dark text-white"
-             
             >
               <span class="menu-collapsed">Password</span>
             </a>
           </div>
-         
+          <!-- <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-tasks fa-fw mr-3"></span>
+              <span class="menu-collapsed">Tasks</span>
+            </div>
+          </a> -->
+          <!-- Separator with title -->
+          <!-- <li
+            class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed"
+          >
+            <small>OPTIONS</small>
+          </li>
+          <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-calendar fa-fw mr-3"></span>
+              <span class="menu-collapsed">Calendar</span>
+            </div>
+          </a>
+          <a href="#" class="bg-dark list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+              <span class="fa fa-envelope-o fa-fw mr-3"></span>
+              <span class="menu-collapsed"
+                >Messages
+                <span class="badge badge-pill badge-primary ml-2">5</span></span
+              >
+            </div>
+          </a> -->
           <!-- Separator without title -->
           <li class="list-group-item sidebar-separator menu-collapsed"></li>
           <!-- /END Separator -->
@@ -257,75 +285,43 @@
       </div>
       <!-- sidebar-container END -->
       <!-- MAIN -->
-      <div class="container">
-        <form class="custom-form">
-          <h4 class="form-header">Check statistics of a hospital</h4>
-          <hr />
-          <select id="hospitalDropdown" class="form-control" required>
-            <!-- Options will be dynamically added here -->
-          </select>
-          <br />
-          <label class="field-header"
-            ><b>Enter Date<span style="color: red">*</span></b></label
-          >
 
-          <div class="date-picker">
-            <input type="date" class="form-control" />
+
+        <div class="container">
+            <form class="custom-form">
+              <h4 class="form-header">Enter ICU Details</h4>
+              <hr />
+              <select id="hospitalDropdown" class="form-control" required>
+                  <!-- Options will be dynamically added here -->
+              </select>
+      
+              <br />
+      
+              <div class="form-group">
+                <label for="icuId" class="field-header"
+                  ><b
+                    >ICU id<span style="color: red">*</span></b
+                  ></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="icuId"
+                  placeholder="Enter ICU Id"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn"
+                style="background-color: #7d2ae8; color: #fff"
+              >
+                Submit
+              </button>
+            </form>
           </div>
-
-          <button
-            type="submit"
-            class="btn"
-            style="background-color: #7d2ae8; color: #fff"
-          >
-            Submit
-          </button>
-        </form>
-
-        <br>
-        <br>
-
-        <!-- Staistics table  -->
-
-        <div id="statisticsTable">
-          <div class="table-container">
-            <h3
-              style="
-                color: #0b0909fd;
-                font-family: 'Helvetica', 'Arial', 'Roboto', 'Open Sans';
-              "
-            >
-              Statistics Table
-            </h2>
-            <br>
-            <div class="table-wrapper">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Hospital Name</th>
-                    <th>Count</th>
-                    <th>Client ID</th>
-                    <th>Patient First Name</th>
-                    <th>Patient Last Name</th>
-                    <th>Patient ID</th>
-                    <th>Encounter ID</th>
-                    <th>Base URL</th>
-                    <th>Server URL</th>
-                    <th>User ID</th>
-                    <th>Date of Birth</th>
-                    <th>Date</th>
-                    <th>Timestamp</th>
-                  </tr>
-                </thead>
-                <tbody id="tableBody">
-                  <!-- Table body content will be generated dynamically -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
+    
 
     <!-- footer starts -->
 
@@ -346,7 +342,7 @@
               <div class="useful-link">
                 <h5>Useful Links</h5>
                 <img
-                  src="./assets/images/about/home_line.png"
+                  src=""
                   alt=""
                   class="img-fluid"
                 />
@@ -370,7 +366,7 @@
             <div class="col-md-3">
               <div class="social-links">
                 <h5>Follow Us</h5>
-                <img src="./assets/images/about/home_line.png" alt="" />
+                <img src="" alt="" />
                 <div class="social-icons">
                   <li>
                     <a href=""
@@ -394,7 +390,7 @@
               <div class="address">
                 <h5>Address</h5>
                 <img
-                  src="./assets/images/about/home_line.png"
+                  src=""
                   alt=""
                   class="img-fluid"
                 />
@@ -444,7 +440,7 @@
     <script src="../scripts.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.7/dist/sweetalert2.all.min.js"></script>
-    <script src="../scripts/check_statistics.js"></script>
+    <script src="../scripts/add_ICU.js"></script>
     <script src="../scripts/navbar-slider.js"></script>
 
   </body>
