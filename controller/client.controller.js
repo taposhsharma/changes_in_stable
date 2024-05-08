@@ -115,6 +115,18 @@ const checkClientIdController = async (req,res) =>{
         }catch(error){
             return {error:"Error in ignoredDepts File"}
         }
+        try{
+            const resources = await clientService.getresourcesService(req.clientId)
+            if(resources.error){
+                console.log(resources.error)
+                return{error:resources.error}
+            }
+        
+            req.resources = resources
+            console.log("resources",req.resources)
+        }catch(error){
+            return {error:"Error in resources File"}
+        }
        
         return response[0]      
     } catch(error){

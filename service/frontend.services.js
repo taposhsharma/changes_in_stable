@@ -194,6 +194,20 @@ const addignoredDeptsService = async (data) => {
       return {error};
   }
 }
+const addresourcesService = async (data) => {
+  try{
+      const result = await frontendRepository.addresources(data);
+      if(result.error){
+        return {error:result.error};
+      }else{
+          return result;
+      }
+      // console.log(result)
+      
+  }catch(error){
+      return {error};
+  }
+}
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -208,5 +222,6 @@ module.exports = {
   addGrouperService,
   addIcuListService,
   addorgDeptMapService,
-  addignoredDeptsService
+  addignoredDeptsService,
+  addresourcesService
 };

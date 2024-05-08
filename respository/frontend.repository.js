@@ -375,6 +375,33 @@ console.log(data)
     return { error };
   }
 };
+
+const addresources = async (data) => {
+  try {
+    // console.log(data)
+    await client.query("BEGIN");
+// console.log(data)
+    let query = `SELECT * FROM resources WHERE client_id =${data.hospitalId} and action='${data.action}' and activitykey='${data.activitykey}'`;
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    // console.log(result)
+    if (result.rowCount > 0) {
+      return { error: "resources already exists" };
+    } else {
+      query = `INSERT INTO resources (label,text,action,activitykey,client_id) 
+            VALUES ('${data.label}', '${data.text}', '${data.action}', '${data.activitykey}', ${data.hospitalId})`;
+
+      result = await client.query(query);
+      await client.query("COMMIT");
+      // console.log(result);
+      return { message: "resources added successfully" };
+    }
+  } catch (error) {
+    console.log(error);
+    await client.query("ROLLBACK");
+    return { error };
+  }
+};
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -389,5 +416,6 @@ module.exports = {
   addGrouper,
   addicuList,
   addorgDeptMap,
-  addignoredDepts
+  addignoredDepts,
+  addresources
 };

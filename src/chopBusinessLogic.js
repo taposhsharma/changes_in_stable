@@ -112,11 +112,12 @@ async function buildApp(
   icuList,
   noteKey,
   orgDeptMap,
-  ignoredDepts
+  ignoredDepts,
+  clientResources
 ) {
   // console.log(tokenResponse1);
   try {
-    
+    // console.log(clientResources)
     
     chartConfig = chartConfig1
     chartConfig.rows = JSON.parse(JSON.stringify(chartConfigrows.rows));
@@ -124,10 +125,12 @@ async function buildApp(
     chartConfig.rows.forEach(function (v, i) {
       chartConfig.rowMap[v.name] = i;
     });
+    console.log(chartConfig.chart.resources.resources)
+   
 
      chartConfig.orgDeptMap = orgDeptMap
      chartConfig.ignoredDepts = ignoredDepts
-    console.log(chartConfig.ignoredDepts)
+    // console.log(chartConfig.ignoredDepts)
     grouper = grouperData
     carePlans = [];
     setCarePlans(carePlans)
@@ -169,6 +172,10 @@ async function buildApp(
     state = getState;
     await setSessionStorage(sessionStorage1)
     sessionStorage = getSessionStorage();
+
+    // let newclientresources = 
+    chartConfig.chart.resources.resources = createResources(clientResources)
+// console.log(chartConfig.chart.resources.resources)
     
     // console.log("session storage",sessionStorage["env"])
     const requestTime = Date.now();
@@ -2718,6 +2725,29 @@ async function getMedAdmin() {
   }
 }
 
+function createResources(resources){
+  let createdResources=[]
+  resources.forEach((resource)=>{
+     let newResource={}
+     newResource.label=resource.label
+     newResource.labelLink= function(){
+      tokenResponse= getTokenResponse();
+      console.log(resource.text)
+      executeAction({
+        action: resource.action,
+        args: {
+            PatientID: tokenResponse.patient,
+            ActivityKey: resource.activitykey
+        }
+    });
+     }
+    //  console.log(newResource.labelLink())
+    createdResources.push(newResource)
+  })
+
+  return createdResources
+
+}
 module.exports = {
   buildApp,
 };

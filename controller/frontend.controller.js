@@ -207,6 +207,22 @@ const addignoredDeptsController = async (req, res) => {
     res.status(401).send(error);
   }
 };
+
+const addresourcesController = async (req, res) => {
+  try {
+    const data = req.body;
+    // console.log(data)
+    const response = await frontendService.addresourcesService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -221,5 +237,6 @@ module.exports = {
   addGrouperController,
   addIcuListController,
   addorgDeptMapController,
-  addignoredDeptsController
+  addignoredDeptsController,
+  addresourcesController
 };

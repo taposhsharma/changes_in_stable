@@ -141,37 +141,37 @@ module.exports = {
         resources: {
             height: 85,
             header: "Resources",
-            resources: [
-                {
-                    label: "Asthma Action Plan",
-                    labelLink: function(){
-                        tokenResponse= getTokenResponse()
-                        // console.log(getTokenResponse())
-                        console.log("Navigate to Asthma Action Plan SmartForm", "info");
-                        executeAction({
-                            action: "Epic.Clinical.Informatics.Web.LaunchActivity",
-                            args: {
-                                PatientID: tokenResponse.patient,
-                                ActivityKey: "ASTHMA_ACTION_PLAN"
-                            }
-                        });
-                    }
-                },
-                {
-                    label: "Asthma Pathway",
-                    labelLink: function(){
-                        tokenResponse= getTokenResponse()
-                        console.log("Navigate to Asthma Pathway", "info");
-                        executeAction({
-                            action: "Epic.Clinical.Informatics.Web.LaunchActivity",
-                            args: {
-                                PatientID: tokenResponse.patient,
-                                ActivityKey: "ASTHMA_IP_PATHWAY"
-                            }
-                        });
-                    }
-                }
-            ]
+            // resources: [
+            //     {
+            //         label: "Asthma Action Plan",
+            //         labelLink: function(){
+            //             tokenResponse= getTokenResponse()
+            //             // console.log(getTokenResponse())
+            //             console.log("Navigate to Asthma Action Plan SmartForm", "info");
+            //             executeAction({
+            //                 action: "Epic.Clinical.Informatics.Web.LaunchActivity",
+            //                 args: {
+            //                     PatientID: tokenResponse.patient,
+            //                     ActivityKey: "ASTHMA_ACTION_PLAN"
+            //                 }
+            //             });
+            //         }
+            //     },
+            //     {
+            //         label: "Asthma Pathway",
+            //         labelLink: function(){
+            //             tokenResponse= getTokenResponse()
+            //             console.log("Navigate to Asthma Pathway", "info");
+            //             executeAction({
+            //                 action: "Epic.Clinical.Informatics.Web.LaunchActivity",
+            //                 args: {
+            //                     PatientID: tokenResponse.patient,
+            //                     ActivityKey: "ASTHMA_IP_PATHWAY"
+            //                 }
+            //             });
+            //         }
+            //     }
+            // ]
         },
         title: {
             text: ["Asthma", "HealthChart"],

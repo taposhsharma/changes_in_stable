@@ -108,7 +108,10 @@ const clientConfigPath = async (clientId) => {
     }
     
   } catch (error) {
-    return { error };
+    if(error.message){
+      return {error:error.message}
+    }
+    return {error}
   }
 };
 
@@ -129,6 +132,9 @@ const clientGroperData = async (clientId) => {
     }
 
   }catch(error){
+    if(error.message){
+      return {error:error.message}
+    }
     return {error}
   }
 
@@ -157,6 +163,9 @@ const getIcuList = async (clientId) =>{
 
 
   }catch(error){
+    if(error.message){
+      return {error:error.message}
+    }
     return {error}
   }
 }
@@ -186,6 +195,9 @@ const getorgDeptMap = async (clientId) =>{
 
 
   }catch(error){
+    if(error.message){
+      return {error:error.message}
+    }
     return {error}
   }
 }
@@ -216,6 +228,35 @@ const getignoredDepts = async (clientId) =>{
 
 
   }catch(error){
+    if(error.message){
+      return {error:error.message}
+    }
+    return {error}
+  }
+}
+const getresources = async (clientId) =>{
+  try {
+    await client.query("BEGIN");
+    //  console.log(clientId)
+    const query = `SELECT * FROM resources where client_id = ${clientId}`;
+    
+
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    console.log(result)
+    if(result.rowCount>0){
+      
+      return result.rows
+    }else{
+      return {rows:[]}
+    }
+
+
+  }catch(error){
+    // console.log("errejkjsfdkljflk",error.message)
+    if(error.message){
+      return {error:error.message}
+    }
     return {error}
   }
 }
@@ -227,6 +268,7 @@ module.exports = {
   clientGroperData,
   getIcuList,
   getorgDeptMap,
-  getignoredDepts
+  getignoredDepts,
+  getresources
   
 };

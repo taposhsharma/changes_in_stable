@@ -107,6 +107,19 @@ const getignoredDeptsService = async (clientId) =>{
     }
 
 }
+const getresourcesService = async (clientId) =>{
+    try{
+        const result = await clientRepository.getresources(clientId)
+        if(result.error){
+            return {error:result.error}
+        }
+        return result
+
+    }catch(error){
+       return { error }
+    }
+
+}
 
 
 module.exports = {
@@ -117,5 +130,6 @@ module.exports = {
     getClientGrouperData,
     getClientIcuList,
     getorgDeptMapService,
-    getignoredDeptsService
+    getignoredDeptsService,
+    getresourcesService
 }
