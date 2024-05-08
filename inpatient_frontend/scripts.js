@@ -303,3 +303,46 @@ function redirectToAddGrouper(){
 }
 
 
+function redirectToAddICU(){
+  // Display loader
+  document.querySelector(".loader-container").style.display = "flex";
+
+  // Redirect after 500ms
+  setTimeout(function () {
+    window.location.href =
+      "/inpatient_frontend/pages/add_ICU.html"; // Replace with the URL of the target page
+  }, 500);
+}
+
+function redirectToAddOrgDeptMap(){
+  // Display loader
+  document.querySelector(".loader-container").style.display = "flex";
+
+  // Redirect after 500ms
+  setTimeout(function () {
+    window.location.href =
+      "/inpatient_frontend/pages/add_org_dept_map.html"; // Replace with the URL of the target page
+  }, 500);
+}
+
+function redirectToAddIgnoredDept(){
+  // Display loader
+  document.querySelector(".loader-container").style.display = "flex";
+
+  // Redirect after 500ms
+  setTimeout(function () {
+    window.location.href =
+      "/inpatient_frontend/pages/add_ignored_dept.html"; // Replace with the URL of the target page
+  }, 500);
+}
+
+function redirectToAddResource(){
+  // Display loader
+  document.querySelector(".loader-container").style.display = "flex";
+
+  // Redirect after 500ms
+  setTimeout(function () {
+    window.location.href =
+      "/inpatient_frontend/pages/add_resource.html"; // Replace with the URL of the target page
+  }, 500);
+}
