@@ -7,6 +7,7 @@ require("dotenv").config();
 const healthchartRouter = require('../routes/healthchart.routes')
 const frontendRouter = require('../routes/frontend.routes')
 const featureRouter = require('../routes/feature.routes')
+const filedata = require('../routes/file.rotes')
 // const businessLogic = require('./chopBusinessLogic')
 
 // businessLogic.buildApp()
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/healthchart',healthchartRouter)
 app.use('/frontend',frontendRouter)
 app.use('/feature',featureRouter)
+app.use('/file',filedata)
 
 const PORT = process.env.PORT || 3005;
 
