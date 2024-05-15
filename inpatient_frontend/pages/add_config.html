@@ -36,7 +36,9 @@
       <div class="loader"></div>
     </div>
     <!-- navbar start -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <nav
+      class="fixed-top navbar navbar-expand-md navbar-dark bg-white border-bottom border-secondary"
+    >
       <button
         class="navbar-toggler navbar-toggler-right"
         type="button"
@@ -54,14 +56,16 @@
         onclick="redirectToHomePage()"
         id="homePage_a"
       >
-        <img
-          src="../images/Tile_health_logo.jpg"
-          width="30"
-          height="30"
-          class="d-inline-block align-top"
-          alt=""
-        />
-        <span class="menu-collapsed">Tile Health</span>
+        <div class="row">
+          <img
+            src="../images/Tile_health_logo.jpg"
+            width="50"
+            height="50"
+            class="d-inline-block align-top"
+            alt=""
+          />
+          <h3 class="text-secondary pt-2">Tile Health</h3>
+        </div>
       </a>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
@@ -130,15 +134,18 @@
 
     <!-- <div id="navbar"></div> Placeholder for the navbar -->
 
-    <div class="row">
+    <div class="row" style="margin-top: 75px">
       <!-- Sidebar -->
-      <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+      <div
+        id="sidebar-container"
+        class="sidebar-expanded d-none d-md-block border-right border-secondary"
+      >
         <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
         <!-- Bootstrap List Group -->
         <ul class="list-group">
           <!-- Separator with title -->
           <li
-            class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed"
+            class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed pl-5"
           >
             <small>MAIN MENU</small>
           </li>
@@ -148,7 +155,7 @@
             href="#submenu1"
             data-toggle="collapse"
             aria-expanded="false"
-            class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+            class="list-group-item list-group-item-action flex-column align-items-start"
           >
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-dashboard fa-fw mr-3"></span>
@@ -160,83 +167,83 @@
           <div id="submenu1" class="collapse sidebar-submenu">
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToHospitalRegistration()"
               id="hospitalRegistration_a"
             >
-              <span class="menu-collapsed">Hospital Registration</span>
+              <span class="menu-collapsed pl-5">Hospital Registration</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToLicenseRegistration()"
               id="licenseRegistration_a"
             >
-              <span class="menu-collapsed">License Registration</span>
+              <span class="menu-collapsed pl-5">License Registration</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToCheckStatistics()"
               id="checkStatistics_a"
             >
-              <span class="menu-collapsed">Check Statistics</span>
+              <span class="menu-collapsed pl-5">Check Statistics</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToAddConfig()"
               id="addConfig_a"
             >
-              <span class="menu-collapsed">Add Config</span>
+              <span class="menu-collapsed pl-5">Add Config</span>
             </a>
 
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToAddGrouper()"
               id="addGrouper_a"
             >
-              <span class="menu-collapsed">Add Grouper</span>
+              <span class="menu-collapsed pl-5">Add Grouper</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToAddICU()"
               id="addICU_a"
             >
-              <span class="menu-collapsed">Add ICU</span>
+              <span class="menu-collapsed pl-5">Add ICU</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToAddOrgDeptMap()"
               id="redirectToAddOrgDeptMap_a"
             >
-              <span class="menu-collapsed">Add Org Dept Map</span>
+              <span class="menu-collapsed pl-5">Add Org Dept Map</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToAddIgnoredDept()"
               id="addIgnoredDept_a"
             >
-              <span class="menu-collapsed">Add Ignored Dept</span>
+              <span class="menu-collapsed pl-5">Add Ignored Dept</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToAddResource()"
               id="addResource_a"
             >
-              <span class="menu-collapsed">Add Resource</span>
+              <span class="menu-collapsed pl-5">Add Resource</span>
             </a>
           </div>
           <a
             href="#submenu2"
             data-toggle="collapse"
             aria-expanded="false"
-            class="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+            class="list-group-item list-group-item-action flex-column align-items-start"
           >
             <div class="d-flex w-100 justify-content-start align-items-center">
               <span class="fa fa-user fa-fw mr-3"></span>
@@ -248,64 +255,42 @@
           <div id="submenu2" class="collapse sidebar-submenu">
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
               onclick="redirectToProfilePage()"
             >
-              <span class="menu-collapsed">Settings</span>
+              <span class="menu-collapsed pl-5">Settings</span>
             </a>
             <a
               href="#"
-              class="list-group-item list-group-item-action bg-dark text-white"
+              class="list-group-item list-group-item-action bg-white text-secondary"
             >
-              <span class="menu-collapsed">Password</span>
+              <span class="menu-collapsed pl-5">Password</span>
             </a>
           </div>
-          <!-- <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-tasks fa-fw mr-3"></span>
-              <span class="menu-collapsed">Tasks</span>
-            </div>
-          </a> -->
-          <!-- Separator with title -->
-          <!-- <li
-            class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed"
-          >
-            <small>OPTIONS</small>
-          </li>
-          <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-calendar fa-fw mr-3"></span>
-              <span class="menu-collapsed">Calendar</span>
-            </div>
-          </a>
-          <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-envelope-o fa-fw mr-3"></span>
-              <span class="menu-collapsed"
-                >Messages
-                <span class="badge badge-pill badge-primary ml-2">5</span></span
-              >
-            </div>
-          </a> -->
+
           <!-- Separator without title -->
-          <li class="list-group-item sidebar-separator menu-collapsed"></li>
+          <!-- <li class="list-group-item sidebar-separator menu-collapsed pl-5"></li> -->
           <!-- /END Separator -->
-          <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span class="fa fa-question fa-fw mr-3"></span>
-              <span class="menu-collapsed">Help</span>
-            </div>
-          </a>
-          <a
-            href="#top"
-            data-toggle="sidebar-colapse"
-            class="bg-dark list-group-item list-group-item-action d-flex align-items-center"
+
+          <div
+            class="fixed-bottom border-top border-right border-secondary"
+            style="width: 240px"
+            id="collapse-id"
           >
-            <div class="d-flex w-100 justify-content-start align-items-center">
-              <span id="collapse-icon" class="fa fa-2x mr-3"></span>
-              <span id="collapse-text" class="menu-collapsed">Collapse</span>
-            </div>
-          </a>
+            <a
+              href="#top"
+              data-toggle="sidebar-colapse"
+              class="list-group-item list-group-item-action d-flex align-items-center"
+              onclick="collapseClicked()"
+            >
+              <div
+                class="d-flex w-100 justify-content-start align-items-center"
+              >
+                <span id="collapse-icon" class="fa fa-2x mr-3"></span>
+                <span id="collapse-text" class="menu-collapsed">Collapse</span>
+              </div>
+            </a>
+          </div>
         </ul>
         <!-- List Group END-->
       </div>
@@ -313,220 +298,616 @@
       <!-- MAIN -->
 
       <div class="container">
-        <form class="custom-form">
+        <div class="row">
+          <div class="col-md-6">
+            <form class="custom-form" id="checkForm">
+              <h4 class="form-header">Check Config Details of a hospital</h4>
+
+              <hr />
+              <select
+                id="hospitalDropdown"
+                class="form-control"
+                required
+              ></select>
+              <br />
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#configDetailsModalCheck"
+              >
+                Submit
+              </button>
+            </form>
+
+            <!-- Check Hospital Config Details Modal Element starts -->
+            <div
+              class="modal fade"
+              id="configDetailsModalCheck"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="configDetailsModalCheckLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="configDetailsModalCheckLabel">
+                      Config Details &nbsp;
+                      <a data-toggle="modal"
+                data-target="#configDetailsModalEdit"
+                         style="cursor: pointer;"><i style="font-size: 20px" class="fas">&#xf044;</i></a
+                      >
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="w-100 mx-auto" id="addForm">
+                      <!-- <hr /> -->
+                      <div class="form-group">
+                        <h5 class="field-header">
+                          Hospital Name
+                        </h5>
+                        <p class="form-control">
+                          Demo Hospital
+                        </p>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <h5 for="medContextIndex" class="field-header">
+                              Medication Context Index
+                            </h5>
+                            <p
+                              type="text"
+                              class="form-control"
+                              id="medContextIndex"
+                            ></p>
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="filterLocationCodingIndex"
+                              class="field-header"
+                            >
+                              Filter Location Coding Index
+                            </h5>
+                            <p
+                              type="text"
+                              class="form-control"
+                              id="filterLocationCodingIndex"
+                            >
+                              Demo Filter Location Coding Index
+                            </p>
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="filterLocationIdIndex"
+                              class="field-header"
+                            >
+                              Filter Location Id Index
+                            </h5>
+                            <p
+                              type="text"
+                              class="form-control"
+                              id="filterLocationIdIndex"
+                              required
+                            ></p>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterCsnIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter CSN Index
+                            </h5>
+                            <p
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterCsnIndex"
+                              required
+                            ></p>
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterTypeIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter Type Index
+                            </h5>
+                            <p
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterTypeIndex"
+                            ></p>
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterClassIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter Class Index
+                            </h5>
+                            <p
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterClassIndex"
+                            ></p>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Check Hospital Config Details Modal Element ends -->
+
+            <!-- Edit Hospital Config Details Modal Element starts -->
+            <div
+              class="modal fade"
+              id="configDetailsModalEdit"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="configDetailsModalEditLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="configDetailsModalEditLabel">
+                      Edit Config Details
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="w-100 mx-auto" id="addForm">
+                      <!-- <hr /> -->
+                      <div class="form-group">
+                        <h5 class="field-header">
+                          Hospital Name
+                        </h5>
+                        <p
+                          class="form-control"
+                        >Demo Hospital</p>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <h5 for="medContextIndex" class="field-header">
+                              Medication Context Index<span style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="medContextIndex"
+                              placeholder="Enter Medication Context Index"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="filterLocationCodingIndex"
+                              class="field-header"
+                            >
+                              Filter Location Coding Index<span
+                                style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="filterLocationCodingIndex"
+                              placeholder="Enter Filter Location Coding Index"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="filterLocationIdIndex"
+                              class="field-header"
+                            >
+                              Filter Location Id Index<span style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="filterLocationIdIndex"
+                              placeholder="Enter Filter Location Id Index"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterCsnIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter CSN Index<span
+                                style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterCsnIndex"
+                              placeholder="Enter Prefilter Encounter CSN Index"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterTypeIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter Type Index<span
+                                style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterTypeIndex"
+                              placeholder="Enter Prefilter Encounter Type Index"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterClassIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter Class Index<span
+                                style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterClassIndex"
+                              placeholder="Enter Prefilter Encounter Class Index"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Edit Hospital Config Details Modal Element ends -->
+          </div>
+
+          <div class="col-md-6">
+            <form class="custom-form">
+              <p>Click on "Add" to add new config details</p>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#configDetailsModal"
+              >
+                Add
+              </button>
+            </form>
+
+            <!-- Add Hospital Config Details Modal Element starts -->
+            <div
+              class="modal fade"
+              id="configDetailsModal"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="configDetailsModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="configDetailsModalLabel">
+                      Enter Config Details
+                    </h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="w-100 mx-auto" id="addForm">
+                      <!-- <hr /> -->
+                      <div class="form-group">
+                        <h5 class="field-header">
+                          Select a hospital<span style="color: red">*</span>
+                        </h5>
+                        <select
+                          id="hospitalDropdownAdd"
+                          class="form-control"
+                          required
+                        ></select>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <h5 for="medContextIndex" class="field-header">
+                              Medication Context Index<span style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="medContextIndex"
+                              placeholder="Enter Medication Context Index"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="filterLocationCodingIndex"
+                              class="field-header"
+                            >
+                              Filter Location Coding Index<span
+                                style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="filterLocationCodingIndex"
+                              placeholder="Enter Filter Location Coding Index"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="filterLocationIdIndex"
+                              class="field-header"
+                            >
+                              Filter Location Id Index<span style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="filterLocationIdIndex"
+                              placeholder="Enter Filter Location Id Index"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterCsnIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter CSN Index<span
+                                style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterCsnIndex"
+                              placeholder="Enter Prefilter Encounter CSN Index"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterTypeIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter Type Index<span
+                                style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterTypeIndex"
+                              placeholder="Enter Prefilter Encounter Type Index"
+                              required
+                            />
+                          </div>
+                          <div class="form-group">
+                            <h5
+                              for="preFilterEncounterClassIndex"
+                              class="field-header"
+                            >
+                              Prefilter Encounter Class Index<span
+                                style="color: red"
+                                >*</span
+                              >
+                            </h5>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="preFilterEncounterClassIndex"
+                              placeholder="Enter Prefilter Encounter Class Index"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Add Hospital Config Details Modal Element ends -->
+          </div>
+        </div>
+
+        <!-- <form class="w-75 mx-auto custom-form">
           <h4 class="form-header">Enter Config Details</h4>
           <hr />
-          <select id="hospitalDropdown" class="form-control" required>
-            <!-- Options will be dynamically added here -->
-          </select>
+          <div class="form-group">
+            <h5 class="field-header">
+              Select a hospital<span style="color: red">*</span>
+            </h5>
+            <select id="hospitalDropdown" class="form-control" required>
+            </select>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
 
-          <br />
+              <div class="form-group">
+                <h5 for="medContextIndex" class="field-header">
+                  Medication Context Index<span style="color: red">*</span>
+                </h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="medContextIndex"
+                  placeholder="Enter Medication Context Index"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <h5 for="filterLocationCodingIndex" class="field-header">
+                  Filter Location Coding Index<span style="color: red">*</span>
+                </h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="filterLocationCodingIndex"
+                  placeholder="Enter Filter Location Coding Index"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <h5 for="filterLocationIdIndex" class="field-header">
+                  Filter Location Id Index<span style="color: red">*</span>
+                </h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="filterLocationIdIndex"
+                  placeholder="Enter Filter Location Id Index"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <h5 for="preFilterEncounterCsnIndex" class="field-header">
+                  Prefilter Encounter CSN Index<span style="color: red">*</span>
+                </h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="preFilterEncounterCsnIndex"
+                  placeholder="Enter Prefilter Encounter CSN Index"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <h5 for="preFilterEncounterTypeIndex" class="field-header">
+                  Prefilter Encounter Type Index<span style="color: red"
+                    >*</span
+                  >
+                </h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="preFilterEncounterTypeIndex"
+                  placeholder="Enter Prefilter Encounter Type Index"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <h5 for="preFilterEncounterClassIndex" class="field-header">
+                  Prefilter Encounter Class Index<span style="color: red"
+                    >*</span
+                  >
+                </h5>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="preFilterEncounterClassIndex"
+                  placeholder="Enter Prefilter Encounter Class Index"
+                  required
+                />
+              </div>
 
-          <div class="form-group">
-            <label for="medContextIndex" class="field-header"
-              ><b
-                >Medication Context Index<span style="color: red">*</span></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="medContextIndex"
-              placeholder="Enter Medication Context Index"
-              required
-            />
+              
+            </div>
           </div>
-          <div class="form-group">
-            <label for="filterLocationCodingIndex" class="field-header"
-              ><b
-                >Filter Location Coding Index<span style="color: red"
-                  >*</span
-                ></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="filterLocationCodingIndex"
-              placeholder="Enter Filter Location Coding Index"
-              required
-            />
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
-          <div class="form-group">
-            <label for="filterLocationIdIndex" class="field-header"
-              ><b
-                >Filter Location Id Index<span style="color: red">*</span></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="filterLocationIdIndex"
-              placeholder="Enter Filter Location Id Index"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="preFilterEncounterCsnIndex" class="field-header"
-              ><b
-                >Prefilter Encounter CSN Index<span style="color: red"
-                  >*</span
-                ></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="preFilterEncounterCsnIndex"
-              placeholder="Enter Prefilter Encounter CSN Index"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="preFilterEncounterTypeIndex" class="field-header"
-              ><b
-                >Prefilter Encounter Type Index<span style="color: red"
-                  >*</span
-                ></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="preFilterEncounterTypeIndex"
-              placeholder="Enter Prefilter Encounter Type Index"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="preFilterEncounterClassIndex" class="field-header"
-              ><b
-                >Prefilter Encounter Class Index<span style="color: red"
-                  >*</span
-                ></b
-              ></label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="preFilterEncounterClassIndex"
-              placeholder="Enter Prefilter Encounter Class Index"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn"
-            style="background-color: #7d2ae8; color: #fff"
-          >
-            Submit
-          </button>
-        </form>
+          
+
+          
+        </form> -->
+
+        <!-- footer starts -->
+        <!-- footer ends  -->
       </div>
     </div>
-
-    <!-- footer starts -->
-
-    <div>
-      <!-- footer section start -->
-      <footer id="footer" style="border-top: 1.5px solid black">
-        <div class="footer-container">
-          <div class="row">
-            <div class="col-md-3">
-              <h3>
-                <b>Tile Health</b>
-              </h3>
-              <div class="footer-about">
-                <p>Tile Health Description</p>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="useful-link">
-                <h5>Useful Links</h5>
-                <img
-                  src="./assets/images/about/home_line.png"
-                  alt=""
-                  class="img-fluid"
-                />
-                <div class="use-links">
-                  <li>
-                    <a href=""><i class="fa-solid fa-angles-right"></i> Home</a>
-                  </li>
-                  <li>
-                    <a href=""
-                      ><i class="fa-solid fa-angles-right"></i> About Us</a
-                    >
-                  </li>
-                  <li>
-                    <a href=""
-                      ><i class="fa-solid fa-angles-right"></i> Contact</a
-                    >
-                  </li>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="social-links">
-                <h5>Follow Us</h5>
-                <img src="./assets/images/about/home_line.png" alt="" />
-                <div class="social-icons">
-                  <li>
-                    <a href=""
-                      ><i class="fa-brands fa-facebook-f"></i> Facebook</a
-                    >
-                  </li>
-                  <li>
-                    <a href=""
-                      ><i class="fa-brands fa-instagram"></i> Instagram</a
-                    >
-                  </li>
-                  <li>
-                    <a href=""
-                      ><i class="fa-brands fa-linkedin-in"></i> Linkedin</a
-                    >
-                  </li>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="address">
-                <h5>Address</h5>
-                <img
-                  src="./assets/images/about/home_line.png"
-                  alt=""
-                  class="img-fluid"
-                />
-                <div class="address-links">
-                  <li class="address1">
-                    <i class="fa-solid fa-location-dot"></i> Example Address
-                  </li>
-                  <li>
-                    <a href=""
-                      ><i class="fa-solid fa-phone"></i> Example Phone number</a
-                    >
-                  </li>
-                  <li>
-                    <a href=""
-                      ><i class="fa-solid fa-envelope"></i> Example Email</a
-                    >
-                  </li>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-      <!-- footer section end -->
-      <!-- footer copy right section start -->
-      <section id="copy-right" style="border-top: 1.5px solid black">
-        <div class="copy-right-sec">
-          <i class="fa-solid fa-copyright"></i> © 2024 Tile Health | All Rights
-          Reserved
-        </div>
-      </section>
-      <!-- footer copy right section end -->
-    </div>
-    <!-- footer ends  -->
 
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

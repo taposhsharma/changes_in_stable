@@ -27,3 +27,13 @@ function SidebarCollapse () {
     // Collapse/Expand icon
     $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
 }
+
+function collapseClicked(){
+    let element = document.getElementById('collapse-id');
+    if(element.style.width === "240px"){
+        element.style.width = "60px"
+    }
+    else{
+        element.style.width = "240px"
+    }
+}
