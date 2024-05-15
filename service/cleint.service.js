@@ -56,7 +56,7 @@ const getConfigFilePathService = async (clientId) => {
 
 const getClientGrouperData = async (clientId) =>{
     try{
-        const result = await clientRepository.clientGroperData(clientId)
+        const result = await sharedRepository.clientGroperData(clientId)
         if(result.error){
             return {error:result.error}
         }

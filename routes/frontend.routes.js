@@ -38,4 +38,5 @@ router.post('/addorgDeptMap', frontendController.addorgDeptMapController)
 router.post('/addignoredDepts', frontendController.addignoredDeptsController)
 router.post('/addresources', frontendController.addresourcesController)
 router.get('/getconfig/:id', frontendController.getConfigController)
+router.get('/getgrouper/:id',frontendController.getGrouperController)
 module.exports = router;

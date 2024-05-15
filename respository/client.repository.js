@@ -92,6 +92,7 @@ const clientGroperData = async (clientId) => {
     }
 
   }catch(error){
+    await client.query("ROLLBACK");
     if(error.message){
       return {error:error.message}
     }
@@ -123,6 +124,7 @@ const getIcuList = async (clientId) =>{
 
 
   }catch(error){
+    await client.query("ROLLBACK");
     if(error.message){
       return {error:error.message}
     }
@@ -155,6 +157,7 @@ const getorgDeptMap = async (clientId) =>{
 
 
   }catch(error){
+    await client.query("ROLLBACK");
     if(error.message){
       return {error:error.message}
     }
@@ -188,6 +191,7 @@ const getignoredDepts = async (clientId) =>{
 
 
   }catch(error){
+    await client.query("ROLLBACK");
     if(error.message){
       return {error:error.message}
     }
@@ -213,6 +217,7 @@ const getresources = async (clientId) =>{
 
 
   }catch(error){
+    await client.query("ROLLBACK");
     // console.log("errejkjsfdkljflk",error.message)
     if(error.message){
       return {error:error.message}

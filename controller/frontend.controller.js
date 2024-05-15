@@ -239,6 +239,24 @@ const getConfigController = async (req, res) => {
     res.status(401).send(error);
   }
 };
+
+const getGrouperController = async (req, res) => {
+  try {
+    const hospitalId = req.params.id;
+    // console.log(data)
+    const response = await frontendService.getGrouperService(hospitalId);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -255,5 +273,6 @@ module.exports = {
   addorgDeptMapController,
   addignoredDeptsController,
   addresourcesController,
-  getConfigController
+  getConfigController,
+  getGrouperController
 };

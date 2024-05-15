@@ -217,7 +217,22 @@ const getConfigService = async (clientId) => {
       if(result.error){
         return {error:result.error};
       }else{
-          return result.rows[0];
+          return result.rows;
+      }
+      // console.log(result)
+      
+  }catch(error){
+      return {error};
+  }
+}
+
+const getGrouperService = async (clientId) => {
+  try{
+      const result = await sharedRepository.clientGroperData(clientId);
+      if(result.error){
+        return {error:result.error};
+      }else{
+          return result.rows;
       }
       // console.log(result)
       
@@ -241,5 +256,6 @@ module.exports = {
   addorgDeptMapService,
   addignoredDeptsService,
   addresourcesService,
-  getConfigService
+  getConfigService,
+  getGrouperService
 };

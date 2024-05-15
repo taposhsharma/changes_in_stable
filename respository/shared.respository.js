@@ -27,13 +27,42 @@ const clientConfigPath = async (clientId) => {
       }
       
     } catch (error) {
-        await client.query("COMMIT");
+      await client.query("ROLLBACK");
       if(error.message){
         return {error:error.message}
       }
       return {error}
     }
   };
+
+
+  const clientGroperData = async (clientId) => {
+    try{
+      await client.query("BEGIN");
+      //  console.log(clientId)
+      const query = `SELECT id,row FROM grouper where clientid = ${clientId}`;
+      
+  
+      const result = await client.query(query);
+      await client.query("COMMIT");
+      // console.log(result)
+      if(result.rowCount>0){
+        return result;
+      }else{
+        return {error:"No Data found for grouper"}
+      }
+  
+    }catch(error){
+      await client.query("ROLLBACK");
+      if(error.message){
+        return {error:error.message}
+      }
+      return {error}
+    }
+  
+  }
+  
 module.exports = {
-    clientConfigPath
+    clientConfigPath,
+    clientGroperData
 }

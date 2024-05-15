@@ -218,6 +218,7 @@ GROUP BY DATE(date_record::date);`;
      await client.query('COMMIT');
      return result
   }catch(error){
+    await client.query("COMMIT");
     console.log(error)
     return {error};
   }
@@ -237,6 +238,7 @@ GROUP BY DATE(date_field);
     await client.query('COMMIT');
     return result;
   }catch(error){
+    await client.query("ROLLBACK");
     return {error}
   }
 }
@@ -250,6 +252,7 @@ const numHospitalReg = async () =>{
     return result
 
   }catch(error){
+    await client.query("ROLLBACK");
     return { error }
   }
 }
