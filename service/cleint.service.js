@@ -1,6 +1,7 @@
 // const client = require('../connection/db')
 const { partition } = require('lodash');
 const clientRepository = require('../respository/client.repository');
+const sharedRepository = require('../respository/shared.respository')
 const { error } = require('jquery');
 const client = require('../connection/db');
 
@@ -41,7 +42,7 @@ const updateCounterService = async (patientId , clientId) =>{
 
 const getConfigFilePathService = async (clientId) => {
     try{
-        const result = await clientRepository.clientConfigPath(clientId)
+        const result = await sharedRepository.clientConfigPath(clientId)
         if(result.error){
             return {error:result.error}
         }

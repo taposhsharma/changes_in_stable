@@ -1,6 +1,8 @@
 const { data } = require("jquery");
 const frontendRepository = require("../respository/frontend.repository");
 
+const sharedRepository = require('../respository/shared.respository')
+
 const getHospitalDataService = async () => {
   try {
     const result = frontendRepository.getHospitalDetails();
@@ -208,6 +210,21 @@ const addresourcesService = async (data) => {
       return {error};
   }
 }
+
+const getConfigService = async (clientId) => {
+  try{
+      const result = await sharedRepository.clientConfigPath(clientId);
+      if(result.error){
+        return {error:result.error};
+      }else{
+          return result.rows[0];
+      }
+      // console.log(result)
+      
+  }catch(error){
+      return {error};
+  }
+}
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -223,5 +240,6 @@ module.exports = {
   addIcuListService,
   addorgDeptMapService,
   addignoredDeptsService,
-  addresourcesService
+  addresourcesService,
+  getConfigService
 };

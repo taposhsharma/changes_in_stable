@@ -187,18 +187,8 @@ const addConfig = async (data) => {
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      let updateQuery = "UPDATE config SET ";
-      Object.entries(finalData).forEach(([column, value]) => {
-        updateQuery += `${column} = '${value}', `;
-      });
-
-      updateQuery = updateQuery.slice(0, -2);
-
-      updateQuery += " WHERE hospital_id ="+hospitalId;
-      await client.query("BEGIN");
-      result = await client.query(updateQuery);
-      await client.query("COMMIT");
-      return {message:"Config File Updated Successfully!"}
+     
+      return {message:"Config File Already Exists!"}
       
     }else{
       const insertQuery = `INSERT INTO config (hospital_id, ${columns}) VALUES (${hospitalId}, '${values}');`;

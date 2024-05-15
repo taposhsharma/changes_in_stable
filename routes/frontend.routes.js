@@ -37,4 +37,5 @@ router.post('/addIcuList', frontendController.addIcuListController)
 router.post('/addorgDeptMap', frontendController.addorgDeptMapController)
 router.post('/addignoredDepts', frontendController.addignoredDeptsController)
 router.post('/addresources', frontendController.addresourcesController)
+router.get('/getconfig/:id', frontendController.getConfigController)
 module.exports = router;
