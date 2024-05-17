@@ -350,6 +350,7 @@ const addConfig = async (data) => {
       return { message: "Config File Added Successfully!", code: 200 };
     }
   } catch (error) {
+    await client.query("COMMIT");
     // console.log(error);
     await client.query("ROLLBACK");
     if (error.message) {

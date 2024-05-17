@@ -1,3 +1,4 @@
+
 function setPreviousPage() {
   // Get the element by its ID
   var element = document.getElementById("addConfig_a");
@@ -14,7 +15,7 @@ const formCheck = document.querySelector("#checkForm");
 // handle select hospital for check config starts
 
 function populateDropdown() {
-  const dropdown = document.getElementById("hospitalDropdown");
+  const dropdown = document.getElementById("hospitalDropdownCheck");
 
   // Create a default "Select" option
   let defaultOption = document.createElement("option");
@@ -69,7 +70,7 @@ function populateDropdown() {
 }
 
 function logSelectedOption() {
-  const dropdown = document.getElementById("hospitalDropdown");
+  const dropdown = document.getElementById("hospitalDropdownCheck");
   dropdown.addEventListener("change", function () {
     // Find the selected hospital object
     const selectedHospital = hospitals.find(
@@ -87,11 +88,22 @@ logSelectedOption();
 
 // handle select hospital for check config ends
 
-// Adding event listener for add form submit
-formCheck.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const hospitalId = document.getElementById("hospitalDropdownAdd").value;
-});
+function handleFormSubmit() {
+  // Prevent default form submission
+  console.log("submit clicked");
+
+  // Show the config details div
+  document.getElementById("configDetails").style.display = "block";
+
+  // Optional: Add any additional logic after showing details (e.g., clear form)
+  return false; // Explicitly return false to prevent form submission
+}
+
+// // Adding event listener for add form submit
+// formCheck.addEventListener("submit", function (event) {
+//   event.preventDefault();
+//   const hospitalId = document.getElementById("hospitalDropdownCheck").value;
+// });
 
 // --------------------------------------------------------------------------------
 
@@ -180,21 +192,22 @@ formAdd.addEventListener("submit", function (event) {
 
   const hospitalId = document.getElementById("hospitalDropdownAdd").value;
 
-  const medContextIndexValue = document.getElementById("medContextIndex").value;
+  const medContextIndexValue =
+    document.getElementById("medContextIndexAdd").value;
   const filterLocationCodingIndexValue = document.getElementById(
-    "filterLocationCodingIndex"
+    "filterLocationCodingIndexAdd"
   ).value;
   const filterLocationIdIndexValue = document.getElementById(
-    "filterLocationIdIndex"
+    "filterLocationIdIndexAdd"
   ).value;
   const preFilterEncounterCsnIndexValue = document.getElementById(
-    "preFilterEncounterCsnIndex"
+    "preFilterEncounterCsnIndexAdd"
   ).value;
   const preFilterEncounterTypeIndexValue = document.getElementById(
-    "preFilterEncounterTypeIndex"
+    "preFilterEncounterTypeIndexAdd"
   ).value;
   const preFilterEncounterClassIndexValue = document.getElementById(
-    "preFilterEncounterClassIndex"
+    "preFilterEncounterClassIndexAdd"
   ).value;
 
   const configDetails = {
@@ -218,22 +231,51 @@ formAdd.addEventListener("submit", function (event) {
     body: JSON.stringify(configDetails),
   })
     .then((response) => {
+      console.log("response: ", response);
       if (response.ok) {
+        // Get the actual response data (assuming JSON format)
+        return response.json(); // This returns a promise that resolves to the parsed JSON data
+      } else {
+        return Promise.reject(response); // Reject the promise with the response object for error handling
+      }
+    })
+    .then((data) => {
+      // This then block handles the parsed response data (if successful)
+      console.log("Actual response data:", data);
+      // Access data properties here (e.g., data.message, data.status)
+      if (data.message === "Config File Already Exists!") {
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: data.message,
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      }
+      else if(data.message === "Config File Added Successfully!"){
         Swal.fire({
           icon: "success",
           title: "Success!",
-          text: "Added Config!",
-          showConfirmButton: false, // Remove the confirm button
-          timer: 2000, // Automatically close after 1.5 seconds
+          text: data.message,
+          showConfirmButton: false,
+          timer: 3000,
         });
-        form.reset();
-        console.log("Added Config!");
-        // You can perform further actions here after the request is successful
-      } else {
-        console.error("Error in adding config:", response.statusText);
       }
+      else{
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Something went wrong",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      }
+      
+      formAdd.reset();
     })
     .catch((error) => {
-      console.error("Error in adding config:", error);
+      // This catch block handles errors (including rejected promise from previous then block)
+      // Handle errors here
+      console.error("Error in adding config:", error.statusText || error); // Use error.statusText if available, otherwise default error message
     });
 });

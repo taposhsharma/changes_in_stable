@@ -299,26 +299,123 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <form class="custom-form" id="checkForm">
+          <div class="col-md-7">
+            <form
+              class="custom-form"
+              id="checkForm"
+              onsubmit="return handleFormSubmit();"
+            >
               <h4 class="form-header">Check Config Details of a hospital</h4>
 
+              <div class="row">
+                <div class="col-md-10">
+                  <select
+                    id="hospitalDropdownCheck"
+                    class="form-control"
+                    required
+                  ></select>
+                </div>
+                <div class="col-md-2">
+                  <!-- <button
+                    type="submit"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#configDetailsModalCheck"
+                  >
+                    Submit
+                  </button> -->
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
               <hr />
-              <select
-                id="hospitalDropdown"
-                class="form-control"
-                required
-              ></select>
-              <br />
 
-              <button
-                type="submit"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#configDetailsModalCheck"
-              >
-                Submit
-              </button>
+              <div class="row p-3" id="configDetails" style="display: none">
+                <div class="d-flex justify-content-end">
+                  <a
+                    data-toggle="modal"
+                    data-target="#configDetailsModalEdit"
+                    style="cursor: pointer"
+                    ><i style="font-size: 20px" class="fas">&#xf044;</i></a
+                  >
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <h5 for="medContextIndex" class="field-header">
+                        Medication Context Index
+                      </h5>
+                      <p
+                        type="text"
+                        class="form-control"
+                        id="medContextIndex"
+                      >3456</p>
+                    </div>
+                    <div class="form-group">
+                      <h5 for="filterLocationCodingIndex" class="field-header">
+                        Filter Location Coding Index
+                      </h5>
+                      <p
+                        type="text"
+                        class="form-control"
+                        id="filterLocationCodingIndex"
+                      >
+                        1234
+                      </p>
+                    </div>
+                    <div class="form-group">
+                      <h5 for="filterLocationIdIndex" class="field-header">
+                        Filter Location Id Index
+                      </h5>
+                      <p
+                        type="text"
+                        class="form-control"
+                        id="filterLocationIdIndex"
+                        required
+                      >9876
+                    </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <h5 for="preFilterEncounterCsnIndex" class="field-header">
+                        Prefilter Encounter CSN Index
+                      </h5>
+                      <p
+                        type="text"
+                        class="form-control"
+                        id="preFilterEncounterCsnIndex"
+                        required
+                      >5678</p>
+                    </div>
+                    <div class="form-group">
+                      <h5
+                        for="preFilterEncounterTypeIndex"
+                        class="field-header"
+                      >
+                        Prefilter Encounter Type Index
+                      </h5>
+                      <p
+                        type="text"
+                        class="form-control"
+                        id="preFilterEncounterTypeIndex"
+                      >0987</p>
+                    </div>
+                    <div class="form-group">
+                      <h5
+                        for="preFilterEncounterClassIndex"
+                        class="field-header"
+                      >
+                        Prefilter Encounter Class Index
+                      </h5>
+                      <p
+                        type="text"
+                        class="form-control"
+                        id="preFilterEncounterClassIndex"
+                      >6789</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </form>
 
             <!-- Check Hospital Config Details Modal Element starts -->
@@ -335,9 +432,11 @@
                   <div class="modal-header">
                     <h5 class="modal-title" id="configDetailsModalCheckLabel">
                       Config Details &nbsp;
-                      <a data-toggle="modal"
-                data-target="#configDetailsModalEdit"
-                         style="cursor: pointer;"><i style="font-size: 20px" class="fas">&#xf044;</i></a
+                      <a
+                        data-toggle="modal"
+                        data-target="#configDetailsModalEdit"
+                        style="cursor: pointer"
+                        ><i style="font-size: 20px" class="fas">&#xf044;</i></a
                       >
                     </h5>
                     <button
@@ -350,15 +449,11 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form class="w-100 mx-auto" id="addForm">
+                    <form class="w-100 mx-auto" id="chckForm">
                       <!-- <hr /> -->
                       <div class="form-group">
-                        <h5 class="field-header">
-                          Hospital Name
-                        </h5>
-                        <p class="form-control">
-                          Demo Hospital
-                        </p>
+                        <p class="field-header">Hospital Name</p>
+                        <p class="">Demo Hospital</p>
                       </div>
 
                       <div class="row">
@@ -479,15 +574,11 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form class="w-100 mx-auto" id="addForm">
+                    <form class="w-100 mx-auto" id="checkForm">
                       <!-- <hr /> -->
                       <div class="form-group">
-                        <h5 class="field-header">
-                          Hospital Name
-                        </h5>
-                        <p
-                          class="form-control"
-                        >Demo Hospital</p>
+                        <h5 class="field-header">Hospital Name</h5>
+                        <p class="form-control">Demo Hospital</p>
                       </div>
 
                       <div class="row">
@@ -619,7 +710,7 @@
             <!-- Edit Hospital Config Details Modal Element ends -->
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-5">
             <form class="custom-form">
               <p>Click on "Add" to add new config details</p>
               <button
@@ -681,7 +772,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="medContextIndex"
+                              id="medContextIndexAdd"
                               placeholder="Enter Medication Context Index"
                               required
                             />
@@ -699,7 +790,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="filterLocationCodingIndex"
+                              id="filterLocationCodingIndexAdd"
                               placeholder="Enter Filter Location Coding Index"
                               required
                             />
@@ -716,7 +807,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="filterLocationIdIndex"
+                              id="filterLocationIdIndexAdd"
                               placeholder="Enter Filter Location Id Index"
                               required
                             />
@@ -725,7 +816,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <h5
-                              for="preFilterEncounterCsnIndex"
+                              for="preFilterEncounterCsnIndexAdd"
                               class="field-header"
                             >
                               Prefilter Encounter CSN Index<span
@@ -736,7 +827,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="preFilterEncounterCsnIndex"
+                              id="preFilterEncounterCsnIndexAdd"
                               placeholder="Enter Prefilter Encounter CSN Index"
                               required
                             />
@@ -754,7 +845,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="preFilterEncounterTypeIndex"
+                              id="preFilterEncounterTypeIndexAdd"
                               placeholder="Enter Prefilter Encounter Type Index"
                               required
                             />
@@ -772,7 +863,7 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="preFilterEncounterClassIndex"
+                              id="preFilterEncounterClassIndexAdd"
                               placeholder="Enter Prefilter Encounter Class Index"
                               required
                             />
