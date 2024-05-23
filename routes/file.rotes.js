@@ -5,6 +5,7 @@ const biologic = require('../src/medicationrequestdata')
 const hospiatalProblem = require('../src/hospitalproblem')
 const encounter = require('../src/encdata');
 const medadmin = require("../src/medadmindata");
+const procedure = require('../src/procedure')
 
 router.get("/medsdata", (req, res) => {
     // Read the content of the file
@@ -1075,5 +1076,9 @@ res.send(medadmin)
 
 router.post("/logs",(req,res)=>{
   console.log("req.data",req.body)
+})
+
+router.get('/procedure',(req,res)=>{
+  res.send(procedure)
 })
 module.exports = router
