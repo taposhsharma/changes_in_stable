@@ -273,6 +273,39 @@ try{
 }
 }
 
+const updateGrouperController = async (req,res)=>{
+  try{
+     const data = req.body;
+     const response = await frontendService.updateGrouperService(data);
+     
+     if(response.error){
+    
+      res.status(401).send(response.error)
+     }else{
+      res.status(200).send(response)
+     }
+  }catch(error){
+    res.status(401).send(error)
+  }
+  }
+
+
+  const deleteGrouperController = async (req,res)=>{
+    try{
+       const data = req.body;
+       const response = await frontendService.deleteGrouperService(data);
+       
+       if(response.error){
+      
+        res.status(401).send(response.error)
+       }else{
+        res.status(200).send(response)
+       }
+    }catch(error){
+      res.status(401).send(error)
+    }
+    }
+
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -291,5 +324,7 @@ module.exports = {
   addresourcesController,
   getConfigController,
   getGrouperController,
-  updateConfigController
+  updateConfigController,
+  updateGrouperController,
+  deleteGrouperController
 };

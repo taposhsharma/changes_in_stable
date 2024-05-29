@@ -346,6 +346,68 @@ const addGrouper = async (data) => {
   }
 };
 
+const updateGrouper = async (data) => {
+  try {
+    const { hospitalId,sno, ...finalData } = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM grouper where clientid = ${hospitalId} and sno = ${sno}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      const setClause = Object.entries(finalData)
+        .map(([key, value]) => `${key} = '${value}'`)
+        .join(", ");
+      query = `UPDATE grouper SET ${setClause} WHERE clientid = ${hospitalId} and sno = ${sno};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Grouper Updated Successfully!" };
+    } else {
+      return { message: "Grouper not exists." };
+    }
+  } catch (error) {
+    // console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
+
+
+const deleteGrouper = async (data) => {
+  try {
+    const { hospitalId,sno} = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM grouper where clientid = ${hospitalId} and sno = ${sno}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      
+      query = `DELETE FROM grouper WHERE clientid = ${hospitalId} and sno = ${sno};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Grouper deleted Successfully!" };
+    } else {
+      return { message: "Grouper not exists." };
+    }
+  } catch (error) {
+    // console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
+
+
 const addicuList = async (data) => {
   try {
     // console.log(data)
@@ -481,5 +543,7 @@ module.exports = {
   addorgDeptMap,
   addignoredDepts,
   addresources,
-  updateConfig
+  updateConfig,
+  updateGrouper,
+  deleteGrouper
 };

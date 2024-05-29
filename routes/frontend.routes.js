@@ -39,5 +39,7 @@ router.post('/addignoredDepts', frontendController.addignoredDeptsController)
 router.post('/addresources', frontendController.addresourcesController)
 router.get('/getconfig/:id', frontendController.getConfigController)
 router.get('/getgrouper/:id',frontendController.getGrouperController)
-router.post('/updateconfig',frontendController.updateConfigController)
+router.put('/updateconfig',frontendController.updateConfigController)
+router.put('/updateGrouper',frontendController.updateGrouperController)
+router.delete('/deleteGrouper', frontendController.deleteGrouperController)
 module.exports = router;
