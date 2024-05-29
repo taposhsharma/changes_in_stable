@@ -40,7 +40,7 @@ const clientConfigPath = async (clientId) => {
     try{
       await client.query("BEGIN");
       //  console.log(clientId)
-      const query = `SELECT id,row FROM grouper where clientid = ${clientId}`;
+      const query = `SELECT id,row,sno FROM grouper where clientid = ${clientId}`;
       
   
       const result = await client.query(query);

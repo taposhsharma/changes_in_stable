@@ -1,4 +1,4 @@
-const { data } = require("jquery");
+const { data, error } = require("jquery");
 const frontendRepository = require("../respository/frontend.repository");
 
 const sharedRepository = require('../respository/shared.respository')
@@ -240,6 +240,21 @@ const getGrouperService = async (clientId) => {
       return {error};
   }
 }
+
+const updateConfigService = async (data) =>{
+  try{
+   const result = await frontendRepository.updateConfig(data);
+  //  console.log(result)
+   if(result.error){
+    // console.log(result.error)
+    return {error: result.error}
+   }else{
+    return result
+   }
+  }catch(error){
+    return { error}
+  }
+}
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -257,5 +272,6 @@ module.exports = {
   addignoredDeptsService,
   addresourcesService,
   getConfigService,
-  getGrouperService
+  getGrouperService,
+  updateConfigService
 };

@@ -257,6 +257,22 @@ const getGrouperController = async (req, res) => {
 };
 
 
+const updateConfigController = async (req,res)=>{
+try{
+   const data = req.body;
+   const response = await frontendService.updateConfigService(data);
+   
+   if(response.error){
+  
+    res.status(401).send(response.error)
+   }else{
+    res.status(200).send(response)
+   }
+}catch(error){
+  res.status(401).send(error)
+}
+}
+
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -274,5 +290,6 @@ module.exports = {
   addignoredDeptsController,
   addresourcesController,
   getConfigController,
-  getGrouperController
+  getGrouperController,
+  updateConfigController
 };

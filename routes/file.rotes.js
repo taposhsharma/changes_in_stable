@@ -1075,7 +1075,7 @@ res.send(medadmin)
 
 
 router.post("/logs",(req,res)=>{
-  console.log("req.data",req.body)
+  // console.log("req.data",req.body)
 })
 
 router.get('/procedure',(req,res)=>{

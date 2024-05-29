@@ -19,6 +19,9 @@ const getHospitalDetails = async (clientId) => {
     }
   } catch (error) {
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error };
   }
 };
@@ -44,8 +47,11 @@ const addHospital = async (data) => {
       return { message: "Hospital added successfully" };
     }
   } catch (error) {
-    console.log(error);
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    
     return { error };
   }
 };
@@ -76,8 +82,12 @@ const getStats = async (data) => {
       return { error: "No Logs Found" };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+   
     return { error };
   }
 };
@@ -101,8 +111,11 @@ const addLisence = async (data) => {
       return { message: "Lisence added successfully" };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error };
   }
 };
@@ -141,7 +154,10 @@ const signup = async (data) => {
     }
   } catch (error) {
     await client.query("ROLLBACK");
-    console.error(error);
+    // console.error(error);
+    if(error.message){
+      return {error:error.message}
+    }
     return { error: error };
   }
 };
@@ -172,7 +188,11 @@ const login = async (data) => {
       token: token,
     };
   } catch (error) {
-    console.error(error);
+    // console.error(error);
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error: error };
   }
 };
@@ -187,45 +207,77 @@ const addConfig = async (data) => {
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-     
-      return {message:"Config File Already Exists!"}
-      
-    }else{
+      return { message: "Config File Already Exists!" };
+    } else {
       const insertQuery = `INSERT INTO config (hospital_id, ${columns}) VALUES (${hospitalId}, '${values}');`;
       await client.query("BEGIN");
       result = await client.query(insertQuery);
       await client.query("COMMIT");
-      return {message:"Config File Added Successfully!"}
+      return { message: "Config File Added Successfully!" };
     }
-
-   
-
   } catch (error) {
     // console.log(error);
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error };
   }
 };
 
-const totalHitsPerDay = async () =>{
-  try{
-     await client.query("BEGIN");
-     const query = `SELECT DATE(date_record::date) AS date,
+const updateConfig = async (data) => {
+  try {
+    const { hospitalId, ...finalData } = data;
+    let query = `SELECT * FROM config where hospital_id = ${hospitalId}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      const setClause = Object.entries(finalData)
+        .map(([key, value]) => `${key} = '${value}'`)
+        .join(", ");
+      query = `UPDATE config SET ${setClause} WHERE hospital_id = '${hospitalId}';`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Config File Updated Successfully!" };
+    } else {
+      return { message: "Config File not exists." };
+    }
+  } catch (error) {
+    // console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
+
+const totalHitsPerDay = async () => {
+  try {
+    await client.query("BEGIN");
+    const query = `SELECT DATE(date_record::date) AS date,
      SUM(count) AS total_count
 FROM counter
 WHERE TO_DATE(date_record, 'YYYY-MM-DD') >= CURRENT_DATE - INTERVAL '6 days'
 GROUP BY DATE(date_record::date);`;
-     const result = await client.query(query);
-     await client.query('COMMIT');
-     return result
-  }catch(error){
+    const result = await client.query(query);
     await client.query("COMMIT");
-    console.log(error)
-    return {error};
+    return result;
+  } catch (error) {
+    await client.query("ROLLBACK");
+    // console.log(error);
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
   }
 };
 
-const hospitalRegPerDay = async () =>{
-  try{
+const hospitalRegPerDay = async () => {
+  try {
     await client.query("BEGIN");
     const query = `SELECT DATE(date_field ) AS date,
     COUNT(*) AS hospitals_count
@@ -234,36 +286,39 @@ WHERE date_field >= CURRENT_DATE - INTERVAL '6 days'
 GROUP BY DATE(date_field);
 `;
     const result = await client.query(query);
-    console.log(result.rows)
-    await client.query('COMMIT');
+    console.log(result.rows);
+    await client.query("COMMIT");
     return result;
-  }catch(error){
+  } catch (error) {
     await client.query("ROLLBACK");
-    return {error}
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
   }
-}
+};
 
-const numHospitalReg = async () =>{
-  try{
+const numHospitalReg = async () => {
+  try {
     await client.query("BEGIN");
-    const query =`SELECT COUNT(*) AS hospital_count from clients;`;
+    const query = `SELECT COUNT(*) AS hospital_count from clients;`;
     const result = await client.query(query);
-    await client.query('END');
-    return result
-
-  }catch(error){
+    await client.query("END");
+    return result;
+  } catch (error) {
     await client.query("ROLLBACK");
-    return { error }
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
   }
-}
-
-
+};
 
 const addGrouper = async (data) => {
   try {
     // console.log(data)
     await client.query("BEGIN");
-console.log(data)
+    // console.log(data)
     let query = `SELECT * FROM grouper WHERE clientid =${data.hospitalId} and id='${data.id}'`;
     let result = await client.query(query);
     await client.query("COMMIT");
@@ -284,16 +339,18 @@ console.log(data)
   } catch (error) {
     console.log(error);
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error };
   }
 };
-
 
 const addicuList = async (data) => {
   try {
     // console.log(data)
     await client.query("BEGIN");
-// console.log(data)
+    // console.log(data)
     let query = `SELECT * FROM icuList WHERE clientid =${data.hospitalId} and icu ='${data.icu}'`;
     let result = await client.query(query);
     await client.query("COMMIT");
@@ -310,18 +367,20 @@ const addicuList = async (data) => {
       return { message: "icu added successfully" };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error };
   }
 };
-
 
 const addorgDeptMap = async (data) => {
   try {
     // console.log(data)
     await client.query("BEGIN");
-console.log(data)
+    // console.log(data)
     let query = `SELECT * FROM orgDeptMap WHERE clientid =${data.hospitalId} and key='${data.key}'`;
     let result = await client.query(query);
     await client.query("COMMIT");
@@ -338,8 +397,11 @@ console.log(data)
       return { message: "orgDeptMap added successfully" };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error };
   }
 };
@@ -348,7 +410,7 @@ const addignoredDepts = async (data) => {
   try {
     // console.log(data)
     await client.query("BEGIN");
-console.log(data)
+    console.log(data);
     let query = `SELECT * FROM ignoredDepts WHERE clientid =${data.hospitalId} and key='${data.key}'`;
     let result = await client.query(query);
     await client.query("COMMIT");
@@ -365,8 +427,11 @@ console.log(data)
       return { message: "ignoredDepts added successfully" };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error };
   }
 };
@@ -375,7 +440,7 @@ const addresources = async (data) => {
   try {
     // console.log(data)
     await client.query("BEGIN");
-// console.log(data)
+    // console.log(data)
     let query = `SELECT * FROM resources WHERE client_id =${data.hospitalId} and action='${data.action}' and activitykey='${data.activitykey}'`;
     let result = await client.query(query);
     await client.query("COMMIT");
@@ -392,8 +457,11 @@ const addresources = async (data) => {
       return { message: "resources added successfully" };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
     return { error };
   }
 };
@@ -412,5 +480,6 @@ module.exports = {
   addicuList,
   addorgDeptMap,
   addignoredDepts,
-  addresources
+  addresources,
+  updateConfig
 };

@@ -1,4 +1,5 @@
 const chartConfig = require("./healthChartConfig");
+const {log,logD,flushLogs} = require('./loger')
 var rowMap = (chartConfig.rowMap = {});
 chartConfig.rows.forEach(function (v, i) {
   chartConfig.rowMap[v.name] = i;
@@ -46,7 +47,7 @@ async function getAsthmaActionPlan() {
         try {
             if (xhr.status != 200) {
                 // chartConfig.chart.failure = true;
-                console.log(this.type + " " + this.url + " " + xhr.status, "error");
+                log(this.type + " " + this.url + " " + xhr.status, "error");
                 return;
             }
             aap.entry = aap.entry || [];
@@ -97,7 +98,7 @@ function chopFilterCarePlans(encMap) {
 
             // Used as metadata for plotting and logging what was viewed
             obj.row = "Asthma Care Plan";
-
+            el6Q1sKg9RrZBWdUk9X-naQiXYPas6o3F23yfoGV6eas3
             // Don't display if the asthma care plan was created on an encounter
             // we don't have access to
             if (!encMap[group]) {
