@@ -318,6 +318,21 @@ const updateIcuListService = async (data) =>{
   }
 }
 
+const deleteIcuListService = async (data) =>{
+  try{
+   const result = await frontendRepository.deleteIcuList(data);
+  //  console.log(result)
+   if(result.error){
+    // console.log(result.error)
+    return {error: result.error}
+   }else{
+    return result
+   }
+  }catch(error){
+    return { error}
+  }
+}
+
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -340,5 +355,6 @@ module.exports = {
   updateGrouperService,
   deleteGrouperService,
   getIcuListService,
-  updateIcuListService
+  updateIcuListService,
+  deleteIcuListService
 };

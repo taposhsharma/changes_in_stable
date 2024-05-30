@@ -320,6 +320,22 @@ const updateIcuListController = async (req, res) => {
     res.status(401).send(error);
   }
 };
+
+
+const deleteIcuListController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.deleteIcuListService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -342,5 +358,6 @@ module.exports = {
   updateGrouperController,
   deleteGrouperController,
   getIcuListController,
-  updateIcuListController
+  updateIcuListController,
+  deleteIcuListController
 };
