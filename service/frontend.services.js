@@ -1,7 +1,8 @@
 const { data, error } = require("jquery");
 const frontendRepository = require("../respository/frontend.repository");
 
-const sharedRepository = require('../respository/shared.respository')
+const sharedRepository = require('../respository/shared.respository');
+const client = require("../connection/db");
 
 const getHospitalDataService = async () => {
   try {
@@ -285,6 +286,38 @@ const deleteGrouperService = async (data) =>{
     return { error}
   }
 }
+
+const getIcuListService = async (data) =>{
+  try{
+    const result = await frontendRepository.getIcuList(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
+
+
+const updateIcuListService = async (data) =>{
+  try{
+    const result = await frontendRepository.updateIcuList(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
+
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -305,5 +338,7 @@ module.exports = {
   getGrouperService,
   updateConfigService,
   updateGrouperService,
-  deleteGrouperService
+  deleteGrouperService,
+  getIcuListService,
+  updateIcuListService
 };

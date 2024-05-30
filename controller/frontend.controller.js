@@ -63,8 +63,7 @@ const signupController = async (req, res) => {
     const response = await frontendService.signupService(req.body);
     if (response.error) {
       res.status(401).send(response.error);
-    }else{
-
+    } else {
       res.status(200).send(response);
     }
   } catch (error) {
@@ -77,8 +76,7 @@ const loginController = async (req, res) => {
     const response = await frontendService.loginService(req.body);
     if (response.error) {
       res.status(401).send(response.error);
-    }else{
-
+    } else {
       res.status(200).send(response);
     }
   } catch (error) {
@@ -91,8 +89,7 @@ const addConfigController = async (req, res) => {
     const response = await frontendService.addConfigService(req.body);
     if (response.error) {
       res.status(401).send(response.error);
-    }else{
-
+    } else {
       res.status(200).send(response);
     }
   } catch (error) {
@@ -105,8 +102,7 @@ const totalHitsPerDayController = async (req, res) => {
     const response = await frontendService.totalHitsPerDayService();
     if (response.error) {
       res.status(401).send(error);
-    }else{
-
+    } else {
       res.status(200).send(response);
     }
   } catch (error) {
@@ -119,11 +115,9 @@ const hospitalRegPerDayController = async (req, res) => {
     const response = await frontendService.hospitalRegPerDayService();
     if (response.error) {
       res.status(401).send(response.error);
-    }else{
-
+    } else {
       res.status(200).send(response);
     }
-
   } catch (error) {
     res.status(401).send(error);
   }
@@ -134,11 +128,9 @@ const numHospitalRegController = async (req, res) => {
     const response = await frontendService.numHospitalRegService();
     if (response.error) {
       res.status(401).send(response.error);
-    }else{
-
+    } else {
       res.status(200).send(response);
     }
-
   } catch (error) {
     res.status(401).send(error);
   }
@@ -159,7 +151,6 @@ const addGrouperController = async (req, res) => {
     res.status(401).send(error);
   }
 };
-
 
 const addIcuListController = async (req, res) => {
   try {
@@ -256,56 +247,79 @@ const getGrouperController = async (req, res) => {
   }
 };
 
+const updateConfigController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.updateConfigService(data);
 
-const updateConfigController = async (req,res)=>{
-try{
-   const data = req.body;
-   const response = await frontendService.updateConfigService(data);
-   
-   if(response.error){
-  
-    res.status(401).send(response.error)
-   }else{
-    res.status(200).send(response)
-   }
-}catch(error){
-  res.status(401).send(error)
-}
-}
-
-const updateGrouperController = async (req,res)=>{
-  try{
-     const data = req.body;
-     const response = await frontendService.updateGrouperService(data);
-     
-     if(response.error){
-    
-      res.status(401).send(response.error)
-     }else{
-      res.status(200).send(response)
-     }
-  }catch(error){
-    res.status(401).send(error)
-  }
-  }
-
-
-  const deleteGrouperController = async (req,res)=>{
-    try{
-       const data = req.body;
-       const response = await frontendService.deleteGrouperService(data);
-       
-       if(response.error){
-      
-        res.status(401).send(response.error)
-       }else{
-        res.status(200).send(response)
-       }
-    }catch(error){
-      res.status(401).send(error)
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
     }
-    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
 
+const updateGrouperController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.updateGrouperService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+const deleteGrouperController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.deleteGrouperService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+const getIcuListController = async (req, res) => {
+  try {
+    const data = req.params.id;
+    const response = await frontendService.getIcuListService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+const updateIcuListController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.updateIcuListService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -326,5 +340,7 @@ module.exports = {
   getGrouperController,
   updateConfigController,
   updateGrouperController,
-  deleteGrouperController
+  deleteGrouperController,
+  getIcuListController,
+  updateIcuListController
 };

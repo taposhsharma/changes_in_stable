@@ -527,6 +527,60 @@ const addresources = async (data) => {
     return { error };
   }
 };
+
+const getIcuList = async (data) =>{
+  try{
+     const hospiatalId = data;
+     let query = `SELECT id,icu From iculist WHERE clientid = ${hospiatalId};`;
+     await client.query('BEGIN');
+     const result = await client.query(query);
+     await client.query("COMMIT");
+     if(result.rowCount>0){
+      return result.rows;
+     }else{
+      return { message:"ICU list is empty."}
+     }
+  }catch(error){
+    await client.query("ROLLBACK");
+    if(error.message){
+      return { error:error.message};
+    }
+    return { error }
+  }
+};
+
+const updateIcuList = async (data) => {
+  try {
+    const { hospitalId,id, ...finalData } = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM iculist where clientid = ${hospitalId} and id = ${id}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      const setClause = Object.entries(finalData)
+        .map(([key, value]) => `${key} = '${value}'`)
+        .join(", ");
+      query = `UPDATE iculist SET ${setClause} WHERE clientid = ${hospitalId} and id = ${id};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "ICU Updated Successfully!" };
+    } else {
+      return { message: "ICU not exists." };
+    }
+  } catch (error) {
+    // console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
+
+
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -545,5 +599,7 @@ module.exports = {
   addresources,
   updateConfig,
   updateGrouper,
-  deleteGrouper
+  deleteGrouper,
+  getIcuList,
+  updateIcuList
 };
