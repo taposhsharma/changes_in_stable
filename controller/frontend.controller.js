@@ -336,6 +336,53 @@ const deleteIcuListController = async (req, res) => {
     res.status(401).send(error);
   }
 };
+
+
+const getOrgDeptMapController = async (req, res) => {
+  try {
+    const data = req.params.id;
+    const response = await frontendService.getOrgDeptMapService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+const updateOrgDeptMapController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.updateOrgDeptMapService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+const deleteOrgDeptMapController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.deleteOrgDeptMapService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -359,5 +406,8 @@ module.exports = {
   deleteGrouperController,
   getIcuListController,
   updateIcuListController,
-  deleteIcuListController
+  deleteIcuListController,
+  getOrgDeptMapController,
+  updateOrgDeptMapController,
+  deleteOrgDeptMapController
 };

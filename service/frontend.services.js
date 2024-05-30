@@ -333,6 +333,52 @@ const deleteIcuListService = async (data) =>{
   }
 }
 
+const getOrgDeptMapService = async (data) =>{
+  try{
+    const result = await frontendRepository.getOrgDeptMap(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
+
+const updateOrgDeptMapService = async (data) =>{
+  try{
+    const result = await frontendRepository.updateOrgDeptMap(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
+
+
+const deleteOrgDeptMapService = async (data) =>{
+  try{
+   const result = await frontendRepository.deleteOrgDeptMap(data);
+  //  console.log(result)
+   if(result.error){
+    // console.log(result.error)
+    return {error: result.error}
+   }else{
+    return result
+   }
+  }catch(error){
+    return { error}
+  }
+}
+
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -356,5 +402,8 @@ module.exports = {
   deleteGrouperService,
   getIcuListService,
   updateIcuListService,
-  deleteIcuListService
+  deleteIcuListService,
+  getOrgDeptMapService,
+  updateOrgDeptMapService,
+  deleteOrgDeptMapService
 };

@@ -45,6 +45,9 @@ router.delete('/deleteGrouper', frontendController.deleteGrouperController)
 router.get('/getIcuList/:id',frontendController.getIcuListController)
 router.put('/updateIcuList',frontendController.updateIcuListController)
 router.delete('/deleteIcuList', frontendController.deleteIcuListController)
+router.get('/getOrgDeptMap/:id',frontendController.getOrgDeptMapController)
+router.put('/updateOrgDeptMap',frontendController.updateOrgDeptMapController)
+router.delete('/deleteOrgDeptMap', frontendController.deleteOrgDeptMapController)
 
 
 

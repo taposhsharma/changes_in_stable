@@ -607,6 +607,84 @@ const deleteIcuList = async (data) =>{
   }
 }
 
+const getOrgDeptMap = async (data) =>{
+  try{
+    const hospiatalId = data;
+    let query = `SELECT id,key,value From orgdeptmap WHERE clientid = ${hospiatalId};`;
+    await client.query('BEGIN');
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    if(result.rowCount>0){
+     return result.rows;
+    }else{
+     return { message:"No deparment is there for this hospiatal."}
+    }
+  }catch(error){
+    await client.query("ROLLBACK");
+    if(error.message){
+      return { error: error.message }
+    }
+    return { error }
+  }
+}
+
+const updateOrgDeptMap = async (data) => {
+  try {
+    const { hospitalId,id, ...finalData } = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM orgdeptmap where clientid = ${hospitalId} and id = ${id}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      const setClause = Object.entries(finalData)
+        .map(([key, value]) => `${key} = '${value}'`)
+        .join(", ");
+      query = `UPDATE orgdeptmap SET ${setClause} WHERE clientid = ${hospitalId} and id = ${id};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Department Updated Successfully!" };
+    } else {
+      return { message: "Department not exists." };
+    }
+  } catch (error) {
+    // console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
+
+const deleteOrgDeptMap = async (data) =>{
+  try{
+    const { hospitalId,id} = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM orgdeptmap where clientid = ${hospitalId} and id = ${id}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      
+      query = `DELETE FROM orgdeptmap WHERE clientid = ${hospitalId} and id = ${id};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Department deleted Successfully!" };
+    } else {
+      return { message: "Department not exists." };
+    }
+  }catch(error){
+    if(error.message){
+      return { error: error.message }
+    }
+    return { error }
+  }
+}
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -628,5 +706,8 @@ module.exports = {
   deleteGrouper,
   getIcuList,
   updateIcuList,
-  deleteIcuList
+  deleteIcuList,
+  getOrgDeptMap,
+  updateOrgDeptMap,
+  deleteOrgDeptMap
 };
