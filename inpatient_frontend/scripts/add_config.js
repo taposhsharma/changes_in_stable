@@ -1,4 +1,3 @@
-
 function setPreviousPage() {
   // Get the element by its ID
   var element = document.getElementById("addConfig_a");
@@ -8,6 +7,11 @@ function setPreviousPage() {
   localStorage.setItem("previousUrl", window.location.pathname);
 }
 setPreviousPage();
+
+// define configDataGlobal
+var configDataGlobal;
+
+// ---------------------------------  Form Check starts----------------------------------
 
 // Selecting the form element
 const formCheck = document.querySelector("#checkForm");
@@ -88,24 +92,164 @@ logSelectedOption();
 
 // handle select hospital for check config ends
 
-function handleFormSubmit() {
-  // Prevent default form submission
-  console.log("submit clicked");
+// Adding event listener for add form submit
+formCheck.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const hospitalId = document.getElementById("hospitalDropdownCheck").value;
+  console.log("hospitalId: ", hospitalId);
+
+  fetch(`http://localhost:3006/frontend/getconfig/${hospitalId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.ok) return response.json();
+      else {
+        return Promise.reject(response);
+      }
+    })
+    .then((configData) => {
+      console.log(configData);
+
+      // assign configData to configDataGlobal which will be accessed by edit from to fill
+      configDataGlobal = configData;
+
+      document.getElementById("medContextIndexCheck").textContent =
+        configData[0].medcontextindex || configData[0].medContextIndex;
+      document.getElementById("filterLocationCodingIndexCheck").textContent =
+        configData[0].filterlocationcodingindex ||
+        configData[0].filterLocationCodingIndex;
+      document.getElementById("filterLocationIdIndexCheck").textContent =
+        configData[0].filterlocationidindex ||
+        configData[0].filterLocationIdIndex;
+      document.getElementById("preFilterEncounterCsnIndexCheck").textContent =
+        configData[0].prefilterencountercsnindex ||
+        configData[0].preFilterEncounterCsnIndex;
+      document.getElementById("preFilterEncounterTypeIndexCheck").textContent =
+        configData[0].prefilterencountertypeindex ||
+        configData[0].preFilterEncounterTypeIndex;
+      document.getElementById("preFilterEncounterClassIndexCheck").textContent =
+        configData[0].prefilterencounterclassindex ||
+        configData[0].preFilterEncounterClassIndex;
+
+      document.getElementById("configDetails").style.display = "block";
+    })
+    .catch((error) => {
+      console.log("Error fetching data: ", error);
+    });
 
   // Show the config details div
-  document.getElementById("configDetails").style.display = "block";
+});
 
-  // Optional: Add any additional logic after showing details (e.g., clear form)
-  return false; // Explicitly return false to prevent form submission
+// ---------------------------------  Form Check ends ----------------------------------
+
+// --------------------------------   Form Edit starts ---------------------------------
+
+// handle Edit
+function handleEdit() {
+  console.log("configDataGlobal", configDataGlobal);
+
+  // document.getElementById("hospitalNameEdit").textContent = configDataGlobal[0].hospitalName || configDataGlobal[0].hospitalName;
+
+  document.getElementById("medContextIndexEdit").value =
+    configDataGlobal[0].medcontextindex || configDataGlobal[0].medContextIndex;
+  document.getElementById("filterLocationCodingIndexEdit").value =
+    configDataGlobal[0].filterlocationcodingindex ||
+    configDataGlobal[0].filterLocationCodingIndex;
+  document.getElementById("filterLocationIdIndexEdit").value =
+    configDataGlobal[0].filterlocationidindex ||
+    configDataGlobal[0].filterLocationIdIndex;
+  document.getElementById("preFilterEncounterCsnIndexEdit").value =
+    configDataGlobal[0].prefilterencountercsnindex ||
+    configDataGlobal[0].preFilterEncounterCsnIndex;
+  document.getElementById("preFilterEncounterTypeIndexEdit").value =
+    configDataGlobal[0].prefilterencountertypeindex ||
+    configDataGlobal[0].preFilterEncounterTypeIndex;
+  document.getElementById("preFilterEncounterClassIndexEdit").value =
+    configDataGlobal[0].prefilterencounterclassindex ||
+    configDataGlobal[0].preFilterEncounterClassIndex;
 }
 
-// // Adding event listener for add form submit
-// formCheck.addEventListener("submit", function (event) {
-//   event.preventDefault();
-//   const hospitalId = document.getElementById("hospitalDropdownCheck").value;
-// });
+// Selecting the form element
+const formEdit = document.querySelector("#editForm");
 
-// --------------------------------------------------------------------------------
+formEdit.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const hospitalId = configDataGlobal.hospitalId;
+
+  const medContextIndexValue =
+    document.getElementById("medContextIndexEdit").value;
+  const filterLocationCodingIndexValue = document.getElementById(
+    "filterLocationCodingIndexEdit"
+  ).value;
+  const filterLocationIdIndexValue = document.getElementById(
+    "filterLocationIdIndexEdit"
+  ).value;
+  const preFilterEncounterCsnIndexValue = document.getElementById(
+    "preFilterEncounterCsnIndexEdit"
+  ).value;
+  const preFilterEncounterTypeIndexValue = document.getElementById(
+    "preFilterEncounterTypeIndexEdit"
+  ).value;
+  const preFilterEncounterClassIndexValue = document.getElementById(
+    "preFilterEncounterClassIndexEdit"
+  ).value;
+
+  const configDetails = {
+    hospitalId: hospitalId,
+    medContextIndex: medContextIndexValue,
+    filterLocationCodingIndex: filterLocationCodingIndexValue,
+    filterLocationIdIndex: filterLocationIdIndexValue,
+    preFilterEncounterCsnIndex: preFilterEncounterCsnIndexValue,
+    preFilterEncounterTypeIndex: preFilterEncounterTypeIndexValue,
+    preFilterEncounterClassIndex: preFilterEncounterClassIndexValue,
+  };
+
+  console.log(configDetails);
+
+  fetch("http://localhost:3006/frontend/updateConfig",{
+    method: "UPDATE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(configDetails),
+  })
+  .then((response)=>{
+    console.log("response: ", response);
+    if (response.ok) {
+      // Get the actual response data (assuming JSON format)
+      return response.json(); // This returns a promise that resolves to the parsed JSON data
+    } else {
+      return Promise.reject(response); // Reject the promise with the response object for error handling
+    }
+  })
+  .then((data)=>{
+    if (data.message === "Config File updated Successfully!") {
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: data.message,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Something went wrong",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+  })
+});
+
+// --------------------------------   Form Edit ends ---------------------------------
+
+// ----------------------------------------  Form Add starts  ----------------------------------------
 
 // Selecting the form element
 const formAdd = document.querySelector("#addForm");
@@ -251,8 +395,7 @@ formAdd.addEventListener("submit", function (event) {
           showConfirmButton: false,
           timer: 3000,
         });
-      }
-      else if(data.message === "Config File Added Successfully!"){
+      } else if (data.message === "Config File Added Successfully!") {
         Swal.fire({
           icon: "success",
           title: "Success!",
@@ -260,8 +403,7 @@ formAdd.addEventListener("submit", function (event) {
           showConfirmButton: false,
           timer: 3000,
         });
-      }
-      else{
+      } else {
         Swal.fire({
           icon: "error",
           title: "Error!",
@@ -270,7 +412,7 @@ formAdd.addEventListener("submit", function (event) {
           timer: 3000,
         });
       }
-      
+
       formAdd.reset();
     })
     .catch((error) => {
@@ -279,3 +421,5 @@ formAdd.addEventListener("submit", function (event) {
       console.error("Error in adding config:", error.statusText || error); // Use error.statusText if available, otherwise default error message
     });
 });
+
+// --------------------------------   Form Add ends ---------------------------------

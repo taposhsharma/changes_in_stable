@@ -40,7 +40,7 @@
       class="fixed-top navbar navbar-expand-md navbar-dark bg-white border-bottom border-secondary"
     >
       <button
-        class="navbar-toggler navbar-toggler-right"
+        class="btn navbar-toggler navbar-toggler-humburger-icon"
         type="button"
         data-toggle="collapse"
         data-target="#navbarNavDropdown"
@@ -48,7 +48,7 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon bg-dark"> </span>
       </button>
       <a
         class="navbar-brand"
@@ -298,598 +298,577 @@
       <!-- MAIN -->
 
       <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <form
-              class="custom-form"
-              id="checkForm"
-              onsubmit="return handleFormSubmit();"
-            >
-              <h4 class="form-header">Check Config Details of a hospital</h4>
+        <!-- Check Config Detais starts  -->
+        <div class="d-flex justify-content-center">
+          <form class="custom-form w-75" id="checkForm">
+            <div class="row">
+              <h4 class="form-header pl-3">
+                Check Config Details of a hospital
+              </h4>
+              &nbsp;&nbsp;
+              <button
+                class="btn btn-success"
+                style="height: min-content"
+                type="button"
+                data-toggle="modal"
+                data-target="#configDetailsModal"
+              >
+                Add New
+              </button>
+            </div>
 
+            <div class="row">
+              <div class="col-md-10">
+                <select
+                  id="hospitalDropdownCheck"
+                  class="form-control"
+                  required
+                ></select>
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Check</button>
+              </div>
+            </div>
+            <hr />
+
+            <div class="row p-3" id="configDetails" style="display: none">
+              <div class="d-flex justify-content-end">
+                <a
+                  data-toggle="modal"
+                  data-target="#configDetailsModalEdit"
+                  style="cursor: pointer"
+                  onclick="handleEdit()"
+                  ><i style="font-size: 20px" class="fas">&#xf044;</i></a
+                >
+              </div>
               <div class="row">
-                <div class="col-md-10">
-                  <select
-                    id="hospitalDropdownCheck"
-                    class="form-control"
-                    required
-                  ></select>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <h5 for="medContextIndexCheck" class="field-header">
+                      Medication Context Index
+                    </h5>
+                    <p
+                      type="text"
+                      class="form-control"
+                      id="medContextIndexCheck"
+                    ></p>
+                  </div>
+                  <div class="form-group">
+                    <h5
+                      for="filterLocationCodingIndexCheck"
+                      class="field-header"
+                    >
+                      Filter Location Coding Index
+                    </h5>
+                    <p
+                      type="text"
+                      class="form-control"
+                      id="filterLocationCodingIndexCheck"
+                    ></p>
+                  </div>
+                  <div class="form-group">
+                    <h5 for="filterLocationIdIndexCheck" class="field-header">
+                      Filter Location Id Index
+                    </h5>
+                    <p
+                      type="text"
+                      class="form-control"
+                      id="filterLocationIdIndexCheck"
+                      required
+                    ></p>
+                  </div>
                 </div>
-                <div class="col-md-2">
-                  <!-- <button
-                    type="submit"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#configDetailsModalCheck"
-                  >
-                    Submit
-                  </button> -->
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <h5
+                      for="preFilterEncounterCsnIndexCheck"
+                      class="field-header"
+                    >
+                      Prefilter Encounter CSN Index
+                    </h5>
+                    <p
+                      type="text"
+                      class="form-control"
+                      id="preFilterEncounterCsnIndexCheck"
+                      required
+                    ></p>
+                  </div>
+                  <div class="form-group">
+                    <h5
+                      for="preFilterEncounterTypeIndexCheck"
+                      class="field-header"
+                    >
+                      Prefilter Encounter Type Index
+                    </h5>
+                    <p
+                      type="text"
+                      class="form-control"
+                      id="preFilterEncounterTypeIndexCheck"
+                    ></p>
+                  </div>
+                  <div class="form-group">
+                    <h5
+                      for="preFilterEncounterClassIndexCheck"
+                      class="field-header"
+                    >
+                      Prefilter Encounter Class Index
+                    </h5>
+                    <p
+                      type="text"
+                      class="form-control"
+                      id="preFilterEncounterClassIndexCheck"
+                    ></p>
+                  </div>
                 </div>
               </div>
-              <hr />
+            </div>
+          </form>
+        </div>
+        <!-- Check Config Details Ends  -->
 
-              <div class="row p-3" id="configDetails" style="display: none">
-                <div class="d-flex justify-content-end">
+        <!-- Check Hospital Config Details Modal Element starts -->
+        <div
+          class="modal fade"
+          id="configDetailsModalCheck"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="configDetailsModalCheckLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="configDetailsModalCheckLabel">
+                  Config Details &nbsp;
                   <a
                     data-toggle="modal"
                     data-target="#configDetailsModalEdit"
                     style="cursor: pointer"
                     ><i style="font-size: 20px" class="fas">&#xf044;</i></a
                   >
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <h5 for="medContextIndex" class="field-header">
-                        Medication Context Index
-                      </h5>
-                      <p
-                        type="text"
-                        class="form-control"
-                        id="medContextIndex"
-                      >3456</p>
-                    </div>
-                    <div class="form-group">
-                      <h5 for="filterLocationCodingIndex" class="field-header">
-                        Filter Location Coding Index
-                      </h5>
-                      <p
-                        type="text"
-                        class="form-control"
-                        id="filterLocationCodingIndex"
-                      >
-                        1234
-                      </p>
-                    </div>
-                    <div class="form-group">
-                      <h5 for="filterLocationIdIndex" class="field-header">
-                        Filter Location Id Index
-                      </h5>
-                      <p
-                        type="text"
-                        class="form-control"
-                        id="filterLocationIdIndex"
-                        required
-                      >9876
-                    </p>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <h5 for="preFilterEncounterCsnIndex" class="field-header">
-                        Prefilter Encounter CSN Index
-                      </h5>
-                      <p
-                        type="text"
-                        class="form-control"
-                        id="preFilterEncounterCsnIndex"
-                        required
-                      >5678</p>
-                    </div>
-                    <div class="form-group">
-                      <h5
-                        for="preFilterEncounterTypeIndex"
-                        class="field-header"
-                      >
-                        Prefilter Encounter Type Index
-                      </h5>
-                      <p
-                        type="text"
-                        class="form-control"
-                        id="preFilterEncounterTypeIndex"
-                      >0987</p>
-                    </div>
-                    <div class="form-group">
-                      <h5
-                        for="preFilterEncounterClassIndex"
-                        class="field-header"
-                      >
-                        Prefilter Encounter Class Index
-                      </h5>
-                      <p
-                        type="text"
-                        class="form-control"
-                        id="preFilterEncounterClassIndex"
-                      >6789</p>
-                    </div>
-                  </div>
-                </div>
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-            </form>
-
-            <!-- Check Hospital Config Details Modal Element starts -->
-            <div
-              class="modal fade"
-              id="configDetailsModalCheck"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="configDetailsModalCheckLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="configDetailsModalCheckLabel">
-                      Config Details &nbsp;
-                      <a
-                        data-toggle="modal"
-                        data-target="#configDetailsModalEdit"
-                        style="cursor: pointer"
-                        ><i style="font-size: 20px" class="fas">&#xf044;</i></a
-                      >
-                    </h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+              <div class="modal-body">
+                <form class="w-100 mx-auto" id="chckForm">
+                  <!-- <hr /> -->
+                  <div class="form-group">
+                    <p class="field-header">Hospital Name</p>
+                    <p class="">Hos 13</p>
                   </div>
-                  <div class="modal-body">
-                    <form class="w-100 mx-auto" id="chckForm">
-                      <!-- <hr /> -->
+
+                  <div class="row">
+                    <div class="col-md-6">
                       <div class="form-group">
-                        <p class="field-header">Hospital Name</p>
-                        <p class="">Demo Hospital</p>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <h5 for="medContextIndex" class="field-header">
-                              Medication Context Index
-                            </h5>
-                            <p
-                              type="text"
-                              class="form-control"
-                              id="medContextIndex"
-                            ></p>
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="filterLocationCodingIndex"
-                              class="field-header"
-                            >
-                              Filter Location Coding Index
-                            </h5>
-                            <p
-                              type="text"
-                              class="form-control"
-                              id="filterLocationCodingIndex"
-                            >
-                              Demo Filter Location Coding Index
-                            </p>
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="filterLocationIdIndex"
-                              class="field-header"
-                            >
-                              Filter Location Id Index
-                            </h5>
-                            <p
-                              type="text"
-                              class="form-control"
-                              id="filterLocationIdIndex"
-                              required
-                            ></p>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterCsnIndex"
-                              class="field-header"
-                            >
-                              Prefilter Encounter CSN Index
-                            </h5>
-                            <p
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterCsnIndex"
-                              required
-                            ></p>
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterTypeIndex"
-                              class="field-header"
-                            >
-                              Prefilter Encounter Type Index
-                            </h5>
-                            <p
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterTypeIndex"
-                            ></p>
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterClassIndex"
-                              class="field-header"
-                            >
-                              Prefilter Encounter Class Index
-                            </h5>
-                            <p
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterClassIndex"
-                            ></p>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Check Hospital Config Details Modal Element ends -->
-
-            <!-- Edit Hospital Config Details Modal Element starts -->
-            <div
-              class="modal fade"
-              id="configDetailsModalEdit"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="configDetailsModalEditLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="configDetailsModalEditLabel">
-                      Edit Config Details
-                    </h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form class="w-100 mx-auto" id="checkForm">
-                      <!-- <hr /> -->
-                      <div class="form-group">
-                        <h5 class="field-header">Hospital Name</h5>
-                        <p class="form-control">Demo Hospital</p>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <h5 for="medContextIndex" class="field-header">
-                              Medication Context Index<span style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="medContextIndex"
-                              placeholder="Enter Medication Context Index"
-                              required
-                            />
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="filterLocationCodingIndex"
-                              class="field-header"
-                            >
-                              Filter Location Coding Index<span
-                                style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="filterLocationCodingIndex"
-                              placeholder="Enter Filter Location Coding Index"
-                              required
-                            />
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="filterLocationIdIndex"
-                              class="field-header"
-                            >
-                              Filter Location Id Index<span style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="filterLocationIdIndex"
-                              placeholder="Enter Filter Location Id Index"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterCsnIndex"
-                              class="field-header"
-                            >
-                              Prefilter Encounter CSN Index<span
-                                style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterCsnIndex"
-                              placeholder="Enter Prefilter Encounter CSN Index"
-                              required
-                            />
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterTypeIndex"
-                              class="field-header"
-                            >
-                              Prefilter Encounter Type Index<span
-                                style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterTypeIndex"
-                              placeholder="Enter Prefilter Encounter Type Index"
-                              required
-                            />
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterClassIndex"
-                              class="field-header"
-                            >
-                              Prefilter Encounter Class Index<span
-                                style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterClassIndex"
-                              placeholder="Enter Prefilter Encounter Class Index"
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-dismiss="modal"
-                        >
-                          Close
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                          Submit
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Edit Hospital Config Details Modal Element ends -->
-          </div>
-
-          <div class="col-md-5">
-            <form class="custom-form">
-              <p>Click on "Add" to add new config details</p>
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#configDetailsModal"
-              >
-                Add
-              </button>
-            </form>
-
-            <!-- Add Hospital Config Details Modal Element starts -->
-            <div
-              class="modal fade"
-              id="configDetailsModal"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="configDetailsModalLabel"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="configDetailsModalLabel">
-                      Enter Config Details
-                    </h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form class="w-100 mx-auto" id="addForm">
-                      <!-- <hr /> -->
-                      <div class="form-group">
-                        <h5 class="field-header">
-                          Select a hospital<span style="color: red">*</span>
+                        <h5 for="medContextIndex" class="field-header">
+                          Medication Context Index
                         </h5>
-                        <select
-                          id="hospitalDropdownAdd"
+                        <p
+                          type="text"
                           class="form-control"
-                          required
-                        ></select>
+                          id="medContextIndex"
+                        ></p>
                       </div>
-
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <h5 for="medContextIndex" class="field-header">
-                              Medication Context Index<span style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="medContextIndexAdd"
-                              placeholder="Enter Medication Context Index"
-                              required
-                            />
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="filterLocationCodingIndex"
-                              class="field-header"
-                            >
-                              Filter Location Coding Index<span
-                                style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="filterLocationCodingIndexAdd"
-                              placeholder="Enter Filter Location Coding Index"
-                              required
-                            />
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="filterLocationIdIndex"
-                              class="field-header"
-                            >
-                              Filter Location Id Index<span style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="filterLocationIdIndexAdd"
-                              placeholder="Enter Filter Location Id Index"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterCsnIndexAdd"
-                              class="field-header"
-                            >
-                              Prefilter Encounter CSN Index<span
-                                style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterCsnIndexAdd"
-                              placeholder="Enter Prefilter Encounter CSN Index"
-                              required
-                            />
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterTypeIndex"
-                              class="field-header"
-                            >
-                              Prefilter Encounter Type Index<span
-                                style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterTypeIndexAdd"
-                              placeholder="Enter Prefilter Encounter Type Index"
-                              required
-                            />
-                          </div>
-                          <div class="form-group">
-                            <h5
-                              for="preFilterEncounterClassIndex"
-                              class="field-header"
-                            >
-                              Prefilter Encounter Class Index<span
-                                style="color: red"
-                                >*</span
-                              >
-                            </h5>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="preFilterEncounterClassIndexAdd"
-                              placeholder="Enter Prefilter Encounter Class Index"
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-dismiss="modal"
+                      <div class="form-group">
+                        <h5
+                          for="filterLocationCodingIndex"
+                          class="field-header"
                         >
-                          Close
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                          Submit
-                        </button>
+                          Filter Location Coding Index
+                        </h5>
+                        <p
+                          type="text"
+                          class="form-control"
+                          id="filterLocationCodingIndex"
+                        >
+                          Demo Filter Location Coding Index
+                        </p>
                       </div>
-                    </form>
+                      <div class="form-group">
+                        <h5 for="filterLocationIdIndex" class="field-header">
+                          Filter Location Id Index
+                        </h5>
+                        <p
+                          type="text"
+                          class="form-control"
+                          id="filterLocationIdIndex"
+                          required
+                        ></p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterCsnIndex"
+                          class="field-header"
+                        >
+                          Prefilter Encounter CSN Index
+                        </h5>
+                        <p
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterCsnIndex"
+                          required
+                        ></p>
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterTypeIndex"
+                          class="field-header"
+                        >
+                          Prefilter Encounter Type Index
+                        </h5>
+                        <p
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterTypeIndex"
+                        ></p>
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterClassIndex"
+                          class="field-header"
+                        >
+                          Prefilter Encounter Class Index
+                        </h5>
+                        <p
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterClassIndex"
+                        ></p>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
-            <!-- Add Hospital Config Details Modal Element ends -->
           </div>
         </div>
+        <!-- Check Hospital Config Details Modal Element ends -->
+
+        <!-- Edit Hospital Config Details Modal Element starts -->
+        <div
+          class="modal fade"
+          id="configDetailsModalEdit"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="configDetailsModalEditLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="configDetailsModalEditLabel">
+                  Edit Config Details
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="w-100 mx-auto" id="editForm">
+                  <!-- <hr /> -->
+                  <div class="form-group">
+                    <h5 class="field-header">Hospital Name</h5>
+                    <p class="form-control" id="hospitalNameEdit">Hos 13</p>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <h5 for="medContextIndexEdit" class="field-header">
+                          Medication Context Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="medContextIndexEdit"
+                          placeholder="Enter Medication Context Index"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="filterLocationCodingIndexEdit"
+                          class="field-header"
+                        >
+                          Filter Location Coding Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="filterLocationCodingIndexEdit"
+                          placeholder="Enter Filter Location Coding Index"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="filterLocationIdIndexEdit"
+                          class="field-header"
+                        >
+                          Filter Location Id Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="filterLocationIdIndexEdit"
+                          placeholder="Enter Filter Location Id Index"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterCsnIndexEdit"
+                          class="field-header"
+                        >
+                          Prefilter Encounter CSN Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterCsnIndexEdit"
+                          placeholder="Enter Prefilter Encounter CSN Index"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterTypeIndexEdit"
+                          class="field-header"
+                        >
+                          Prefilter Encounter Type Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterTypeIndexEdit"
+                          placeholder="Enter Prefilter Encounter Type Index"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterClassIndexEdit"
+                          class="field-header"
+                        >
+                          Prefilter Encounter Class Index<span
+                            style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterClassIndexEdit"
+                          placeholder="Enter Prefilter Encounter Class Index"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Edit Hospital Config Details Modal Element ends -->
+
+        <!-- Add Hospital Config Details Modal Element starts -->
+        <div
+          class="modal fade"
+          id="configDetailsModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="configDetailsModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="configDetailsModalLabel">
+                  Enter Config Details
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="w-100 mx-auto" id="addForm">
+                  <!-- <hr /> -->
+                  <div class="form-group">
+                    <h5 class="field-header">
+                      Select a hospital<span style="color: red">*</span>
+                    </h5>
+                    <select
+                      id="hospitalDropdownAdd"
+                      class="form-control"
+                      required
+                    ></select>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <h5 for="medContextIndex" class="field-header">
+                          Medication Context Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="medContextIndexAdd"
+                          placeholder="Enter Medication Context Index"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="filterLocationCodingIndex"
+                          class="field-header"
+                        >
+                          Filter Location Coding Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="filterLocationCodingIndexAdd"
+                          placeholder="Enter Filter Location Coding Index"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <h5 for="filterLocationIdIndex" class="field-header">
+                          Filter Location Id Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="filterLocationIdIndexAdd"
+                          placeholder="Enter Filter Location Id Index"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterCsnIndexAdd"
+                          class="field-header"
+                        >
+                          Prefilter Encounter CSN Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterCsnIndexAdd"
+                          placeholder="Enter Prefilter Encounter CSN Index"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterTypeIndex"
+                          class="field-header"
+                        >
+                          Prefilter Encounter Type Index<span style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterTypeIndexAdd"
+                          placeholder="Enter Prefilter Encounter Type Index"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <h5
+                          for="preFilterEncounterClassIndex"
+                          class="field-header"
+                        >
+                          Prefilter Encounter Class Index<span
+                            style="color: red"
+                            >*</span
+                          >
+                        </h5>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="preFilterEncounterClassIndexAdd"
+                          placeholder="Enter Prefilter Encounter Class Index"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add Hospital Config Details Modal Element ends -->
 
         <!-- <form class="w-75 mx-auto custom-form">
           <h4 class="form-header">Enter Config Details</h4>

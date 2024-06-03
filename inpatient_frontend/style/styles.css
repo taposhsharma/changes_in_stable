@@ -64,8 +64,9 @@
 
 .form-header {
   margin-bottom: 20px;
-  margin-top: 40px;
-  text-align: center;
+  margin-top: 5px;
+  text-align: left;
+  font-family: 'Helvetica', 'Arial', 'Roboto', 'Open Sans';
 }
 
 .submit-btn-color {
@@ -247,12 +248,6 @@
     100% {
       transform: rotate(360deg);
     }
-  }
-
-  .form-header{
-    margin-top: 5px;
-    text-align: left;
-    font-family: 'Helvetica', 'Arial', 'Roboto', 'Open Sans';
   }
 
   .field-header{
