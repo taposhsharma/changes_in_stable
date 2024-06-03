@@ -454,7 +454,20 @@ const updateresourcesService = async (data) =>{
     return { error }
   }
 }
-
+const deleteresourcesService = async (data) =>{
+  try{
+   const result = await frontendRepository.deleteresources(data);
+  //  console.log(result)
+   if(result.error){
+    // console.log(result.error)
+    return {error: result.error}
+   }else{
+    return result
+   }
+  }catch(error){
+    return { error}
+  }
+}
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -486,5 +499,6 @@ module.exports = {
   updateignoreddeptsService,
   deleteignoreddeptsService,
   getResourcesService,
-  updateresourcesService
+  updateresourcesService,
+  deleteresourcesService
 };

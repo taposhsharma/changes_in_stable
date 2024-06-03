@@ -53,6 +53,7 @@ router.put('/updateignoreddepts',frontendController.updateignoreddeptsController
 router.delete('/deleteignoreddepts', frontendController.deleteignoreddeptsController)
 router.get('/getResources/:id',frontendController.getResourcesController)
 router.put('/updateresources',frontendController.updateresourcesController)
+router.delete('/deleteresources', frontendController.deleteresourcesController)
 
 
 

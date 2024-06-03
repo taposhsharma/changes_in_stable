@@ -817,6 +817,34 @@ const updateresources = async (data) => {
     return { error };
   }
 };
+
+
+const deleteresources = async (data) =>{
+  try{
+    const { hospitalId,id} = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM resources where client_id = ${hospitalId} and id = ${id}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      
+      query = `DELETE FROM resources WHERE client_id = ${hospitalId} and id = ${id};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Resource deleted Successfully!" };
+    } else {
+      return { message: "Resource not exists." };
+    }
+  }catch(error){
+    if(error.message){
+      return { error: error.message }
+    }
+    return { error }
+  }
+}
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -846,5 +874,6 @@ module.exports = {
   updateignoreddepts,
   deleteignoreddepts,
   getResources,
-  updateresources
+  updateresources,
+  deleteresources
 };
