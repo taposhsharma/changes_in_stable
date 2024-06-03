@@ -685,6 +685,138 @@ const deleteOrgDeptMap = async (data) =>{
     return { error }
   }
 }
+
+const getignoreddepts = async (data) =>{
+  try{
+    const hospiatalId = data;
+    let query = `SELECT id,key,value From ignoreddepts WHERE clientid = ${hospiatalId};`;
+    await client.query('BEGIN');
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    if(result.rowCount>0){
+     return result.rows;
+    }else{
+     return { message:"No deparment is there for this hospiatal."}
+    }
+  }catch(error){
+    await client.query("ROLLBACK");
+    if(error.message){
+      return { error: error.message }
+    }
+    return { error }
+  }
+}
+
+const updateignoreddepts = async (data) => {
+  try {
+    const { hospitalId,id, ...finalData } = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM ignoreddepts where clientid = ${hospitalId} and id = ${id}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      const setClause = Object.entries(finalData)
+        .map(([key, value]) => `${key} = '${value}'`)
+        .join(", ");
+      query = `UPDATE ignoreddepts SET ${setClause} WHERE clientid = ${hospitalId} and id = ${id};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Department Updated Successfully!" };
+    } else {
+      return { message: "Department not exists." };
+    }
+  } catch (error) {
+    // console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
+
+const deleteignoreddepts = async (data) =>{
+  try{
+    const { hospitalId,id} = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM ignoreddepts where clientid = ${hospitalId} and id = ${id}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      
+      query = `DELETE FROM ignoreddepts WHERE clientid = ${hospitalId} and id = ${id};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Department deleted Successfully!" };
+    } else {
+      return { message: "Department not exists." };
+    }
+  }catch(error){
+    if(error.message){
+      return { error: error.message }
+    }
+    return { error }
+  }
+}
+
+
+const getResources = async (data) =>{
+  try{
+    const hospiatalId = data;
+    let query = `SELECT id,text,action,activitykey From resources WHERE client_id = ${hospiatalId};`;
+    await client.query('BEGIN');
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    if(result.rowCount>0){
+     return result.rows;
+    }else{
+     return { message:"No Resources is there for this hospiatal."}
+    }
+  }catch(error){
+    await client.query("ROLLBACK");
+    if(error.message){
+      return { error: error.message }
+    }
+    return { error }
+  }
+}
+
+const updateresources = async (data) => {
+  try {
+    const { hospitalId,id, ...finalData } = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM resources where client_id = ${hospitalId} and id = ${id}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      const setClause = Object.entries(finalData)
+        .map(([key, value]) => `${key} = '${value}'`)
+        .join(", ");
+      query = `UPDATE resources SET ${setClause} WHERE client_id = ${hospitalId} and id = ${id};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Resource Updated Successfully!" };
+    } else {
+      return { message: "Resource  not exists." };
+    }
+  } catch (error) {
+    // console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -709,5 +841,10 @@ module.exports = {
   deleteIcuList,
   getOrgDeptMap,
   updateOrgDeptMap,
-  deleteOrgDeptMap
+  deleteOrgDeptMap,
+  getignoreddepts,
+  updateignoreddepts,
+  deleteignoreddepts,
+  getResources,
+  updateresources
 };

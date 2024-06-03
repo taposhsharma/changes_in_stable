@@ -48,6 +48,11 @@ router.delete('/deleteIcuList', frontendController.deleteIcuListController)
 router.get('/getOrgDeptMap/:id',frontendController.getOrgDeptMapController)
 router.put('/updateOrgDeptMap',frontendController.updateOrgDeptMapController)
 router.delete('/deleteOrgDeptMap', frontendController.deleteOrgDeptMapController)
+router.get('/getignoreddepts/:id',frontendController.getignoreddeptsController)
+router.put('/updateignoreddepts',frontendController.updateignoreddeptsController)
+router.delete('/deleteignoreddepts', frontendController.deleteignoreddeptsController)
+router.get('/getResources/:id',frontendController.getResourcesController)
+router.put('/updateresources',frontendController.updateresourcesController)
 
 
 

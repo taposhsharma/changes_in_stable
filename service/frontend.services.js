@@ -379,6 +379,82 @@ const deleteOrgDeptMapService = async (data) =>{
   }
 }
 
+const getignoreddeptsService = async (data) =>{
+  try{
+    const result = await frontendRepository.getignoreddepts(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
+
+const updateignoreddeptsService = async (data) =>{
+  try{
+    const result = await frontendRepository.updateignoreddepts(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
+
+
+const deleteignoreddeptsService = async (data) =>{
+  try{
+   const result = await frontendRepository.deleteignoreddepts(data);
+  //  console.log(result)
+   if(result.error){
+    // console.log(result.error)
+    return {error: result.error}
+   }else{
+    return result
+   }
+  }catch(error){
+    return { error}
+  }
+}
+
+
+const getResourcesService = async (data) =>{
+  try{
+    const result = await frontendRepository.getResources(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
+const updateresourcesService = async (data) =>{
+  try{
+    const result = await frontendRepository.updateresources(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
+
 module.exports = {
   getHospitalDataService,
   addHospitalService,
@@ -405,5 +481,10 @@ module.exports = {
   deleteIcuListService,
   getOrgDeptMapService,
   updateOrgDeptMapService,
-  deleteOrgDeptMapService
+  deleteOrgDeptMapService,
+  getignoreddeptsService,
+  updateignoreddeptsService,
+  deleteignoreddeptsService,
+  getResourcesService,
+  updateresourcesService
 };

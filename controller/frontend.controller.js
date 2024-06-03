@@ -383,6 +383,82 @@ const deleteOrgDeptMapController = async (req, res) => {
   }
 };
 
+const getignoreddeptsController = async (req, res) => {
+  try {
+    const data = req.params.id;
+    const response = await frontendService.getignoreddeptsService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+const updateignoreddeptsController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.updateignoreddeptsService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+const deleteignoreddeptsController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.deleteignoreddeptsService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+
+const getResourcesController = async (req, res) => {
+  try {
+    const data = req.params.id;
+    const response = await frontendService.getResourcesService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+
+const updateresourcesController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.updateresourcesService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -409,5 +485,10 @@ module.exports = {
   deleteIcuListController,
   getOrgDeptMapController,
   updateOrgDeptMapController,
-  deleteOrgDeptMapController
+  deleteOrgDeptMapController,
+  getignoreddeptsController,
+  updateignoreddeptsController,
+  deleteignoreddeptsController,
+  getResourcesController,
+  updateresourcesController
 };
