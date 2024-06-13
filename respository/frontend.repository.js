@@ -1,5 +1,6 @@
 const client = require("../connection/db");
 const bcrypt = require("bcrypt");
+const { data } = require("jquery");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -903,6 +904,33 @@ const deleteresources = async (data) =>{
     return { error }
   }
 }
+
+const getconfig = async (clientId) => {
+  try {
+    await client.query("BEGIN");
+    //  console.log(clientId)
+    const query = `SELECT * FROM config where hospital_id = ${clientId}`;
+    
+
+    const result = await client.query(query);
+     await client.query("COMMIT");
+    
+    if(result.rowCount>0){
+      return {data:result.rows,code:200};
+    }
+    
+    else{
+      return { message:"Config file not found",code:404}
+    }
+    
+  } catch (error) {
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return {error}
+  }
+};
 module.exports = {
   getHospitalDetails,
   addHospital,
@@ -935,5 +963,6 @@ module.exports = {
   updateresources,
   deleteresources,
   updateHospitalDetails,
-  deleteHospital
+  deleteHospital,
+  getconfig
 };

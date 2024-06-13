@@ -214,11 +214,11 @@ const addresourcesService = async (data) => {
 
 const getConfigService = async (clientId) => {
   try{
-      const result = await sharedRepository.clientConfigPath(clientId);
+      const result = await frontendRepository.getconfig(clientId);
       if(result.error){
         return {error:result.error};
       }else{
-          return result.rows;
+          return result;
       }
       // console.log(result)
       

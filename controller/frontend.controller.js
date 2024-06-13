@@ -224,7 +224,13 @@ const getConfigController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
+     
+    
     }
   } catch (error) {
     res.status(401).send(error);
@@ -505,6 +511,7 @@ const deleteHospitalController = async (req, res) => {
     res.status(401).send(error);
   }
 };
+
 
 
 

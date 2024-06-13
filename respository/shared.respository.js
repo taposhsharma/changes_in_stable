@@ -13,17 +13,20 @@ const clientConfigPath = async (clientId) => {
       if(result.rowCount>0){
         return result;
       }
-      else{
-        result.rows = [{
-          medContextIndex:".7.2.798268",
-          filterLocationCodingIndex:".7.10.688867.4150",
-          filterLocationIdIndex:".7.2.686980",
-          preFilterEncounterCsnIndex:".7.3.698084.8",
-          preFilterEncounterTypeIndex:".7.10.698084.30",
-          preFilterEncounterClassIndex:".7.10.698084.10110"
+      // else{
+      //   result.rows = [{
+      //     medContextIndex:".7.2.798268",
+      //     filterLocationCodingIndex:".7.10.688867.4150",
+      //     filterLocationIdIndex:".7.2.686980",
+      //     preFilterEncounterCsnIndex:".7.3.698084.8",
+      //     preFilterEncounterTypeIndex:".7.10.698084.30",
+      //     preFilterEncounterClassIndex:".7.10.698084.10110"
       
-      }]
-        return  result
+      // }]
+      //   return  result
+      // }
+      else{
+        return { message:"Config file not found",code}
       }
       
     } catch (error) {
