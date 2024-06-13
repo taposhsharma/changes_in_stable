@@ -15,7 +15,7 @@ const getHospitalDetails = async () => {
       return result.rows;
     } else {
       await client.query("COMMIT");
-      return { error: "No Hospital Registered" };
+      return { error: "No Hospital Registered"};
     }
   } catch (error) {
     await client.query("ROLLBACK");
@@ -43,9 +43,9 @@ const updateHospitalDetails = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Hodpital Details Updated Successfully!" };
+      return { message: "Hodpital Details Updated Successfully!",code:200};
     } else {
-      return { message: "Hospital not exists." };
+      return { message: "Hospital not exists.",code:404 };
     }
   } catch (error) {
     // console.log(error)
@@ -71,9 +71,9 @@ const deleteHospital = async (data) =>{
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Hospital deleted Successfully!" };
+      return { message: "Hospital deleted Successfully!" ,code:200};
     } else {
-      return { message: "Hospital not exists." };
+      return { message: "Hospital not exists." ,code:404};
     }
   }catch(error){
     if(error.message){
@@ -101,7 +101,7 @@ const addHospital = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "Hospital added successfully" };
+      return { message: "Hospital added successfully",code:200 };
     }
   } catch (error) {
     await client.query("ROLLBACK");
@@ -165,7 +165,7 @@ const addLisence = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       console.log(result);
-      return { message: "Lisence added successfully" };
+      return { message: "Lisence added successfully",code:200 };
     }
   } catch (error) {
     // console.log(error);
@@ -206,7 +206,8 @@ const signup = async (data) => {
       return {
         success: "SignUp Successfully",
         data: { email: data.email, name: data.name },
-        token: token,
+        token: token
+      
       };
     }
   } catch (error) {
@@ -242,7 +243,7 @@ const login = async (data) => {
     return {
       success: "Login successful",
       data: { email: result.rows[0].email, name: result.rows[0].name },
-      token: token,
+      token: token
     };
   } catch (error) {
     // console.error(error);
@@ -270,7 +271,7 @@ const addConfig = async (data) => {
       await client.query("BEGIN");
       result = await client.query(insertQuery);
       await client.query("COMMIT");
-      return { message: "Config File Added Successfully!" };
+      return { message: "Config File Added Successfully!"};
     }
   } catch (error) {
     // console.log(error);
@@ -391,7 +392,7 @@ const addGrouper = async (data) => {
       await client.query("COMMIT");
       // console.log(result);
       console.log("Grouper added successfully");
-      return { message: "Grouper added successfully" };
+      return { message: "Grouper added successfully"};
     }
   } catch (error) {
     console.log(error);
@@ -420,9 +421,9 @@ const updateGrouper = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Grouper Updated Successfully!" };
+      return { message: "Grouper Updated Successfully!",code:200 };
     } else {
-      return { message: "Grouper not exists." };
+      return { message: "Grouper not exists." ,code:404};
     }
   } catch (error) {
     // console.log(error)
@@ -450,9 +451,9 @@ const deleteGrouper = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Grouper deleted Successfully!" };
+      return { message: "Grouper deleted Successfully!",code:200 };
     } else {
-      return { message: "Grouper not exists." };
+      return { message: "Grouper not exists." ,code:404};
     }
   } catch (error) {
     // console.log(error)
@@ -483,7 +484,7 @@ const addicuList = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "icu added successfully" };
+      return { message: "icu added successfully",code:200 };
     }
   } catch (error) {
     // console.log(error);
@@ -513,7 +514,7 @@ const addorgDeptMap = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "orgDeptMap added successfully" };
+      return { message: "orgDeptMap added successfully"};
     }
   } catch (error) {
     // console.log(error);
@@ -543,7 +544,7 @@ const addignoredDepts = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "ignoredDepts added successfully" };
+      return { message: "ignoredDepts added successfully",code:200 };
     }
   } catch (error) {
     // console.log(error);
@@ -573,7 +574,7 @@ const addresources = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "resources added successfully" };
+      return { message: "resources added successfully",code:200 };
     }
   } catch (error) {
     // console.log(error);
@@ -623,9 +624,9 @@ const updateIcuList = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "ICU Updated Successfully!" };
+      return { message: "ICU Updated Successfully!" ,code:200};
     } else {
-      return { message: "ICU not exists." };
+      return { message: "ICU not exists.",code:404 };
     }
   } catch (error) {
     // console.log(error)
@@ -652,9 +653,9 @@ const deleteIcuList = async (data) =>{
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "ICU deleted Successfully!" };
+      return { message: "ICU deleted Successfully!" ,code:200};
     } else {
-      return { message: "ICU not exists." };
+      return { message: "ICU not exists." ,code:404};
     }
   }catch(error){
     if(error.message){
@@ -702,9 +703,9 @@ const updateOrgDeptMap = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Department Updated Successfully!" };
+      return { message: "Department Updated Successfully!",code:200 };
     } else {
-      return { message: "Department not exists." };
+      return { message: "Department not exists.",code:404 };
     }
   } catch (error) {
     // console.log(error)
@@ -731,9 +732,9 @@ const deleteOrgDeptMap = async (data) =>{
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Department deleted Successfully!" };
+      return { message: "Department deleted Successfully!",code:200 };
     } else {
-      return { message: "Department not exists." };
+      return { message: "Department not exists.",code:404 };
     }
   }catch(error){
     if(error.message){
@@ -781,9 +782,9 @@ const updateignoreddepts = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Department Updated Successfully!" };
+      return { message: "Department Updated Successfully!" ,code:200};
     } else {
-      return { message: "Department not exists." };
+      return { message: "Department not exists." ,code:404};
     }
   } catch (error) {
     // console.log(error)
@@ -810,9 +811,9 @@ const deleteignoreddepts = async (data) =>{
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Department deleted Successfully!" };
+      return { message: "Department deleted Successfully!" ,code:200};
     } else {
-      return { message: "Department not exists." };
+      return { message: "Department not exists.",code:404 };
     }
   }catch(error){
     if(error.message){
@@ -861,9 +862,9 @@ const updateresources = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Resource Updated Successfully!" };
+      return { message: "Resource Updated Successfully!",code:200 };
     } else {
-      return { message: "Resource  not exists." };
+      return { message: "Resource  not exists." ,code:404};
     }
   } catch (error) {
     // console.log(error)
@@ -891,9 +892,9 @@ const deleteresources = async (data) =>{
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Resource deleted Successfully!" };
+      return { message: "Resource deleted Successfully!",code:200 };
     } else {
-      return { message: "Resource not exists." };
+      return { message: "Resource not exists.",code:404 };
     }
   }catch(error){
     if(error.message){

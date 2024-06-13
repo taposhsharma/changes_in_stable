@@ -270,7 +270,7 @@ const updateGrouperController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -285,7 +285,7 @@ const deleteGrouperController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -314,7 +314,7 @@ const updateIcuListController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -330,7 +330,7 @@ const deleteIcuListController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -361,7 +361,7 @@ const updateOrgDeptMapController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -376,7 +376,7 @@ const deleteOrgDeptMapController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -406,7 +406,7 @@ const updateignoreddeptsController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -421,7 +421,7 @@ const deleteignoreddeptsController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -453,7 +453,7 @@ const updateresourcesController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -468,7 +468,7 @@ const deleteresourcesController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
