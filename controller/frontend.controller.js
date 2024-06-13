@@ -90,7 +90,7 @@ const addConfigController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);

@@ -266,13 +266,13 @@ const addConfig = async (data) => {
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      return { message: "Config File Already Exists!" };
+      return { message: "Config File Already Exists!",code:409 };
     } else {
       const insertQuery = `INSERT INTO config (hospital_id, ${columns}) VALUES (${hospitalId}, '${values}');`;
       await client.query("BEGIN");
       result = await client.query(insertQuery);
       await client.query("COMMIT");
-      return { message: "Config File Added Successfully!"};
+      return { message: "Config File Added Successfully!",code:200};
     }
   } catch (error) {
     // console.log(error);
