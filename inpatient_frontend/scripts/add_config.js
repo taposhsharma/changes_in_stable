@@ -140,7 +140,6 @@ formCheck.addEventListener("submit", function (event) {
       console.log("Error fetching data: ", error);
     });
 
-  // Show the config details div
 });
 
 // ---------------------------------  Form Check ends ----------------------------------

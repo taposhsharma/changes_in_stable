@@ -298,11 +298,83 @@
       <!-- MAIN -->
 
       <div class="container">
-        <form class="custom-form">
+        <!-- Check Grouper Detais starts  -->
+        <div class="d-flex justify-content-center">
+          <form class="custom-form w-75" id="checkForm">
+            <div class="row">
+              <h4 class="form-header pl-3">
+                Check Grouper Details of a hospital
+              </h4>
+              &nbsp;&nbsp;
+              <button
+                class="btn btn-success"
+                style="height: min-content"
+                type="button"
+                data-toggle="modal"
+                data-target="#configDetailsModal"
+              >
+                Add New
+              </button>
+            </div>
+
+            <div class="row">
+              <div class="col-md-10">
+                <select
+                  id="hospitalDropdownCheck"
+                  class="form-control"
+                  required
+                ></select>
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Check</button>
+              </div>
+            </div>
+            <hr />
+
+            <div class="row p-3" id="grouperDetails" style="display: none">
+              <!-- loop over groupers of this hospital starts -->
+              <div class="row">
+                <div class="col-md-5 form-group">
+                  <h5 for="grouperNameCheck" class="filed-header">
+                    Grouper Name
+                  </h5>
+                  <p type="text" class="form-control" id="grouperNameCheck"></p>
+                </div>
+
+                <div class="col-md-5 form-group">
+                  <h5 for="grouperIdCheck" class="filed-header">Grouper Id</h5>
+                  <p type="text" class="form-control" id="grouperIdCheck"></p>
+                </div>
+                <div class="col-md-1 row">
+                  <a
+                    data-toggle="modal"
+                    data-target="#configDetailsModalEdit"
+                    style="cursor: pointer"
+                    onclick="handleEdit()"
+                    ><i style="font-size: 20px" class="fas">&#xf044;</i></a
+                  >
+                </div>
+                <div class="col-md-1 row">
+                  <a
+                    data-toggle="modal"
+                    data-target="#configDetailsModalEdit"
+                    style="cursor: pointer"
+                    onclick="handleDelete()"
+                    ><i style="font-size: 20px" class="fas">&#xf2ed;</i></a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- loop over groupers of this hospital ends -->
+          </form>
+        </div>
+        <!-- Check Grouper Detais ends  -->
+
+        <!-- <form class="custom-form">
           <h4 class="form-header">Enter Grouper Details</h4>
           <hr />
           <select id="hospitalDropdown" class="form-control" required>
-            <!-- Options will be dynamically added here -->
           </select>
 
           <br />
@@ -332,7 +404,7 @@
             />
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </form> -->
       </div>
     </div>
 

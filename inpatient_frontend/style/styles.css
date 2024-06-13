@@ -31,19 +31,6 @@
   background-color: #e7ecf0;
 }
 
-/* .nav-link {
-  text-decoration: none;
-  padding: 20px 20px;
-  display: inline-block;
-  position: relative;
-  opacity: 0.75;
-  text-decoration: none;
-}
-
-.nav-link:hover {
-  opacity: 1;
-  cursor: pointer;
-} */
 
 .home-body {
   background-image: url("/inpatient_frontend/images/home-page-background.jpg");
@@ -201,9 +188,9 @@
 
 /* Navbar styles starts */
 
-.tileHealthClass{
+/* .tileHealthClass{
     font-family: 'Times New Roman', 'Georgia', 'Merriweather', 'Playfair Display';
-}
+} */
 
 
 /* loader css */

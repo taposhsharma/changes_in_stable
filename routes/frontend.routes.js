@@ -61,5 +61,4 @@ router.get('/getLicense/:id',frontendController.getLicenseController)
 router.put('/updateLicense',frontendController.updateLicenseController)
 
 
-
 module.exports = router;
