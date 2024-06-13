@@ -280,6 +280,7 @@ const addConfig = async (data) => {
     if(error.message){
       return {error:error.message}
     }
+    
     return { error };
   }
 };

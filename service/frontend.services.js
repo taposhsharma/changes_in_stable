@@ -85,6 +85,7 @@ const loginService = async (data) => {
 const addConfigService = async (data) => {
   try {
     const result = await frontendRepository.addConfig(data);
+    // console.log(result)
     if(result.error){
       return {error:result.error};
     }else{

@@ -87,10 +87,12 @@ const loginController = async (req, res) => {
 const addConfigController = async (req, res) => {
   try {
     const response = await frontendService.addConfigService(req.body);
+    // console.log(response)
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(code).send({message:response.message});
+      
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
