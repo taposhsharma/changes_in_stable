@@ -19,7 +19,9 @@ const frontendController = require('../controller/frontend.controller')
 // router.get('/getcounts', clientController.countTableController)
 
 router.get('/getHospitalData',frontendController.getHospitalDataController)
+router.put('/updateHospitalDetails',frontendController.updateHospitalDetailsController)
 router.post('/addHospital',frontendController.addHospitalController)
+router.delete('/deleteHospital', frontendController.deleteHospitalController)
 
 router.post('/getStats',frontendController.getStatsController)
 router.post('/addLisence',frontendController.addLisenceController)

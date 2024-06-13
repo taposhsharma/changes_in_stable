@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const getHospitalDetails = async (clientId) => {
+const getHospitalDetails = async () => {
   try {
     await client.query("BEGIN");
     const query = `SELECT * FROM clients;`;
@@ -25,6 +25,63 @@ const getHospitalDetails = async (clientId) => {
     return { error };
   }
 };
+
+const updateHospitalDetails = async (data) => {
+  try {
+    const { hospitalId, ...finalData } = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM clients where id = ${hospitalId};`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      const setClause = Object.entries(finalData)
+        .map(([key, value]) => `${key} = '${value}'`)
+        .join(", ");
+      query = `UPDATE clients SET ${setClause} WHERE id = ${hospitalId};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Hodpital Details Updated Successfully!" };
+    } else {
+      return { message: "Hospital not exists." };
+    }
+  } catch (error) {
+    // console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
+const deleteHospital = async (data) =>{
+  try{
+    const { hospitalId,id} = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM clients where id = ${hospitalId}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      
+      query = `DELETE FROM clients WHERE id = ${hospitalId} ;`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "Hospital deleted Successfully!" };
+    } else {
+      return { message: "Hospital not exists." };
+    }
+  }catch(error){
+    if(error.message){
+      return { error: error.message }
+    }
+    return { error }
+  }
+}
 
 const addHospital = async (data) => {
   try {
@@ -241,9 +298,9 @@ const updateConfig = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Config File Updated Successfully!" };
+      return { message: "Config File Updated Successfully!",code:200 };
     } else {
-      return { message: "Config File not exists." };
+      return { message: "Config File not exists.",code:404 };
     }
   } catch (error) {
     // console.log(error)
@@ -875,5 +932,7 @@ module.exports = {
   deleteignoreddepts,
   getResources,
   updateresources,
-  deleteresources
+  deleteresources,
+  updateHospitalDetails,
+  deleteHospital
 };

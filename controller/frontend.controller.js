@@ -255,7 +255,7 @@ const updateConfigController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -476,6 +476,38 @@ const deleteresourcesController = async (req, res) => {
 };
 
 
+const updateHospitalDetailsController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.updateHospitalDetailsService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+const deleteHospitalController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.deleteHospitalService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(200).send(response);
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+
+
 module.exports = {
   getHospitalDataController,
   addHospitalController,
@@ -508,5 +540,7 @@ module.exports = {
   deleteignoreddeptsController,
   getResourcesController,
   updateresourcesController,
-  deleteresourcesController
+  deleteresourcesController,
+  updateHospitalDetailsController,
+  deleteHospitalController
 };
