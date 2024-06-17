@@ -7,7 +7,29 @@ require("dotenv").config();
 const getHospitalDetails = async () => {
   try {
     await client.query("BEGIN");
-    const query = `SELECT * FROM clients;`;
+    const query = `SELECT id,hospital_name FROM clients;`;
+
+    const result = await client.query(query);
+
+    if (result.rowCount > 0) {
+      await client.query("COMMIT");
+      return {data:result.rows,code:200};
+    } else {
+      await client.query("COMMIT");
+      return { message: "No Hospital Registered",code:404};
+    }
+  } catch (error) {
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
+const getHospitalDetailsById = async (id) => {
+  try {
+    await client.query("BEGIN");
+    const query = `SELECT * FROM clients where id=${id};`;
 
     const result = await client.query(query);
 
@@ -962,6 +984,7 @@ const getconfig = async (clientId) => {
 };
 module.exports = {
   getHospitalDetails,
+  getHospitalDetailsById,
   addHospital,
   getStats,
   addLisence,

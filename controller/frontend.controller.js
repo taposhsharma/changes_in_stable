@@ -17,6 +17,25 @@ const getHospitalDataController = async (req, res) => {
   }
 };
 
+const getHospitalDataByIdController = async (req, res) => {
+  try {
+    
+    const id = req.params.id
+    const response = await frontendService.getHospitalDataByIdService(id);
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
 const addHospitalController = async (req, res) => {
   try {
     const data = req.body;
@@ -547,6 +566,7 @@ const deleteHospitalController = async (req, res) => {
 
 module.exports = {
   getHospitalDataController,
+  getHospitalDataByIdController,
   addHospitalController,
   getStatsController,
   addLisenceController,

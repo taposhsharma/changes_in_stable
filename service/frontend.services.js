@@ -17,6 +17,19 @@ const getHospitalDataService = async () => {
   }
 };
 
+const getHospitalDataByIdService = async (id) => {
+  try {
+    const result = frontendRepository.getHospitalDetailsById(id);
+    if(result.error){
+      return {error:result.error};
+    }else{
+        return result;
+    }
+  } catch (error) {
+    return { error };
+  }
+};
+
 const addHospitalService = async (data) => {
   try {
     const result = await frontendRepository.addHospital(data);
@@ -500,6 +513,7 @@ const deleteHospitalService = async (data) =>{
 }
 module.exports = {
   getHospitalDataService,
+  getHospitalDataByIdService,
   addHospitalService,
   getStatsService,
   addLisenceService,
