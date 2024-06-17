@@ -374,50 +374,42 @@ formAdd.addEventListener("submit", function (event) {
     body: JSON.stringify(configDetails),
   })
     .then((response) => {
-      console.log("response: ", response);
       if (response.ok) {
-        // Get the actual response data (assuming JSON format)
-        return response.json(); // This returns a promise that resolves to the parsed JSON data
-      } else {
-        return Promise.reject(response); // Reject the promise with the response object for error handling
-      }
+        return response.json();
+    } else {
+        // Attempt to parse the response body to get the error message
+        return response.json().then((errorData) => {
+            // Create a new error object with the parsed error message
+            const error = new Error(errorData.message || 'Something went wrong');
+            error.response = response;
+            throw error;
+        });
+    }
     })
     .then((data) => {
       // This then block handles the parsed response data (if successful)
       console.log("Actual response data:", data);
-      // Access data properties here (e.g., data.message, data.status)
-      if (data.message === "Config File Already Exists!") {
-        Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: data.message,
-          showConfirmButton: false,
-          timer: 3000,
-        });
-      } else if (data.message === "Config File Added Successfully!") {
-        Swal.fire({
-          icon: "success",
-          title: "Success!",
-          text: data.message,
-          showConfirmButton: false,
-          timer: 3000,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: "Something went wrong",
-          showConfirmButton: false,
-          timer: 3000,
-        });
-      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: data.message,
+        showConfirmButton: false,
+        timer: 3000,
+      });
 
       formAdd.reset();
     })
     .catch((error) => {
-      // This catch block handles errors (including rejected promise from previous then block)
       // Handle errors here
-      console.error("Error in adding config:", error.statusText || error); // Use error.statusText if available, otherwise default error message
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: error.message,
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      // console.error("Error in adding config:", error.statusText || error); // Use error.statusText if available, otherwise default error message
     });
 });
 
