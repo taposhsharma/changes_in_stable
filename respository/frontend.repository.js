@@ -13,10 +13,10 @@ const getHospitalDetails = async () => {
 
     if (result.rowCount > 0) {
       await client.query("COMMIT");
-      return result.rows;
+      return {data:result.rows,code:200};
     } else {
       await client.query("COMMIT");
-      return { error: "No Hospital Registered"};
+      return { message: "No Hospital Registered",code:404};
     }
   } catch (error) {
     await client.query("ROLLBACK");
@@ -94,7 +94,7 @@ const addHospital = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { error: "Client Id DEV or PROD already exists" };
+      return { message: "Client Id DEV or PROD already exists",code:409};
     } else {
       query = `INSERT INTO clients (clientid_dev, clientid_prod, hospital_name, description,allowcustomhosts,notekey) 
             VALUES ('${data.clientid_dev}', '${data.clientid_prod}', '${data.hospital_name}', '${data.description}',${data.allowcustomhosts},'${data.notekey}')`;
@@ -135,9 +135,9 @@ const getStats = async (data) => {
     // console.log(result)
     console.log(result.rows);
     if (result.rowCount > 0) {
-      return { statistics: result.rows };
+      return { statistics: result.rows ,code:200};
     } else {
-      return { error: "No Logs Found" };
+      return { message: "No Logs Found",code:404 };
     }
   } catch (error) {
     // console.log(error);
@@ -158,7 +158,7 @@ const addLisence = async (data) => {
     let result = await client.query(query);
     // console.log(result)
     if (result.rowCount > 0) {
-      return { error: "Lisence Already exists" };
+      return { message: "Lisence Already exists",code:409 };
     } else {
       query = `INSERT INTO lisence (client_id,max_limit) 
             VALUES ('${data.hospitalId}', '${data.max_limit}')`;
@@ -285,6 +285,34 @@ const addConfig = async (data) => {
   }
 };
 
+
+
+const clientGroperData = async (clientId) => {
+  try{
+    await client.query("BEGIN");
+    //  console.log(clientId)
+    const query = `SELECT id,row,sno FROM grouper where clientid = ${clientId}`;
+    
+
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    // console.log(result)
+    if(result.rowCount>0){
+      return {data:result.rows,code:200};
+    }else{
+      return {message:"No Data found for grouper",code:404}
+    }
+
+  }catch(error){
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return {error}
+  }
+
+}
+
 const updateConfig = async (data) => {
   try {
     const { hospitalId, ...finalData } = data;
@@ -385,7 +413,7 @@ const addGrouper = async (data) => {
     // console.log(result)
     if (result.rowCount > 0) {
       console.log("Grouper with this id already exists");
-      return { error: "Grouper with this id already exists" };
+      return { message: "Grouper with this id already exists",code:409 };
     } else {
       query = `INSERT INTO grouper (id, row,clientid) 
             VALUES ('${data.id}', '${data.row}', ${data.hospitalId})`;
@@ -394,7 +422,7 @@ const addGrouper = async (data) => {
       await client.query("COMMIT");
       // console.log(result);
       console.log("Grouper added successfully");
-      return { message: "Grouper added successfully"};
+      return { message: "Grouper added successfully",code:200};
     }
   } catch (error) {
     console.log(error);
@@ -478,7 +506,7 @@ const addicuList = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { error: "icu already exists" };
+      return { message: "icu already exists",code:409 };
     } else {
       query = `INSERT INTO icuList (icu,clientid) 
             VALUES ('${data.icu}' ,${data.hospitalId})`;
@@ -508,7 +536,7 @@ const addorgDeptMap = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { error: "orgDeptMap with this id already exists" };
+      return { message: "orgDeptMap with this id already exists",code:409 };
     } else {
       query = `INSERT INTO orgDeptMap (key,value,clientid) 
             VALUES ('${data.key}', '${data.value}', ${data.hospitalId})`;
@@ -516,7 +544,7 @@ const addorgDeptMap = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "orgDeptMap added successfully"};
+      return { message: "orgDeptMap added successfully",code:200};
     }
   } catch (error) {
     // console.log(error);
@@ -538,7 +566,7 @@ const addignoredDepts = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { error: "ignoredDepts with this id already exists" };
+      return { message: "ignoredDepts with this id already exists",code:409 };
     } else {
       query = `INSERT INTO ignoredDepts (key,value,clientid) 
             VALUES ('${data.key}', '${data.value}', ${data.hospitalId})`;
@@ -568,7 +596,7 @@ const addresources = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { error: "resources already exists" };
+      return { message: "resources already exists" ,code:409};
     } else {
       query = `INSERT INTO resources (label,text,action,activitykey,client_id) 
             VALUES ('${data.label}', '${data.text}', '${data.action}', '${data.activitykey}', ${data.hospitalId})`;
@@ -596,9 +624,9 @@ const getIcuList = async (data) =>{
      const result = await client.query(query);
      await client.query("COMMIT");
      if(result.rowCount>0){
-      return result.rows;
+      return {data:result.rows,code:200};
      }else{
-      return { message:"ICU list is empty."}
+      return { message:"ICU list is empty.",code:404}
      }
   }catch(error){
     await client.query("ROLLBACK");
@@ -675,9 +703,9 @@ const getOrgDeptMap = async (data) =>{
     const result = await client.query(query);
     await client.query("COMMIT");
     if(result.rowCount>0){
-     return result.rows;
+     return {data:result.rows,code:200};
     }else{
-     return { message:"No deparment is there for this hospiatal."}
+     return { message:"No deparment is there for this hospiatal.",code:404}
     }
   }catch(error){
     await client.query("ROLLBACK");
@@ -754,9 +782,9 @@ const getignoreddepts = async (data) =>{
     const result = await client.query(query);
     await client.query("COMMIT");
     if(result.rowCount>0){
-     return result.rows;
+     return {data:result.rows,code:200};
     }else{
-     return { message:"No deparment is there for this hospiatal."}
+     return { message:"No deparment is there for this hospiatal.",code:404}
     }
   }catch(error){
     await client.query("ROLLBACK");
@@ -834,9 +862,9 @@ const getResources = async (data) =>{
     const result = await client.query(query);
     await client.query("COMMIT");
     if(result.rowCount>0){
-     return result.rows;
+     return {data:result.rows,code:200};
     }else{
-     return { message:"No Resources is there for this hospiatal."}
+     return { message:"No Resources is there for this hospiatal.",code:404}
     }
   }catch(error){
     await client.query("ROLLBACK");
@@ -965,5 +993,6 @@ module.exports = {
   deleteresources,
   updateHospitalDetails,
   deleteHospital,
-  getconfig
+  getconfig,
+  clientGroperData
 };

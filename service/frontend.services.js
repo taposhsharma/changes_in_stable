@@ -230,11 +230,11 @@ const getConfigService = async (clientId) => {
 
 const getGrouperService = async (clientId) => {
   try{
-      const result = await sharedRepository.clientGroperData(clientId);
+      const result = await frontendRepository.clientGroperData(clientId);
       if(result.error){
         return {error:result.error};
       }else{
-          return result.rows;
+          return result;
       }
       // console.log(result)
       

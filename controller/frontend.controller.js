@@ -6,7 +6,11 @@ const getHospitalDataController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
     }
   } catch (error) {
     res.status(401).send(error);
@@ -22,7 +26,7 @@ const addHospitalController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -35,7 +39,11 @@ const getStatsController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send({statistics:response.statistics});
+      }
     }
   } catch (error) {
     res.status(401).send(error);
@@ -51,7 +59,7 @@ const addLisenceController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -147,7 +155,7 @@ const addGrouperController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -163,7 +171,7 @@ const addIcuListController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -179,7 +187,7 @@ const addorgDeptMapController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -194,7 +202,7 @@ const addignoredDeptsController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -210,7 +218,7 @@ const addresourcesController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -248,7 +256,11 @@ const getGrouperController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
     }
   } catch (error) {
     res.status(401).send(error);
@@ -307,7 +319,11 @@ const getIcuListController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
     }
   } catch (error) {
     res.status(401).send(error);
@@ -354,7 +370,11 @@ const getOrgDeptMapController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
     }
   } catch (error) {
     res.status(401).send(error);
@@ -399,7 +419,11 @@ const getignoreddeptsController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
     }
   } catch (error) {
     res.status(401).send(error);
@@ -445,7 +469,11 @@ const getResourcesController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
     }
   } catch (error) {
     res.status(401).send(error);
@@ -492,7 +520,7 @@ const updateHospitalDetailsController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
@@ -507,7 +535,7 @@ const deleteHospitalController = async (req, res) => {
     if (response.error) {
       res.status(401).send(response.error);
     } else {
-      res.status(200).send(response);
+      res.status(response.code).send({message:response.message});
     }
   } catch (error) {
     res.status(401).send(error);
