@@ -25,7 +25,7 @@ router.post('/addHospital',frontendController.addHospitalController)
 router.delete('/deleteHospital', frontendController.deleteHospitalController)
 
 router.post('/getStats',frontendController.getStatsController)
-router.post('/addLisence',frontendController.addLisenceController)
+router.post('/addLicense',frontendController.addLisenceController)
 
 router.post('/signup',frontendController.signupController);
 router.post('/login',frontendController.loginController);

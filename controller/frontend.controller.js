@@ -69,11 +69,11 @@ const getStatsController = async (req, res) => {
   }
 };
 
-const addLisenceController = async (req, res) => {
+const addLicenseController = async (req, res) => {
   try {
     const data = req.body;
     // console.log(data)
-    const response = await frontendService.addLisenceService(data);
+    const response = await frontendService.addLicenseService(data);
 
     if (response.error) {
       res.status(401).send(response.error);
@@ -569,7 +569,7 @@ module.exports = {
   getHospitalDataByIdController,
   addHospitalController,
   getStatsController,
-  addLisenceController,
+  addLicenseController,
   loginController,
   signupController,
   addConfigController,

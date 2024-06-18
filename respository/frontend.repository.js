@@ -172,23 +172,23 @@ const getStats = async (data) => {
   }
 };
 
-const addLisence = async (data) => {
+const addLicense = async (data) => {
   try {
     await client.query("BEGIN");
 
-    let query = `SELECT * FROM lisence WHERE client_id ='${data.hospitalId}'`;
+    let query = `SELECT * FROM License WHERE client_id ='${data.hospitalId}'`;
     let result = await client.query(query);
     // console.log(result)
     if (result.rowCount > 0) {
-      return { message: "Lisence Already exists",code:409 };
+      return { message: "License Already exists",code:409 };
     } else {
-      query = `INSERT INTO lisence (client_id,max_limit) 
+      query = `INSERT INTO License (client_id,max_limit) 
             VALUES ('${data.hospitalId}', '${data.max_limit}')`;
 
       result = await client.query(query);
       await client.query("COMMIT");
       console.log(result);
-      return { message: "Lisence added successfully",code:200 };
+      return { message: "License added successfully",code:200 };
     }
   } catch (error) {
     // console.log(error);
@@ -987,7 +987,7 @@ module.exports = {
   getHospitalDetailsById,
   addHospital,
   getStats,
-  addLisence,
+  addLicense,
   signup,
   login,
   addConfig,

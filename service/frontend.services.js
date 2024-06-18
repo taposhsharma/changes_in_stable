@@ -56,9 +56,9 @@ const getStatsService = async (data) => {
   }
 };
 
-const addLisenceService = async (data) => {
+const addLicenseService = async (data) => {
   try {
-    const result = await frontendRepository.addLisence(data);
+    const result = await frontendRepository.addLicense(data);
     if(result.error){
       return {error:result.error};
     }else{
@@ -516,7 +516,7 @@ module.exports = {
   getHospitalDataByIdService,
   addHospitalService,
   getStatsService,
-  addLisenceService,
+  addLicenseService,
   signupService,
   loginService,
   addConfigService,
