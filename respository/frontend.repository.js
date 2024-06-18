@@ -879,7 +879,7 @@ const deleteignoreddepts = async (data) =>{
 const getResources = async (data) =>{
   try{
     const hospiatalId = data;
-    let query = `SELECT id,text,action,activitykey From resources WHERE client_id = ${hospiatalId};`;
+    let query = `SELECT id,text,action,activitykey,label From resources WHERE client_id = ${hospiatalId};`;
     await client.query('BEGIN');
     const result = await client.query(query);
     await client.query("COMMIT");
