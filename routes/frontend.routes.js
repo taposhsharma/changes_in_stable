@@ -57,6 +57,8 @@ router.delete('/deleteignoreddepts', frontendController.deleteignoreddeptsContro
 router.get('/getResources/:id',frontendController.getResourcesController)
 router.put('/updateresources',frontendController.updateresourcesController)
 router.delete('/deleteresources', frontendController.deleteresourcesController)
+router.get('/getLicense/:id',frontendController.getLicenseController)
+router.put('/updateLicense',frontendController.updateLicenseController)
 
 
 

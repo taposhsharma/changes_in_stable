@@ -511,6 +511,35 @@ const deleteHospitalService = async (data) =>{
     return { error}
   }
 }
+
+const getLicenseService = async (clientId) => {
+  try{
+      const result = await frontendRepository.getLicense(clientId);
+      if(result.error){
+        return {error:result.error};
+      }else{
+          return result;
+      }
+      // console.log(result)
+      
+  }catch(error){
+      return {error};
+  }
+}
+const updateLicenseService = async (data) =>{
+  try{
+    const result = await frontendRepository.updateLicense(data);
+    //  console.log(result)
+     if(result.error){
+      // console.log(result.error)
+      return {error: result.error}
+     }else{
+      return result
+     }
+  }catch(error){
+    return { error }
+  }
+}
 module.exports = {
   getHospitalDataService,
   getHospitalDataByIdService,
@@ -546,5 +575,7 @@ module.exports = {
   updateresourcesService,
   deleteresourcesService,
   updateHospitalDetailsService,
-  deleteHospitalService
+  deleteHospitalService,
+  getLicenseService,
+  updateLicenseService
 };

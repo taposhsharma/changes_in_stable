@@ -176,13 +176,13 @@ const addLicense = async (data) => {
   try {
     await client.query("BEGIN");
 
-    let query = `SELECT * FROM License WHERE client_id ='${data.hospitalId}'`;
+    let query = `SELECT * FROM license WHERE client_id ='${data.hospitalId}'`;
     let result = await client.query(query);
     // console.log(result)
     if (result.rowCount > 0) {
       return { message: "License Already exists",code:409 };
     } else {
-      query = `INSERT INTO License (client_id,max_limit) 
+      query = `INSERT INTO license (client_id,max_limit) 
             VALUES ('${data.hospitalId}', '${data.max_limit}')`;
 
       result = await client.query(query);
@@ -200,6 +200,62 @@ const addLicense = async (data) => {
   }
 };
 
+const getLicense = async (data) =>{
+  try{
+    const hospiatalId = data;
+    let query = `SELECT id,max_limit FROM license  WHERE  client_id= ${hospiatalId};`;
+    await client.query('BEGIN');
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    if(result.rowCount>0){
+     return {data:result.rows,code:200};
+    }else{
+     return { message:"No License is there for this hospital.",code:404}
+    }
+ }catch(error){
+   await client.query("ROLLBACK");
+   if(error.message){
+     return { error:error.message};
+   }
+   return { error }
+ }
+
+}
+
+
+
+const updateLicense = async (data) => {
+  try {
+    const { hospitalId, ...finalData } = data;
+    // console.log("hsjhfsfkjs")
+    let query = `SELECT * FROM license where client_id = ${hospitalId}`;
+    // console.log(query)
+    await client.query("BEGIN");
+    let result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      const setClause = Object.entries(finalData)
+        .map(([key, value]) => `${key} = '${value}'`)
+        .join(", ");
+        console.log(setClause)
+      query = `UPDATE license SET ${setClause} WHERE client_id = ${hospitalId};`;
+      await client.query("BEGIN");
+      result = await client.query(query);
+      await client.query("COMMIT");
+      return { message: "License Updated Successfully!",code:200 };
+    } else {
+      
+      return { message: "License  not exists." ,code:404};
+    }
+  } catch (error) {
+    console.log(error)
+    await client.query("ROLLBACK");
+    if(error.message){
+      return {error:error.message}
+    }
+    return { error };
+  }
+};
 const signup = async (data) => {
   try {
     await client.query("BEGIN");
@@ -1017,5 +1073,7 @@ module.exports = {
   updateHospitalDetails,
   deleteHospital,
   getconfig,
-  clientGroperData
+  clientGroperData,
+  getLicense,
+  updateLicense
 };

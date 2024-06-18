@@ -563,6 +563,41 @@ const deleteHospitalController = async (req, res) => {
 
 
 
+const getLicenseController = async (req, res) => {
+  try {
+    const data = req.params.id;
+    const response = await frontendService.getLicenseService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      if(response.code==404){
+        res.status(response.code).send({message:response.message});
+      }else if(response.code==200){
+        res.status(response.code).send(response.data);
+      }
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
+
+const updateLicenseController = async (req, res) => {
+  try {
+    const data = req.body;
+    const response = await frontendService.updateLicenseService(data);
+
+    if (response.error) {
+      res.status(401).send(response.error);
+    } else {
+      res.status(response.code).send({message:response.message});
+    }
+  } catch (error) {
+    res.status(401).send(error);
+  }
+};
+
 
 module.exports = {
   getHospitalDataController,
@@ -599,5 +634,7 @@ module.exports = {
   updateresourcesController,
   deleteresourcesController,
   updateHospitalDetailsController,
-  deleteHospitalController
+  deleteHospitalController,
+  getLicenseController,
+  updateLicenseController
 };
