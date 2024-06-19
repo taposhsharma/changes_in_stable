@@ -13,15 +13,15 @@ const getHospitalDetails = async () => {
 
     if (result.rowCount > 0) {
       await client.query("COMMIT");
-      return {data:result.rows,code:200};
+      return { data: result.rows, code: 200 };
     } else {
       await client.query("COMMIT");
-      return { message: "No Hospital Registered",code:404};
+      return { message: "No Hospital Registered", code: 404 };
     }
   } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -35,15 +35,15 @@ const getHospitalDetailsById = async (id) => {
 
     if (result.rowCount > 0) {
       await client.query("COMMIT");
-      return {data:result.rows,code:200};
+      return { data: result.rows, code: 200 };
     } else {
       await client.query("COMMIT");
-      return { message: "No Hospital Registered",code:404};
+      return { message: "No Hospital Registered", code: 404 };
     }
   } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -66,22 +66,24 @@ const updateHospitalDetails = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Hodpital Details Updated Successfully!",code:200};
+      return { message: "Hodpital Details Updated Successfully!", code: 200 };
     } else {
-      return { message: "Hospital not exists.",code:404 };
+      return { message: "Hospital not exists.", code: 404 };
     }
   } catch (error) {
-    // console.log(error)
+    if (error.code === "23505") {
+      return { message: "This client id is in use.", code: 409 };
+    }
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
-const deleteHospital = async (data) =>{
-  try{
-    const { hospitalId,id} = data;
+const deleteHospital = async (data) => {
+  try {
+    const { hospitalId, id } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM clients where id = ${hospitalId}`;
     // console.log(query)
@@ -89,22 +91,21 @@ const deleteHospital = async (data) =>{
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      
       query = `DELETE FROM clients WHERE id = ${hospitalId} ;`;
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Hospital deleted Successfully!" ,code:200};
+      return { message: "Hospital deleted Successfully!", code: 200 };
     } else {
-      return { message: "Hospital not exists." ,code:404};
+      return { message: "Hospital not exists.", code: 404 };
     }
-  }catch(error){
-    if(error.message){
-      return { error: error.message }
+  } catch (error) {
+    if (error.message) {
+      return { error: error.message };
     }
-    return { error }
+    return { error };
   }
-}
+};
 
 const addHospital = async (data) => {
   try {
@@ -116,7 +117,7 @@ const addHospital = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { message: "Client Id DEV or PROD already exists",code:409};
+      return { message: "Client Id DEV or PROD already exists", code: 409 };
     } else {
       query = `INSERT INTO clients (clientid_dev, clientid_prod, hospital_name, description,allowcustomhosts,notekey) 
             VALUES ('${data.clientid_dev}', '${data.clientid_prod}', '${data.hospital_name}', '${data.description}',${data.allowcustomhosts},'${data.notekey}')`;
@@ -124,14 +125,14 @@ const addHospital = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "Hospital added successfully",code:200 };
+      return { message: "Hospital added successfully", code: 200 };
     }
   } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
-    
+
     return { error };
   }
 };
@@ -157,17 +158,17 @@ const getStats = async (data) => {
     // console.log(result)
     console.log(result.rows);
     if (result.rowCount > 0) {
-      return { statistics: result.rows ,code:200};
+      return { statistics: result.rows, code: 200 };
     } else {
-      return { message: "No Logs Found",code:404 };
+      return { message: "No Logs Found", code: 404 };
     }
   } catch (error) {
     // console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
-   
+
     return { error };
   }
 };
@@ -180,7 +181,7 @@ const addLicense = async (data) => {
     let result = await client.query(query);
     // console.log(result)
     if (result.rowCount > 0) {
-      return { message: "License Already exists",code:409 };
+      return { message: "License Already exists", code: 409 };
     } else {
       query = `INSERT INTO license (client_id,max_limit) 
             VALUES ('${data.hospitalId}', '${data.max_limit}')`;
@@ -188,41 +189,38 @@ const addLicense = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       console.log(result);
-      return { message: "License added successfully",code:200 };
+      return { message: "License added successfully", code: 200 };
     }
   } catch (error) {
     // console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
 
-const getLicense = async (data) =>{
-  try{
+const getLicense = async (data) => {
+  try {
     const hospiatalId = data;
     let query = `SELECT id,max_limit FROM license  WHERE  client_id= ${hospiatalId};`;
-    await client.query('BEGIN');
+    await client.query("BEGIN");
     const result = await client.query(query);
     await client.query("COMMIT");
-    if(result.rowCount>0){
-     return {data:result.rows,code:200};
-    }else{
-     return { message:"No License is there for this hospital.",code:404}
+    if (result.rowCount > 0) {
+      return { data: result.rows, code: 200 };
+    } else {
+      return { message: "No License is there for this hospital.", code: 404 };
     }
- }catch(error){
-   await client.query("ROLLBACK");
-   if(error.message){
-     return { error:error.message};
-   }
-   return { error }
- }
-
-}
-
-
+  } catch (error) {
+    await client.query("ROLLBACK");
+    if (error.message) {
+      return { error: error.message };
+    }
+    return { error };
+  }
+};
 
 const updateLicense = async (data) => {
   try {
@@ -237,21 +235,20 @@ const updateLicense = async (data) => {
       const setClause = Object.entries(finalData)
         .map(([key, value]) => `${key} = '${value}'`)
         .join(", ");
-        console.log(setClause)
+      console.log(setClause);
       query = `UPDATE license SET ${setClause} WHERE client_id = ${hospitalId};`;
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "License Updated Successfully!",code:200 };
+      return { message: "License Updated Successfully!", code: 200 };
     } else {
-      
-      return { message: "License  not exists." ,code:404};
+      return { message: "License  not exists.", code: 404 };
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -285,15 +282,14 @@ const signup = async (data) => {
       return {
         success: "SignUp Successfully",
         data: { email: data.email, name: data.name },
-        token: token
-      
+        token: token,
       };
     }
   } catch (error) {
     await client.query("ROLLBACK");
     // console.error(error);
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error: error };
   }
@@ -322,13 +318,13 @@ const login = async (data) => {
     return {
       success: "Login successful",
       data: { email: result.rows[0].email, name: result.rows[0].name },
-      token: token
+      token: token,
     };
   } catch (error) {
     // console.error(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error: error };
   }
@@ -344,52 +340,47 @@ const addConfig = async (data) => {
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      return { message: "Config File Already Exists!",code:409 };
+      return { message: "Config File Already Exists!", code: 409 };
     } else {
       const insertQuery = `INSERT INTO config (hospital_id, ${columns}) VALUES (${hospitalId}, '${values}');`;
       await client.query("BEGIN");
       result = await client.query(insertQuery);
       await client.query("COMMIT");
-      return { message: "Config File Added Successfully!",code:200};
+      return { message: "Config File Added Successfully!", code: 200 };
     }
   } catch (error) {
     // console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
-    
+
     return { error };
   }
 };
 
-
-
 const clientGroperData = async (clientId) => {
-  try{
+  try {
     await client.query("BEGIN");
     //  console.log(clientId)
     const query = `SELECT id,row,sno FROM grouper where clientid = ${clientId}`;
-    
 
     const result = await client.query(query);
     await client.query("COMMIT");
     // console.log(result)
-    if(result.rowCount>0){
-      return {data:result.rows,code:200};
-    }else{
-      return {message:"No Data found for grouper",code:404}
+    if (result.rowCount > 0) {
+      return { data: result.rows, code: 200 };
+    } else {
+      return { message: "No Data found for grouper", code: 404 };
     }
-
-  }catch(error){
+  } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
-    return {error}
+    return { error };
   }
-
-}
+};
 
 const updateConfig = async (data) => {
   try {
@@ -407,15 +398,15 @@ const updateConfig = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Config File Updated Successfully!",code:200 };
+      return { message: "Config File Updated Successfully!", code: 200 };
     } else {
-      return { message: "Config File not exists.",code:404 };
+      return { message: "Config File not exists.", code: 404 };
     }
   } catch (error) {
     // console.log(error)
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -435,8 +426,8 @@ GROUP BY DATE(date_record::date);`;
   } catch (error) {
     await client.query("ROLLBACK");
     // console.log(error);
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -457,8 +448,8 @@ GROUP BY DATE(date_field);
     return result;
   } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -473,8 +464,8 @@ const numHospitalReg = async () => {
     return result;
   } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -491,7 +482,7 @@ const addGrouper = async (data) => {
     // console.log(result)
     if (result.rowCount > 0) {
       console.log("Grouper with this id already exists");
-      return { message: "Grouper with this id already exists",code:409 };
+      return { message: "Grouper with this id already exists", code: 409 };
     } else {
       query = `INSERT INTO grouper (id, row,clientid) 
             VALUES ('${data.id}', '${data.row}', ${data.hospitalId})`;
@@ -500,13 +491,13 @@ const addGrouper = async (data) => {
       await client.query("COMMIT");
       // console.log(result);
       console.log("Grouper added successfully");
-      return { message: "Grouper added successfully",code:200};
+      return { message: "Grouper added successfully", code: 200 };
     }
   } catch (error) {
     console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -514,7 +505,7 @@ const addGrouper = async (data) => {
 
 const updateGrouper = async (data) => {
   try {
-    const { hospitalId,sno, ...finalData } = data;
+    const { hospitalId, sno, ...finalData } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM grouper where clientid = ${hospitalId} and sno = ${sno}`;
     // console.log(query)
@@ -529,24 +520,23 @@ const updateGrouper = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Grouper Updated Successfully!",code:200 };
+      return { message: "Grouper Updated Successfully!", code: 200 };
     } else {
-      return { message: "Grouper not exists." ,code:404};
+      return { message: "Grouper not exists.", code: 404 };
     }
   } catch (error) {
     // console.log(error)
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
 
-
 const deleteGrouper = async (data) => {
   try {
-    const { hospitalId,sno} = data;
+    const { hospitalId, sno } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM grouper where clientid = ${hospitalId} and sno = ${sno}`;
     // console.log(query)
@@ -554,25 +544,23 @@ const deleteGrouper = async (data) => {
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      
       query = `DELETE FROM grouper WHERE clientid = ${hospitalId} and sno = ${sno};`;
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Grouper deleted Successfully!",code:200 };
+      return { message: "Grouper deleted Successfully!", code: 200 };
     } else {
-      return { message: "Grouper not exists." ,code:404};
+      return { message: "Grouper not exists.", code: 404 };
     }
   } catch (error) {
     // console.log(error)
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
-
 
 const addicuList = async (data) => {
   try {
@@ -584,7 +572,7 @@ const addicuList = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { message: "icu already exists",code:409 };
+      return { message: "icu already exists", code: 409 };
     } else {
       query = `INSERT INTO icuList (icu,clientid) 
             VALUES ('${data.icu}' ,${data.hospitalId})`;
@@ -592,13 +580,13 @@ const addicuList = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "icu added successfully",code:200 };
+      return { message: "icu added successfully", code: 200 };
     }
   } catch (error) {
     // console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -614,7 +602,7 @@ const addorgDeptMap = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { message: "orgDeptMap with this id already exists",code:409 };
+      return { message: "orgDeptMap with this id already exists", code: 409 };
     } else {
       query = `INSERT INTO orgDeptMap (key,value,clientid) 
             VALUES ('${data.key}', '${data.value}', ${data.hospitalId})`;
@@ -622,13 +610,13 @@ const addorgDeptMap = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "orgDeptMap added successfully",code:200};
+      return { message: "orgDeptMap added successfully", code: 200 };
     }
   } catch (error) {
     // console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -644,7 +632,7 @@ const addignoredDepts = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { message: "ignoredDepts with this id already exists",code:409 };
+      return { message: "ignoredDepts with this id already exists", code: 409 };
     } else {
       query = `INSERT INTO ignoredDepts (key,value,clientid) 
             VALUES ('${data.key}', '${data.value}', ${data.hospitalId})`;
@@ -652,13 +640,13 @@ const addignoredDepts = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "ignoredDepts added successfully",code:200 };
+      return { message: "ignoredDepts added successfully", code: 200 };
     }
   } catch (error) {
     // console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
@@ -674,7 +662,7 @@ const addresources = async (data) => {
     await client.query("COMMIT");
     // console.log(result)
     if (result.rowCount > 0) {
-      return { message: "resources already exists" ,code:409};
+      return { message: "resources already exists", code: 409 };
     } else {
       query = `INSERT INTO resources (label,text,action,activitykey,client_id) 
             VALUES ('${data.label}', '${data.text}', '${data.action}', '${data.activitykey}', ${data.hospitalId})`;
@@ -682,42 +670,42 @@ const addresources = async (data) => {
       result = await client.query(query);
       await client.query("COMMIT");
       // console.log(result);
-      return { message: "resources added successfully",code:200 };
+      return { message: "resources added successfully", code: 200 };
     }
   } catch (error) {
     // console.log(error);
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
 
-const getIcuList = async (data) =>{
-  try{
-     const hospiatalId = data;
-     let query = `SELECT id,icu From iculist WHERE clientid = ${hospiatalId};`;
-     await client.query('BEGIN');
-     const result = await client.query(query);
-     await client.query("COMMIT");
-     if(result.rowCount>0){
-      return {data:result.rows,code:200};
-     }else{
-      return { message:"ICU list is empty.",code:404}
-     }
-  }catch(error){
-    await client.query("ROLLBACK");
-    if(error.message){
-      return { error:error.message};
+const getIcuList = async (data) => {
+  try {
+    const hospiatalId = data;
+    let query = `SELECT id,icu From iculist WHERE clientid = ${hospiatalId};`;
+    await client.query("BEGIN");
+    const result = await client.query(query);
+    await client.query("COMMIT");
+    if (result.rowCount > 0) {
+      return { data: result.rows, code: 200 };
+    } else {
+      return { message: "ICU list is empty.", code: 404 };
     }
-    return { error }
+  } catch (error) {
+    await client.query("ROLLBACK");
+    if (error.message) {
+      return { error: error.message };
+    }
+    return { error };
   }
 };
 
 const updateIcuList = async (data) => {
   try {
-    const { hospitalId,id, ...finalData } = data;
+    const { hospitalId, id, ...finalData } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM iculist where clientid = ${hospitalId} and id = ${id}`;
     // console.log(query)
@@ -732,23 +720,23 @@ const updateIcuList = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "ICU Updated Successfully!" ,code:200};
+      return { message: "ICU Updated Successfully!", code: 200 };
     } else {
-      return { message: "ICU not exists.",code:404 };
+      return { message: "ICU not exists.", code: 404 };
     }
   } catch (error) {
     // console.log(error)
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
 
-const deleteIcuList = async (data) =>{
-  try{
-    const { hospitalId,id} = data;
+const deleteIcuList = async (data) => {
+  try {
+    const { hospitalId, id } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM iculist where clientid = ${hospitalId} and id = ${id}`;
     // console.log(query)
@@ -756,47 +744,49 @@ const deleteIcuList = async (data) =>{
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      
       query = `DELETE FROM iculist WHERE clientid = ${hospitalId} and id = ${id};`;
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "ICU deleted Successfully!" ,code:200};
+      return { message: "ICU deleted Successfully!", code: 200 };
     } else {
-      return { message: "ICU not exists." ,code:404};
+      return { message: "ICU not exists.", code: 404 };
     }
-  }catch(error){
-    if(error.message){
-      return { error: error.message }
+  } catch (error) {
+    if (error.message) {
+      return { error: error.message };
     }
-    return { error }
+    return { error };
   }
-}
+};
 
-const getOrgDeptMap = async (data) =>{
-  try{
+const getOrgDeptMap = async (data) => {
+  try {
     const hospiatalId = data;
     let query = `SELECT id,key,value From orgdeptmap WHERE clientid = ${hospiatalId};`;
-    await client.query('BEGIN');
+    await client.query("BEGIN");
     const result = await client.query(query);
     await client.query("COMMIT");
-    if(result.rowCount>0){
-     return {data:result.rows,code:200};
-    }else{
-     return { message:"No deparment is there for this hospiatal.",code:404}
+    if (result.rowCount > 0) {
+      return { data: result.rows, code: 200 };
+    } else {
+      return {
+        message: "No deparment is there for this hospiatal.",
+        code: 404,
+      };
     }
-  }catch(error){
+  } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return { error: error.message }
+    if (error.message) {
+      return { error: error.message };
     }
-    return { error }
+    return { error };
   }
-}
+};
 
 const updateOrgDeptMap = async (data) => {
   try {
-    const { hospitalId,id, ...finalData } = data;
+    const { hospitalId, id, ...finalData } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM orgdeptmap where clientid = ${hospitalId} and id = ${id}`;
     // console.log(query)
@@ -811,23 +801,23 @@ const updateOrgDeptMap = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Department Updated Successfully!",code:200 };
+      return { message: "Department Updated Successfully!", code: 200 };
     } else {
-      return { message: "Department not exists.",code:404 };
+      return { message: "Department not exists.", code: 404 };
     }
   } catch (error) {
     // console.log(error)
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
 
-const deleteOrgDeptMap = async (data) =>{
-  try{
-    const { hospitalId,id} = data;
+const deleteOrgDeptMap = async (data) => {
+  try {
+    const { hospitalId, id } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM orgdeptmap where clientid = ${hospitalId} and id = ${id}`;
     // console.log(query)
@@ -835,47 +825,49 @@ const deleteOrgDeptMap = async (data) =>{
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      
       query = `DELETE FROM orgdeptmap WHERE clientid = ${hospitalId} and id = ${id};`;
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Department deleted Successfully!",code:200 };
+      return { message: "Department deleted Successfully!", code: 200 };
     } else {
-      return { message: "Department not exists.",code:404 };
+      return { message: "Department not exists.", code: 404 };
     }
-  }catch(error){
-    if(error.message){
-      return { error: error.message }
+  } catch (error) {
+    if (error.message) {
+      return { error: error.message };
     }
-    return { error }
+    return { error };
   }
-}
+};
 
-const getignoreddepts = async (data) =>{
-  try{
+const getignoreddepts = async (data) => {
+  try {
     const hospiatalId = data;
     let query = `SELECT id,key,value From ignoreddepts WHERE clientid = ${hospiatalId};`;
-    await client.query('BEGIN');
+    await client.query("BEGIN");
     const result = await client.query(query);
     await client.query("COMMIT");
-    if(result.rowCount>0){
-     return {data:result.rows,code:200};
-    }else{
-     return { message:"No deparment is there for this hospiatal.",code:404}
+    if (result.rowCount > 0) {
+      return { data: result.rows, code: 200 };
+    } else {
+      return {
+        message: "No deparment is there for this hospiatal.",
+        code: 404,
+      };
     }
-  }catch(error){
+  } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return { error: error.message }
+    if (error.message) {
+      return { error: error.message };
     }
-    return { error }
+    return { error };
   }
-}
+};
 
 const updateignoreddepts = async (data) => {
   try {
-    const { hospitalId,id, ...finalData } = data;
+    const { hospitalId, id, ...finalData } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM ignoreddepts where clientid = ${hospitalId} and id = ${id}`;
     // console.log(query)
@@ -890,23 +882,23 @@ const updateignoreddepts = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Department Updated Successfully!" ,code:200};
+      return { message: "Department Updated Successfully!", code: 200 };
     } else {
-      return { message: "Department not exists." ,code:404};
+      return { message: "Department not exists.", code: 404 };
     }
   } catch (error) {
     // console.log(error)
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
 
-const deleteignoreddepts = async (data) =>{
-  try{
-    const { hospitalId,id} = data;
+const deleteignoreddepts = async (data) => {
+  try {
+    const { hospitalId, id } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM ignoreddepts where clientid = ${hospitalId} and id = ${id}`;
     // console.log(query)
@@ -914,48 +906,49 @@ const deleteignoreddepts = async (data) =>{
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      
       query = `DELETE FROM ignoreddepts WHERE clientid = ${hospitalId} and id = ${id};`;
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Department deleted Successfully!" ,code:200};
+      return { message: "Department deleted Successfully!", code: 200 };
     } else {
-      return { message: "Department not exists.",code:404 };
+      return { message: "Department not exists.", code: 404 };
     }
-  }catch(error){
-    if(error.message){
-      return { error: error.message }
+  } catch (error) {
+    if (error.message) {
+      return { error: error.message };
     }
-    return { error }
+    return { error };
   }
-}
+};
 
-
-const getResources = async (data) =>{
-  try{
+const getResources = async (data) => {
+  try {
     const hospiatalId = data;
     let query = `SELECT id,text,action,activitykey,label From resources WHERE client_id = ${hospiatalId};`;
-    await client.query('BEGIN');
+    await client.query("BEGIN");
     const result = await client.query(query);
     await client.query("COMMIT");
-    if(result.rowCount>0){
-     return {data:result.rows,code:200};
-    }else{
-     return { message:"No Resources is there for this hospiatal.",code:404}
+    if (result.rowCount > 0) {
+      return { data: result.rows, code: 200 };
+    } else {
+      return {
+        message: "No Resources is there for this hospiatal.",
+        code: 404,
+      };
     }
-  }catch(error){
+  } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return { error: error.message }
+    if (error.message) {
+      return { error: error.message };
     }
-    return { error }
+    return { error };
   }
-}
+};
 
 const updateresources = async (data) => {
   try {
-    const { hospitalId,id, ...finalData } = data;
+    const { hospitalId, id, ...finalData } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM resources where client_id = ${hospitalId} and id = ${id}`;
     // console.log(query)
@@ -970,24 +963,25 @@ const updateresources = async (data) => {
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Resource Updated Successfully!",code:200 };
+      return { message: "Resource Updated Successfully!", code: 200 };
     } else {
-      return { message: "Resource  not exists." ,code:404};
+      return { message: "Resource  not exists.", code: 404 };
     }
   } catch (error) {
-    // console.log(error)
+    if(error.code==='23505'){
+      return {message:"This resource already exist for this hospital",code:409}
+    }
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
     return { error };
   }
 };
 
-
-const deleteresources = async (data) =>{
-  try{
-    const { hospitalId,id} = data;
+const deleteresources = async (data) => {
+  try {
+    const { hospitalId, id } = data;
     // console.log("hsjhfsfkjs")
     let query = `SELECT * FROM resources where client_id = ${hospitalId} and id = ${id}`;
     // console.log(query)
@@ -995,47 +989,42 @@ const deleteresources = async (data) =>{
     let result = await client.query(query);
     await client.query("COMMIT");
     if (result.rowCount > 0) {
-      
       query = `DELETE FROM resources WHERE client_id = ${hospitalId} and id = ${id};`;
       await client.query("BEGIN");
       result = await client.query(query);
       await client.query("COMMIT");
-      return { message: "Resource deleted Successfully!",code:200 };
+      return { message: "Resource deleted Successfully!", code: 200 };
     } else {
-      return { message: "Resource not exists.",code:404 };
+      return { message: "Resource not exists.", code: 404 };
     }
-  }catch(error){
-    if(error.message){
-      return { error: error.message }
+  } catch (error) {
+    if (error.message) {
+      return { error: error.message };
     }
-    return { error }
+    return { error };
   }
-}
+};
 
 const getconfig = async (clientId) => {
   try {
     await client.query("BEGIN");
     //  console.log(clientId)
     const query = `SELECT * FROM config where hospital_id = ${clientId}`;
-    
 
     const result = await client.query(query);
-     await client.query("COMMIT");
-    
-    if(result.rowCount>0){
-      return {data:result.rows,code:200};
+    await client.query("COMMIT");
+
+    if (result.rowCount > 0) {
+      return { data: result.rows, code: 200 };
+    } else {
+      return { message: "Config file not found", code: 404 };
     }
-    
-    else{
-      return { message:"Config file not found",code:404}
-    }
-    
   } catch (error) {
     await client.query("ROLLBACK");
-    if(error.message){
-      return {error:error.message}
+    if (error.message) {
+      return { error: error.message };
     }
-    return {error}
+    return { error };
   }
 };
 module.exports = {
@@ -1075,5 +1064,5 @@ module.exports = {
   getconfig,
   clientGroperData,
   getLicense,
-  updateLicense
+  updateLicense,
 };
