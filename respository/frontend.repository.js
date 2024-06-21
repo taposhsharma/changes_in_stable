@@ -732,6 +732,12 @@ const updateIcuList = async (data) => {
   } catch (error) {
     // console.log(error)
     await client.query("ROLLBACK");
+    if (error.code === "23505") {
+      return {
+        message: "This ICU already exist for this hospital",
+        code: 409,
+      };
+    }
     if (error.message) {
       return { error: error.message };
     }
