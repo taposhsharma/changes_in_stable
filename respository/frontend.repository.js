@@ -71,10 +71,11 @@ const updateHospitalDetails = async (data) => {
       return { message: "Hospital not exists.", code: 404 };
     }
   } catch (error) {
+    await client.query("ROLLBACK");
     if (error.code === "23505") {
       return { message: "This client id is in use.", code: 409 };
     }
-    await client.query("ROLLBACK");
+  
     if (error.message) {
       return { error: error.message };
     }
@@ -527,6 +528,10 @@ const updateGrouper = async (data) => {
   } catch (error) {
     // console.log(error)
     await client.query("ROLLBACK");
+    if (error.code === "23505") {
+      return { message: "This grouper id is in use.", code: 409 };
+    }
+    
     if (error.message) {
       return { error: error.message };
     }
@@ -968,12 +973,16 @@ const updateresources = async (data) => {
       return { message: "Resource  not exists.", code: 404 };
     }
   } catch (error) {
-    if(error.code==='23505'){
-      return {message:"This resource already exist for this hospital",code:409}
-    }
     await client.query("ROLLBACK");
+    if (error.code === "23505") {
+      return {
+        message: "This resource already exist for this hospital",
+        code: 409,
+      };
+    }
+    // await client.query("ROLLBACK");
     if (error.message) {
-      return { error: error.message };
+      return { error: error.message };c
     }
     return { error };
   }
