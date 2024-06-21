@@ -981,13 +981,10 @@ const updateresources = async (data) => {
     }
   } catch (error) {
     await client.query("ROLLBACK");
-    if (error.code === "23505") {
-      return {
-        message: "This resource already exist for this hospital",
-        code: 409,
-      };
+    if(error.code==='23505'){
+      return {message:"This resource already exist for this hospital",code:409}
     }
-    // await client.query("ROLLBACK");
+    
     if (error.message) {
       return { error: error.message };c
     }
